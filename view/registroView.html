@@ -1,0 +1,53 @@
+{{> headerNoUsuario}}
+
+   <div  class="container border col-md-6 ">
+        <h2 >Registrarse</h2>
+
+        <form action="index.php?controller=usuario&method=procesarRegistro" method="POST">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+              </div>
+              <div class="form-group col-md-12">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellido">
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="direccion">Direccion</label>
+              <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Direccion">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+              </div>
+              <div class="form-group col-md-12">
+                <label for="contraseña">Contraseña</label>
+                <input type="password" name="contraseña"class="form-control" id="contraseña" placeholder="Contraseña">
+              </div>
+            
+           
+              <div class="form-group col-md-6">
+                <label for="apodo">Apodo</label>
+                <input type="text" name="apodo" class="form-control" id="apodo">
+              </div>
+           
+            <br>
+            <button type="submit" class="btn btn-primary">Registrarse</button>
+            
+          </form>
+        
+        
+        
+                 {{#mensaje}}
+                 <div class="alert alert-warning" role="alert">
+                    {{mensaje}}
+                 </div>
+                {{/mensaje}}
+
+               
+        
+    </div>
+    
+    {{> footer}}
