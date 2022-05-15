@@ -22,12 +22,14 @@ class UsuarioController{
         $apellido = $_POST["apellido"];
         $direccion = $_POST["direccion"];
         $email = $_POST["email"];
-        $apodo = $_POST["apodo"];
-        $contraseña =  $_POST["contraseña"];
+        $password =  $_POST["contraseña"];
+
+        $id_rol = "1";
+        $activo = 1;
 
         if( $this->usuarioModel->getMail ($email) == null){
 
-        $this-> usuarioModel-> setUsuario ($nombre, $apellido, $direccion, $email, $apodo, $contraseña);
+        $this-> usuarioModel-> agregarUsuario ($nombre, $apellido, $direccion, $email, $password,$id_rol,$activo);
 
         echo $this->printer->render("homeView.html");
         }else{

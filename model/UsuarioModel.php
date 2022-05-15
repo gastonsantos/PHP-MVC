@@ -24,14 +24,9 @@ class UsuarioModel{
 
 
     }
-    public function setUsuario ($nombre, $apellido, $direccion, $email,$apodo, $contraseña){
+    public function agregarUsuario ($nombre, $apellido, $direccion, $email,$password,$id_rol,$activo){
 
-        $rol = "user";
-        $activo = true;
-
-
-
-        $sql = "INSERT INTO usuario (nombre, apellido, direccion, email,apodo, contraseña, rol, activo) VALUES ('$nombre', '$apellido', '$direccion', '$email','$apodo', '$contraseña', '$rol', '$activo')";
+        $sql = "INSERT INTO usuario (nombre, apellido, direccion, email,password,id_rol, activo) VALUES ('$nombre', '$apellido', '$direccion', '$email', '$password', '$id_rol', '$activo')";
          
         return $this->database->execute($sql);
         

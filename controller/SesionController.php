@@ -19,37 +19,33 @@ class SesionController{
  
    public  function procesarSesion(){
     
-        $mail = $_POST["email"];
-        $contraseña =  $_POST["contraseña"];
-        $_SESSION =$this->sesionModel->getSesion($mail,$contraseña);
-          if($_SESSION["login"]==true && $_SESSION["rol"]=="admin" && $_SESSION["activo"]==true){
-         
-            
-            $data["apodo"] = $_SESSION ["apodo"];
-            echo $this->printer->render("adminHomeView.html", $data);
+        $email = $_POST["email"];
+        $password =  $_POST["password"];
+        $usuario =$this->sesionModel->getSesion($email,$password);
+        
+       if($usuario[0]["email"] == $email && $usuario[0]["password"] == $password){
 
-          }else if($_SESSION["login"]==true && $_SESSION["rol"]=="user" && $_SESSION["activo"]==true){
-            
-            $data["apodo"] = $_SESSION ["apodo"];
-            echo $this->printer->render("userHomeView.html", $data);
-       
-        }else{
-            header("location:/sesion");
+            $_SESSION["rol"] = $usuario[0]["id_rol"];
+
+            if($_SESSION["rol"] == 1){
+
+            $data["nombre"] = $usuario[0]["nombre"];
+            echo $this->printer->render("adminHomeView.html", $data);  
+            }else{
+
+                $data["nombre"] = $usuario[0]["nombre"];
+                echo $this->printer->render("userHomeView.html", $data);
+            }
 
         }
-
-
-    
-
+        else{
+            header("location:index.php?controller=sesion&method=show");
+        }
     }
 
     public function logout(){
         session_destroy();
-        header("location:/sesion");
+        header("location:index.php?controller=sesion&method=show");
     }
-
-
-
-
 
 }
