@@ -18,12 +18,12 @@ class Configuration {
         return new SesionController($this->getSesionModel(), $this->getPrinter());
     }
 
-    private function getSesionModel(){
+    private function getSesionModel() {
         return new SesionModel($this->getDatabase());
     }
 
     public function getUsuarioController() {
-        return new UsuarioController($this->getUsuarioModel(),$this->getPrinter());
+        return new UsuarioController($this->getUsuarioModel(), $this->getPrinter());
     }
 
     private function getUsuarioModel() {
@@ -31,12 +31,15 @@ class Configuration {
     }
 
     private function getDatabase() {
-       return new MySqlDatabase(
-            'localhost',
-            'root',
-            'Dni33022376',
-            'gauchoRocket');
+        $dbConfig = parse_ini_file("config.ini");
 
+        return new MySqlDatabase(
+            $dbConfig["host"],
+            $dbConfig["usuario"],
+            $dbConfig["clave"],
+            $dbConfig["base"],
+            $dbConfig["port"]
+        );
     }
 
     private function getPrinter() {
