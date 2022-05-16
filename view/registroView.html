@@ -1,6 +1,6 @@
 {{> headerNoUsuario}}
 
-   <div  class="container border col-md-6 ">
+   <div  class="container border rounded-3 col-md-6 mt-4 mb-4 ">
         <h2 >Registrarse</h2>
 
         <form action="index.php?controller=usuario&method=procesarRegistro" method="POST">
@@ -34,12 +34,10 @@
         
         
                  {{#mensaje}}
-                 <div class="alert alert-warning" role="alert">
+                 <div class="alert alert-warning text-center mt-2" role="alert">
                     {{mensaje}}
                  </div>
                 {{/mensaje}}
-
-               
         
     </div>
     

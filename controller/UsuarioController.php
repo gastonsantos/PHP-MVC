@@ -24,7 +24,7 @@ class UsuarioController {
         $direccion = $_POST["direccion"];
         $email = $_POST["email"];
         $password = $_POST["password"];
-        $id_rol = 1;
+        $id_rol = 2;
         $activo = 1;
 
         if ($this->userExists($email)) {
@@ -33,9 +33,8 @@ class UsuarioController {
         } else {
             $this->usuarioModel->agregarUsuario($nombre, $apellido, $direccion, $email, $password, $id_rol, $activo);
 
-            $data["nombre"] = $nombre;
-
-            echo $this->printer->render("userHomeView.html", $data);
+            $data["mensaje"]="Usted ha sido registrado corretamente";
+            echo $this->printer->render("HomeView.html",$data);
         }
     }
 

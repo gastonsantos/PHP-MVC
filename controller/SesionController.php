@@ -20,9 +20,10 @@ class SesionController {
     public function procesarSesion() {
         $email = $_POST["email"];
         $password = $_POST["password"];
-        $usuario = $this->sesionModel->getSesion($email, $password);
+        $encryptedPassword = md5($password);
+        $usuario = $this->sesionModel->getSesion($email, $encryptedPassword);
 
-        if ($usuario[0]["email"] == $email && $usuario[0]["password"] == $password) {
+        if ($usuario[0]["email"] == $email && $usuario[0]["password"] == $encryptedPassword) {
 
             $_SESSION["rol"] = $usuario[0]["id_rol"];
             $data["nombre"] = $usuario[0]["nombre"];

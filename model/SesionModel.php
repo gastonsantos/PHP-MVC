@@ -8,7 +8,9 @@ class SesionModel {
     }
 
     public function getSesion($email, $password) {
-        return $this->database->query("SELECT * FROM usuario WHERE  password = $password");
+       
+        return $this->database->query('SELECT * FROM usuario WHERE email = "'.$email.'" AND password = "'.$password.'" and activo = 1');
+
     }
 
 }
