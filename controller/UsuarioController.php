@@ -14,6 +14,10 @@ class UsuarioController {
         echo $this->printer->render("registroView.html");
     }
 
+    public function login() {
+
+    }
+
     public function procesarRegistro() {
         $nombre = $_POST["nombre"];
         $apellido = $_POST["apellido"];
@@ -28,7 +32,10 @@ class UsuarioController {
             echo $this->printer->render("registroView.html", $data);
         } else {
             $this->usuarioModel->agregarUsuario($nombre, $apellido, $direccion, $email, $password, $id_rol, $activo);
-            echo $this->printer->render("homeView.html");
+
+            $data["nombre"] = $nombre;
+
+            echo $this->printer->render("userHomeView.html", $data);
         }
     }
 

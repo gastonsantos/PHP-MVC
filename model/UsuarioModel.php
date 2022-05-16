@@ -25,8 +25,7 @@ class UsuarioModel {
         $sql = "INSERT INTO gaucho_rocket.usuario (nombre, apellido, direccion,email, password, id_rol, activo) 
                 VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$id_rol', '$activo')";
 
-
-        return $this->database->query($sql);
+        $this->database->query($sql);
     }
 
 }
