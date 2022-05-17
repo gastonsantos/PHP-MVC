@@ -1,4 +1,5 @@
 <?php
+include_once("exceptions/EntityFoundException.php");
 
 class UsuarioModel {
     private $database;
@@ -19,13 +20,27 @@ class UsuarioModel {
         return $this->database->query("SELECT email FROM gaucho_rocket.usuario where email = '$mail'");
     }
 
-    public function agregarUsuario($nombre, $apellido, $direccion, $email, $password, $id_rol, $activo) {
-        $encryptedPassword = md5($password);
+    public function agregarUsuario($data) {
+        $nombre = $data["nombre"];
+        $apellido = $data["apellido"];
+        $direccion = $data["direccion"];
+        $email = $data["email"];
+        $encryptedPassword = md5($data["password"]);
+        $id_rol = 1;
+        $activo = 1;
+
+        $this->checkUserNotExists($email);
 
         $sql = "INSERT INTO gaucho_rocket.usuario (nombre, apellido, direccion,email, password, id_rol, activo) 
                 VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$id_rol', '$activo')";
 
         $this->database->query($sql);
+    }
+
+    private function checkUserNotExists($email) {
+        if (sizeof($this->getMail($email)) > 0) {
+            throw new EntityFoundException("El usuario ya existe");
+        }
     }
 
 }

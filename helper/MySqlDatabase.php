@@ -25,6 +25,9 @@ class MySqlDatabase {
     }
 
     public function query($sql) {
+
+        var_dump($sql);
+
         $result = mysqli_query($this->conn, $sql);
 
         if ($this->isAnInsertQuery($result)) return;

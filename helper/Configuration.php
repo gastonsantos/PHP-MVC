@@ -8,6 +8,7 @@ include_once('controller/UsuarioController.php');
 include_once('model/SesionModel.php');
 include_once('model/UsuarioModel.php');
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
+include_once("validators/UserValidator.php");
 
 class Configuration {
     public function getHomeController() {
@@ -23,7 +24,7 @@ class Configuration {
     }
 
     public function getUsuarioController() {
-        return new UsuarioController($this->getUsuarioModel(), $this->getPrinter());
+        return new UsuarioController($this->getUsuarioModel(), $this->getPrinter(),  new UserValidator());
     }
 
     private function getUsuarioModel() {

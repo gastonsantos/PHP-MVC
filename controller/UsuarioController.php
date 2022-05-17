@@ -1,45 +1,44 @@
 <?php
 
 class UsuarioController {
-
     private $printer;
     private $usuarioModel;
+    private $userValidator;
 
-    public function __construct($usuarioModel, $printer) {
+    public function __construct($usuarioModel, $printer, $userValidator) {
         $this->printer = $printer;
         $this->usuarioModel = $usuarioModel;
+        $this->userValidator = $userValidator;
     }
 
     public function show() {
         echo $this->printer->render("registroView.html");
     }
 
-    public function login() {
-
-    }
+    public function login() {}
 
     public function procesarRegistro() {
-        $nombre = $_POST["nombre"];
-        $apellido = $_POST["apellido"];
-        $direccion = $_POST["direccion"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $id_rol = 2;
-        $activo = 1;
+        try {
+            // validaciones
+            $this->userValidator->validateUserToRegister($_POST);
 
-        if ($this->userExists($email)) {
-            $data["mensaje"] = "El usuario ya existe";
-            echo $this->printer->render("registroView.html", $data);
-        } else {
-            $this->usuarioModel->agregarUsuario($nombre, $apellido, $direccion, $email, $password, $id_rol, $activo);
+            // ejecucion
+            $this->usuarioModel->agregarUsuario($_POST);
 
+            // presentacion
+            $data["nombre"] = $_POST['nombre'];
             $data["mensaje"]="Usted ha sido registrado corretamente";
-            echo $this->printer->render("HomeView.html",$data);
+
+            echo $this->printer->render("HomeView.html", $data);
+        } catch (ValidationException|EntityFoundException $exception) {
+            $data["error"] = $exception->getMessage();
+
+            echo $this->printer->render("registroView.html", $data);
         }
     }
 
     private function userExists($email): bool {
         return sizeof($this->usuarioModel->getMail($email)) > 0;
     }
-
 }
+
