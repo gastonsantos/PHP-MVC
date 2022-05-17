@@ -1,13 +1,13 @@
 <?php
-include_once("config/Configuration.php");
-session_start();
-
-
-
-$controller = isset($_GET["controller"]) ? $_GET["controller"] : "home" ;
-$method = isset($_GET["method"]) ? $_GET["method"] : "show" ;
-
+include_once ("helper/Configuration.php");
 $configuration = new Configuration();
-$router = $configuration->createRouter( "createHomeController", "show");
+$router = $configuration->getRouter();
 
-$router->executeActionFromModule($controller,$method);
+//http://www.labanda.com/songs/addSong
+//http://www.labanda.com/index.php?controller=songs&method=addSong
+
+
+$controller = isset($_GET["controller"])? $_GET['controller'] : "" ;
+$method = isset($_GET["method"])? $_GET['method'] : "";
+
+$router->executeMethodFromController($controller, $method);

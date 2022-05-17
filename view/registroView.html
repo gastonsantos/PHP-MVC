@@ -1,0 +1,44 @@
+{{> headerNoUsuario}}
+
+<div class="container border rounded-3 col-md-6 mt-4 mb-4 ">
+    <h2>Registrarse</h2>
+
+    <form action="index.php?controller=usuario&method=procesarRegistro" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Apellido">
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="direccion">Direccion</label>
+            <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Direccion">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="contraseña">Contraseña</label>
+            <input type="password" name="password" class="form-control" id="contraseña" placeholder="Contraseña">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+
+    </form>
+
+
+    {{#error}}
+    <div class="alert alert-danger m-4" role="alert">
+        <span>{{error}}</span>
+
+    </div>
+    {{/error}}
+
+</div>
+
+{{> footer}}
