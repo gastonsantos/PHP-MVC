@@ -26,8 +26,7 @@ class UsuarioController {
             $this->usuarioModel->agregarUsuario($_POST);
 
             // presentacion
-            $data["nombre"] = $_POST['nombre'];
-            $data["mensaje"]="Usted ha sido registrado corretamente";
+            $data["mensaje"]= "Usted ha sido registrado correctamente";
 
             echo $this->printer->render("HomeView.html", $data);
         } catch (ValidationException|EntityFoundException $exception) {
@@ -35,10 +34,6 @@ class UsuarioController {
 
             echo $this->printer->render("registroView.html", $data);
         }
-    }
-
-    private function userExists($email): bool {
-        return sizeof($this->usuarioModel->getMail($email)) > 0;
     }
 }
 

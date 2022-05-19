@@ -16,8 +16,8 @@ class UsuarioModel {
         return $this->database->query("SELECT * FROM usuario where id = '$id'");
     }
 
-    public function getMail($mail) {
-        return $this->database->query("SELECT email FROM gaucho_rocket.usuario where email = '$mail'");
+    public function getUserByEmail($email) {
+        return $this->database->query("SELECT * FROM gaucho_rocket.usuario where email = '$email'");
     }
 
     public function agregarUsuario($data) {
@@ -38,7 +38,9 @@ class UsuarioModel {
     }
 
     private function checkUserNotExists($email) {
-        if (sizeof($this->getMail($email)) > 0) {
+        $userFound = $this->getUserByEmail($email);
+
+        if (sizeof($userFound) > 0) {
             throw new EntityFoundException("El usuario ya existe");
         }
     }
