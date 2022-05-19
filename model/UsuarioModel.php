@@ -8,16 +8,19 @@ class UsuarioModel {
         $this->database = $database;
     }
 
-    public function getUsuarios() {
-        return $this->database->query("SELECT * FROM usuario where rol = 'user' and activo = true");
-    }
+    public function logUser($data) {
+        $email = $data["email"];
+        $password = md5($data["password"]);
 
-    public function getUsuario($id) {
-        return $this->database->query("SELECT * FROM usuario where id = '$id'");
-    }
+        $userFound = $this->getUser($email, $password)[0];
 
-    public function getUserByEmail($email) {
-        return $this->database->query("SELECT * FROM gaucho_rocket.usuario where email = '$email'");
+        if (sizeof($userFound) === 0) {
+            throw new EntityNotFoundException("El usuario no existe");
+        }
+
+        $_SESSION["rol"] = $userFound["id_rol"];
+
+        return $userFound;
     }
 
     public function agregarUsuario($data) {
@@ -35,6 +38,19 @@ class UsuarioModel {
                 VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$id_rol', '$activo')";
 
         $this->database->query($sql);
+    }
+
+
+    public function getUserByEmail($email) {
+        return $this->database->query("SELECT * FROM gaucho_rocket.usuario where email = '$email'");
+    }
+
+    public function getUser($email, $password) {
+        return $this->database->query("SELECT * FROM usuario where email = '$email' AND password = '$password'");
+    }
+
+    public function getUsuarios() {
+        return $this->database->query("SELECT * FROM usuario where rol = 'user' and activo = true");
     }
 
     private function checkUserNotExists($email) {

@@ -2,12 +2,15 @@
 include_once('helper/MySqlDatabase.php');
 include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
+include_once ("helper/Navigation.php");
+
 include_once('controller/HomeController.php');
-include_once('controller/SesionController.php');
 include_once('controller/UsuarioController.php');
-include_once('model/SesionModel.php');
+
 include_once('model/UsuarioModel.php');
+
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
+
 include_once("validators/UserValidator.php");
 
 class Configuration {
@@ -15,16 +18,8 @@ class Configuration {
         return new HomeController($this->getPrinter());
     }
 
-    public function getSesionController() {
-        return new SesionController($this->getSesionModel(), $this->getPrinter());
-    }
-
-    private function getSesionModel() {
-        return new SesionModel($this->getDatabase());
-    }
-
     public function getUsuarioController() {
-        return new UsuarioController($this->getUsuarioModel(), $this->getPrinter(),  new UserValidator());
+        return new UsuarioController($this->getUsuarioModel(), $this->getPrinter(), new UserValidator());
     }
 
     private function getUsuarioModel() {
