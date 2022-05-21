@@ -50,8 +50,10 @@ class UsuarioController {
             // ejecucion
             $this->usuarioModel->agregarUsuario($_POST);
 
+            $this->usuarioModel->enviarEmail($_POST["email"]);
+
             // presentacion
-            $data["mensaje"] = "Usted ha sido registrado correctamente";
+            $data["mensaje"]="Ya puedes validar tu cuenta a traves de email";
 
             echo $this->printer->render("HomeView.html", $data);
         } catch (ValidationException|EntityFoundException $exception) {
@@ -60,5 +62,15 @@ class UsuarioController {
             echo $this->printer->render("registroView.html", $data);
         }
     }
+
+    public function activar(){
+        $email = $_GET["email"];
+        $this->usuarioModel->activarUsuario($email);
+        $data["mensaje"]="Tu cuenta ha sido verificada correctamente";
+
+        echo $this->printer->render("HomeView.html", $data);
+    }
+
+    
 }
 

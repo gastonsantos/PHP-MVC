@@ -33,8 +33,7 @@ class Configuration {
             $dbConfig["host"],
             $dbConfig["usuario"],
             $dbConfig["clave"],
-            $dbConfig["base"],
-            $dbConfig["port"]
+            $dbConfig["base"]
         );
     }
 
