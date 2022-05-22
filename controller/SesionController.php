@@ -14,6 +14,7 @@ class SesionController {
 
     public function show() {
 
+        
         $data["viajes"] = $this->vuelosModel->getVuelos();
         echo $this->printer->render("homeView.html", $data);
 

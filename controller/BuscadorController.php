@@ -23,7 +23,7 @@ class BuscadorController{
 
         $data["nombre"] = $_SESSION["nombre"];
 
-         //$this->printer->render("vuelos.mustache", $data);
+        
          echo $this->printer->render("userHomeView.html", $data);
     }
     $data["viajes"] = $this->vuelosModel->buscarVuelos($buscar);
@@ -33,7 +33,7 @@ class BuscadorController{
     }else{
         $data["error"] = false;
     }
-     //$this->printer->render("vuelos.mustache", $data);
+     
       echo $this->printer->render("userHomeView.html", $data);
 
 }else{
@@ -42,7 +42,7 @@ class BuscadorController{
     if($buscar == ""){
         $data["viajes"] = $this->vuelosModel->getVuelos();
         $data["vacio"] = true;//Esta vacio Cartelito
-        // $this->printer->render("vuelos.mustache", $data);
+        
          echo $this->printer->render("homeView.html", $data);
     }
     $data["viajes"] = $this->vuelosModel->buscarVuelos($buscar);
@@ -52,7 +52,7 @@ class BuscadorController{
     }else{
         $data["error"] = false;
     }
-     //$this->printer->render("vuelos.mustache", $data);
+     
      $this->printer->render("homeView.html", $data);
 }
     
