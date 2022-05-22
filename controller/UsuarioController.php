@@ -23,6 +23,15 @@ class UsuarioController {
             $this->userValidator->validateUserToRegister($_POST);
 
             // ejecucion
+
+            $nombre = $_POST["nombre"];
+            $apellido = $_POST["apellido"];
+            $direccion = $_POST["direccion"];
+            $email = $_POST["email"];
+            $password= $_POST["password"];
+            
+
+            //$this->usuarioModel->agregarUsuario($nombre, $apellido, $direccion, $email, $password);
             $this->usuarioModel->agregarUsuario($_POST);
 
             // presentacion

@@ -21,7 +21,7 @@ class UsuarioModel {
     }
 
     public function agregarUsuario($data) {
-        $nombre = $data["nombre"];
+        $nombre =  $data["nombre"];
         $apellido = $data["apellido"];
         $direccion = $data["direccion"];
         $email = $data["email"];
@@ -31,11 +31,13 @@ class UsuarioModel {
 
         $this->checkUserNotExists($email);
 
-        $sql = "INSERT INTO gaucho_rocket.usuario (nombre, apellido, direccion,email, password, id_rol, activo) 
+        $sql = "INSERT INTO usuario (nombre, apellido, direccion, email, password, id_rol, activo) 
                 VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$id_rol', '$activo')";
 
         $this->database->query($sql);
     }
+
+
 
     private function checkUserNotExists($email) {
         if (sizeof($this->getMail($email)) > 0) {
