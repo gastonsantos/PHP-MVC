@@ -3,14 +3,15 @@
 class HomeController{
 
     private $printer;
-    
-    public function __construct( $printer){
+    private $vuelosModel;
+    public function __construct( $printer, $vuelosModel){
         $this->printer = $printer;
-       
+        $this->vuelosModel = $vuelosModel;
         
     }
 
     function show(){
-        echo $this->printer->render("homeView.html");
+        $data["viajes"] = $this->vuelosModel->getVuelos();
+        echo $this->printer->render("homeView.html", $data);
     }
 }

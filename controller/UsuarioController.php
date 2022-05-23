@@ -4,11 +4,13 @@ class UsuarioController {
     private $printer;
     private $usuarioModel;
     private $userValidator;
+    private $vuelosModel;
 
-    public function __construct($usuarioModel, $printer, $userValidator) {
+    public function __construct($usuarioModel, $printer, $userValidator, $vuelosModel) {
         $this->printer = $printer;
         $this->usuarioModel = $usuarioModel;
         $this->userValidator = $userValidator;
+        $this->vuelosModel = $vuelosModel;
     }
 
     public function show() {
@@ -25,10 +27,13 @@ class UsuarioController {
 
             // presentacion
             $data["nombre"] = $user["nombre"];
+            $_SESSION["nombre"] = $user["nombre"];
 
-            if ($_SESSION["rol"] === 1) {
+            if ($_SESSION["rol"] == 1) {
                 echo $this->printer->render("adminHomeView.html", $data);
             } else {
+
+                $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("userHomeView.html", $data);
             }
 
@@ -54,8 +59,10 @@ class UsuarioController {
 
             // presentacion
             $data["mensaje"]="Ya puedes validar tu cuenta a traves de email";
+            $data["viajes"] = $this->vuelosModel->getVuelos();
 
             echo $this->printer->render("HomeView.html", $data);
+
         } catch (ValidationException|EntityFoundException $exception) {
             $data["error"] = $exception->getMessage();
 
@@ -67,7 +74,7 @@ class UsuarioController {
         $email = $_GET["email"];
         $this->usuarioModel->activarUsuario($email);
         $data["mensaje"]="Tu cuenta ha sido verificada correctamente";
-
+        $data["viajes"] = $this->vuelosModel->getVuelos();
         echo $this->printer->render("HomeView.html", $data);
     }
 
