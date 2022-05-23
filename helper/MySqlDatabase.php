@@ -10,13 +10,12 @@ class MySqlDatabase {
 
     private $conn;
 
-    public function __construct($host, $user, $pass, $database, /*$port*/) {
+    public function __construct($host, $user, $pass, $database,$port) {
         $this->host = $host;
         $this->user = $user;
         $this->pass = $pass;
         $this->database = $database;
-       /* $this->port = $port;*/
-
+        $this->port = $port;
         $this->connect();
     }
 
@@ -39,7 +38,7 @@ class MySqlDatabase {
 
 
     private function connect() {
-    $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database,/* $this->port*/);
+        $conn = mysqli_connect($this->host, $this->user, $this->pass, $this->database,$this->port);
         if (!$conn) {
             die('Connection failed: ' . mysqli_connect_error());
         }
