@@ -6,17 +6,20 @@ include_once ("helper/Navigation.php");
 
 include_once('controller/HomeController.php');
 include_once('controller/UsuarioController.php');
+
 include_once('controller/BuscadorController.php');
 
 
 include_once('model/UsuarioModel.php');
 include_once('model/VuelosModel.php');
 
+
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 include_once("validators/UserValidator.php");
 
 class Configuration {
+
    
     public function getBuscadorController(){
         return new BuscadorController($this->getPrinter(), $this->getVuelosModel());
@@ -34,6 +37,7 @@ class Configuration {
 
     public function getUsuarioController() {
         return new UsuarioController($this->getUsuarioModel(), $this->getPrinter(), new UserValidator(), $this->getVuelosModel());
+
     }
 
     private function getUsuarioModel() {
