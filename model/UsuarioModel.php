@@ -21,13 +21,13 @@ class UsuarioModel {
     public function logUser($data) {
         $email = $data["email"];
 
-        //$password = md5($data["password"]);
-        $password = $data["password"];
+        $password = md5($data["password"]);
+        //$password = $data["password"];
 
         $userFound = $this->getUser($email, $password)[0];
 
-        //if (sizeof($userFound) === 0) {
-            if(!isset($userFound)){
+        if (sizeof($userFound) === 0) {
+           // if(!isset($userFound)){
             throw new EntityNotFoundException("El usuario no existe");
         }
 
