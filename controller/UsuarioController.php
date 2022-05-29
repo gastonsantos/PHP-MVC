@@ -42,7 +42,10 @@ class UsuarioController {
             }
 
         } catch (ValidationException|EntityNotFoundException $exception) {
-            Navigation::redirectTo("index.php");
+            $data["error"] = "Usted no esta registrado";
+
+            echo $this->printer->render("registroView.html", $data);
+
         }
     }
 
@@ -62,7 +65,7 @@ class UsuarioController {
             $this->usuarioModel->enviarEmail($_POST["email"]);
 
             // presentacion
-            $data["mensaje"]="Ya puedes validar tu cuenta a traves de email";
+            $data["mensaje"] = "Ya puedes validar tu cuenta a traves de email";
 
             $data["viajes"] = $this->vuelosModel->getVuelos();
 
@@ -76,16 +79,16 @@ class UsuarioController {
         }
     }
 
-    public function activar(){
+    public function activar() {
         $email = $_GET["email"];
         $this->usuarioModel->activarUsuario($email);
-        $data["mensaje"]="Tu cuenta ha sido verificada correctamente";
+        $data["mensaje"] = "Tu cuenta ha sido verificada correctamente";
 
         $data["viajes"] = $this->vuelosModel->getVuelos();
 
         echo $this->printer->render("HomeView.html", $data);
     }
 
-    
+
 }
 

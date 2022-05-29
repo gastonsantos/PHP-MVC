@@ -9,24 +9,20 @@ class VuelosModel {
 
     public function getVuelos() {
 
-        return $this->database->query('SELECT * FROM gaucho_rocket.Viaje');
+        return $this->database->query('SELECT * FROM vuelo');
 
     }
-    public function buscarVuelos($busqueda){
 
-        if($busqueda == ""){
-            return $this->database->query('SELECT * FROM gaucho_rocket.Viaje');
-        }else{
-            $sql = "SELECT  * FROM gaucho_rocket.Viaje where trayecto = '$busqueda' || equipo = '$busqueda' || lugar_partida = '$busqueda'";       
+    public function buscarVuelos($busqueda) {
+        if ($busqueda == "") {
+            return $this->database->query('SELECT * FROM vuelo');
+        }
+
+        $sql = "SELECT  * FROM vuelo where trayecto = '$busqueda' || equipo = '$busqueda' || lugar_partida = '$busqueda'";
+
         $resultado = $this->database->query($sql);
         return $resultado;
-
-        }
-        
-       
-
     }
 
-
-
 }
+

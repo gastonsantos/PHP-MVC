@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@dbTP" uuid="63764dfb-c851-4590-a8ac-6bfc42629587">
+    <data-source source="LOCAL" name="@db_TP" uuid="c7545e11-f20a-4635-8ebf-63d62ece365e">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:8070/gaucho_rocket</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:8070/gauchorocket</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

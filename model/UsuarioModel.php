@@ -42,23 +42,23 @@ class UsuarioModel {
         $direccion = $data["direccion"];
         $email = $data["email"];
         $encryptedPassword = md5($data["password"]);
-        $id_rol = 2;
+        $clientRolId = 2;
 
         $this->checkUserNotExists($email);
 
-        $sql = "INSERT INTO gaucho_rocket.usuario (nombre, apellido, direccion,email, password, id_rol) 
-                VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$id_rol')";
+        $sql = "INSERT INTO usuario (nombre, apellido, direccion,email, contrasenia, id_rol) 
+                VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$clientRolId')";
 
         $this->database->query($sql);
     }
 
 
     public function getUserByEmail($email) {
-        return $this->database->query("SELECT * FROM gaucho_rocket.usuario where email = '$email'");
+        return $this->database->query("SELECT * FROM usuario where email = '$email'");
     }
 
     public function getUser($email, $password) {
-        return $this->database->query("SELECT * FROM usuario where email = '$email' AND password = '$password'");
+        return $this->database->query("SELECT * FROM usuario where email = '$email' AND contrasenia = '$password'");
     }
 
     public function getUsuarios() {
