@@ -16,6 +16,8 @@ class UsuarioController {
     }
 
     public function show() {
+
+        
         echo $this->printer->render("registroView.html");
     }
 
@@ -31,15 +33,33 @@ class UsuarioController {
             $data["nombre"] = $user["nombre"];
 
             $_SESSION["nombre"] = $user["nombre"];
+            $_SESSION["id"] = $user["id"];
+            $_SESSION["logueado"] = true;
 
-            if ($_SESSION["rol"] == 1) {
-                echo $this->printer->render("adminHomeView.html", $data);
-            } else {
-
+            if($user["id_rol"] == 1){
+                $_SESSION["esAdmin"] = true;
+                $data["esAdmin"] = $_SESSION["esAdmin"];   
                 $data["viajes"] = $this->vuelosModel->getVuelos();
+                echo $this->printer->render("homeView.html", $data);
+                
+                exit();
 
-                echo $this->printer->render("userHomeView.html", $data);
+            }else if($user["id_rol"] == 2){
+                $_SESSION["esClient"] = true;
+                $data["esClient"] = $_SESSION["esClient"];  
+                $data["viajes"] = $this->vuelosModel->getVuelos();
+                echo $this->printer->render("homeView.html", $data);
+                exit();
             }
+            else{
+                $data["esNada"] = "esNada";   
+                $data["viajes"] = $this->vuelosModel->getVuelos();
+                echo $this->printer->render("homeView.html", $data);
+           
+                exit();
+            }
+               
+        
 
         } catch (ValidationException|EntityNotFoundException $exception) {
             $data["error"] = "Usted no esta registrado";
@@ -51,7 +71,8 @@ class UsuarioController {
 
     public function logout() {
         session_destroy();
-        Navigation::redirectTo("index.php?controller=usuario&method=show");
+        header( "Location: /home");
+        //Navigation::redirectTo("index.php?controller=usuario&method=show");
     }
 
     public function procesarRegistro() {

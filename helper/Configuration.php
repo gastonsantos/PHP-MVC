@@ -6,8 +6,8 @@ include_once ("helper/Navigation.php");
 
 include_once('controller/HomeController.php');
 include_once('controller/UsuarioController.php');
+include_once('controller/VuelosController.php');
 
-include_once('controller/BuscadorController.php');
 
 
 include_once('model/UsuarioModel.php');
@@ -20,10 +20,9 @@ include_once("validators/UserValidator.php");
 
 class Configuration {
 
-   
-    public function getBuscadorController(){
-        return new BuscadorController($this->getPrinter(), $this->getVuelosModel());
+    public function getVuelosController(){
 
+        return new VuelosController( $this->getPrinter(),$this->getVuelosModel());
     }
 
     private function getVuelosModel(){

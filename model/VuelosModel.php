@@ -14,14 +14,7 @@ class VuelosModel {
     }
 
     public function buscarVuelos($busqueda) {
-        if ($busqueda == "") {
-            return $this->database->query('SELECT * FROM vuelo');
-        }
-
-        $sql = "SELECT  * FROM vuelo where trayecto = '$busqueda' || equipo = '$busqueda' || lugar_partida = '$busqueda'";
-
-        $resultado = $this->database->query($sql);
-        return $resultado;
+        return $this->database->query('SELECT * FROM vuelo where lugar_partida like "%' . $busqueda . '%" or trayecto like "%' . $busqueda . '%"');
     }
 
 }
