@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
     <div class="row justify-content-center align-items-center">
-        <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
+        <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow">
             {{#error}}
 
             <div class="alert alert-danger" role="alert">
@@ -14,61 +14,91 @@
 
             <div class="alert alert-danger" role="alert">
 
-                Debe rellenar el campo para poder buscar!
+                Debe rellenar los campo para poder buscar!
 
             </div>
 
             {{/vacio}}
 
-            <div class="row">
-                <div class="col-md-12 py-3">
-                    <form class="d-flex col" action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
-                        <input type="text" class="form-control" name="buscar" placeholder="Buscar Viaje">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </form>
-                </div>
-            </div>
+            <form action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
+                <h5 class="fw-bold">Vuelos</h5>
 
-            <table class="table text-center" style="width: 877px">
-                <thead>
+                <input type="radio" name="tipo_vuelo" value="1" checked> Orbitales
+                <input type="radio" name="tipo_vuelo" value="2"> Entre Destinos
+
+                <div class="mt-2 d-flex gap-2">
+                    <div>
+                        <label for="exampleDataListOrigen" class="form-label">Origen</label>
+                        <input class="form-control" list="datalistOrigen" id="exampleDataListOrigen" name="origen"
+                            placeholder="Ingresa desde dónde">
+                        <datalist id="datalistOrigen">
+                            <option value="Buenos Aires">
+                            <option value="Ankara">
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label for="exampleDataListDestino" class="form-label">Destino</label>
+                        <input class="form-control" list="datalistDestino" id="exampleDataListDestino" name="destino"
+                            placeholder="Ingresa hacia dónde">
+                        <datalist id="datalistDestino">
+                            <option value="EEI">
+                            <option value="OrbitalHotel">
+                            <option value="La luna">
+                            <option value="Marte">
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Fecha</label>
+                        <input type="date" name="fecha" class="d-block h-50">
+                    </div>
+
+                    <input type="submit" class="btn btn-primary h-50 align-self-end" value="buscar">
+
+            </form>
+
+        </div>
+
+
+        <table class="table text-center" style="width: 877px">
+            <thead>
+                <tr>
+                    <th scope="col">FECHA PARTIDA</th>
+                    <th scope="col">LUGAR PARTIDA</th>
+                    <th scope="col">DESTINO</th>
+                    <th scope="col">PRECIO</th>
+                    <th scope="col">EQUIPO</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+
+                <form action="" method="post">
+                    {{#viajes}}
                     <tr>
-                        <th scope="col">LUGAR PARTIDA</th>
-                        <th scope="col">FECHA PARTIDA</th>
-                        <th scope="col">PRECIO</th>
-                        <th scope="col">TRAYECTO</th>
-                        <th scope="col">EQUIPO</th>
+                        <td>{{fecha_partida}}</td>
+                        <td>{{lugar_partida}}</td>
+                        <td>{{destino}}</td>
+                        <td>{{precio}}</td>
+                        <td>{{equipo}}</td>
+
+                        {{#esClient}}
+                        <td><input type="submit" class="btn btn-primary" value="Reservar">
+                        {{/esClient}}
+                            
+                        {{#esAdmin}}
+                        <td><a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                        {{/esAdmin}}
 
                     </tr>
-                </thead>
+                    {{/viajes}}
+                </form>
 
-                <tbody>
-
-
-                    <form action="" method="post">
-                        {{#viajes}}
-                        <tr>
-
-                            <td>{{lugar_partida}}</td>
-                            <td>{{fecha_Partida}}</td>
-                            <td>{{precio}}</td>
-                            <td>{{trayecto}}</td>
-                            <td>{{equipo}}</td>
-
-                            {{#esClient}}
-                            <td><input type="submit" class="btn btn-primary" value="Reservar">
-                                {{/esClient}}
-                                {{#esAdmin}}
-
-                            <td><a class="btn btn-success" href="#" value="Modificar">Modificar</a>
-                                {{/esAdmin}}
-
-
-                        </tr>
-                        {{/viajes}}
-                    </form>
-
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+</div>
 </div>

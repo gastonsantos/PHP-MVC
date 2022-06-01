@@ -13,13 +13,16 @@ class VuelosController {
     }
 
     public function buscarVuelos (){
-        $buscar = $_POST["buscar"];
-        if($buscar == ""){
+        $origen = $_POST["origen"];
+        $destino = $_POST["destino"];
+        $fecha = $_POST["fecha"];
+
+        if($origen == "" && $destino == "" && $fecha == ""){
             $data["vacio"] = true;//Esta vacio Cartelito
 
             echo $this->printer->render("HomeView.html", $data);
         }else{
-            $data["viajes"] = $this->vuelosModel->buscarVuelos($buscar);
+            $data["viajes"] = $this->vuelosModel->buscarVuelos($origen,$destino,$fecha);
             if(empty($data["viajes"]) ){
                 $data["error"] = true;//No se encontro resultado cartelito
             }else{
