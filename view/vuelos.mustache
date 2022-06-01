@@ -3,26 +3,26 @@
         <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
             {{#error}}
 
-                <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert">
 
-                    Viaje no encontrado!
+                Viaje no encontrado!
 
-                </div>
+            </div>
 
             {{/error}}
             {{#vacio}}
 
-                <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert">
 
-                    Debe rellenar el campo para poder buscar!
+                Debe rellenar el campo para poder buscar!
 
-                </div>
+            </div>
 
             {{/vacio}}
 
             <div class="row">
                 <div class="col-md-12 py-3">
-                    <form class="d-flex col" action="/vuelos/buscarVuelos" method="POST">
+                    <form class="d-flex col" action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
                         <input type="text" class="form-control" name="buscar" placeholder="Buscar Viaje">
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </form>
@@ -31,21 +31,21 @@
 
             <table class="table text-center" style="width: 877px">
                 <thead>
-                <tr>
-                    <th scope="col">LUGAR PARTIDA</th>
-                    <th scope="col">FECHA PARTIDA</th>
-                    <th scope="col">PRECIO</th>
-                    <th scope="col">TRAYECTO</th>
-                    <th scope="col">EQUIPO</th>
+                    <tr>
+                        <th scope="col">LUGAR PARTIDA</th>
+                        <th scope="col">FECHA PARTIDA</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">TRAYECTO</th>
+                        <th scope="col">EQUIPO</th>
 
-                </tr>
+                    </tr>
                 </thead>
 
                 <tbody>
 
 
-                <form action="" method="post">
-                    {{#viajes}}
+                    <form action="" method="post">
+                        {{#viajes}}
                         <tr>
 
                             <td>{{lugar_partida}}</td>
@@ -56,16 +56,16 @@
 
                             {{#esClient}}
                             <td><input type="submit" class="btn btn-primary" value="Reservar">
-                            {{/esClient}}
-                              {{#esAdmin}}
-                             
-                            <td><a class="btn btn-success"  href="#" value="Modificar">Modificar</a>
-                            {{/esAdmin}}
-                            
+                                {{/esClient}}
+                                {{#esAdmin}}
+
+                            <td><a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                                {{/esAdmin}}
+
 
                         </tr>
-                    {{/viajes}}
-                </form>
+                        {{/viajes}}
+                    </form>
 
                 </tbody>
             </table>
