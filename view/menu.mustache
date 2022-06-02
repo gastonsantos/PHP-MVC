@@ -1,6 +1,10 @@
 <!-- Navbar -->
 
-{{^esClient}}
+
+
+{{^esClient}} 
+<div>
+{{^esAdmin}}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a href="index.php">
     <img src="./public/logo.png" class="navbar-brand" href="#"></img>
@@ -27,7 +31,10 @@
     </form>
   </div>
 </nav>
+{{/esAdmin}}
+</div>
 {{/esClient}}
+
 
 {{#esClient}}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
