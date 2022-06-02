@@ -33,13 +33,15 @@ class UsuarioController {
             $_SESSION["rol"] = $user["id_rol"];
 
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==2){
-                $data["esClient"] = true; 
+                $data["esClient"] = true;
+                $_SESSION["logueado"] = true;
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
             }
             
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==1){
                 $data["esAdmin"] = true;
+                $_SESSION["logueado"] = true;
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
             }
