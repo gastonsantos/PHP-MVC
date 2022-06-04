@@ -12,6 +12,10 @@ class ReservatorController {
     }
 
     public function showForm() {
+        if (!$_SESSION["esClient"]) {
+            Navigation::redirectTo("index.php?controller=home&method=show");
+        }
+
         $idVuelo = (int)$_GET["id_vuelo"];
         $cabineTypes = $this->reservatorModel->getCabineTypes();
         $servicesTypes = $this->reservatorModel->getServiceTypes();
@@ -26,6 +30,10 @@ class ReservatorController {
 
     public function reserve() {
         try {
+            if (!$_SESSION["esClient"]) {
+                Navigation::redirectTo("index.php?controller=home&method=show");
+            }
+            
             $idVuelo = (int)$_GET["idVuelo"];
 
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);

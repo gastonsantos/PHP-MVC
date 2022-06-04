@@ -1,22 +1,23 @@
 <?php
 
-class HomeController{
-
+class HomeController {
     private $printer;
-
     private $vuelosModel;
-    public function __construct( $printer, $vuelosModel){
+
+    public function __construct($printer, $vuelosModel) {
         $this->printer = $printer;
         $this->vuelosModel = $vuelosModel;
 
     }
 
-    function show(){
-        
+    function show() {
+        if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = true;
+        }
+
         $data["viajes"] = $this->vuelosModel->getVuelos();
 
         echo $this->printer->render("homeView.html", $data);
-      
     }
 }
 
