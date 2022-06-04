@@ -46,7 +46,7 @@ class Configuration {
     }
 
     private function getReservatorModel() {
-        return new ReservatorModel($this->getDatabase());
+        return new ReservatorModel($this->getDatabase(), $this->getVuelosModel());
     }
 
     private function getDatabase() {

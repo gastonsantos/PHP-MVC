@@ -25,12 +25,18 @@ class ReservatorController {
 
 
     public function reserve() {
-        $idVuelo = (int)$_GET["idVuelo"];
+        try {
+            $idVuelo = (int)$_GET["idVuelo"];
 
-        $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
+            $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
 
-        $data["mensaje"] = "Su reserva a sido confirmada. El precio final es de: $total creditos";
+            $data["mensaje"] = "Su reserva a sido confirmada. El precio final es de: $total creditos";
 
-        echo $this->printer->render("homeView.html", $data);
+            echo $this->printer->render("homeView.html", $data);
+        } catch (ValidationException $exception) {
+            $data["error"] = $exception->getMessage();
+
+            echo $this->printer->render("homeView.html", $data);
+        }
     }
 }
