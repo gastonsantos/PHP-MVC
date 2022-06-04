@@ -7,12 +7,11 @@ include_once ("helper/Navigation.php");
 include_once('controller/HomeController.php');
 include_once('controller/UsuarioController.php');
 include_once('controller/VuelosController.php');
-
-
+include_once ("controller/ReservatorController.php");
 
 include_once('model/UsuarioModel.php');
 include_once('model/VuelosModel.php');
-
+include_once ("model/ReservatorModel.php");
 
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
@@ -29,7 +28,6 @@ class Configuration {
         return new VuelosModel($this->getDatabase());
     }
 
-
     public function getHomeController() {
         return new HomeController($this->getPrinter(), $this->getVuelosModel());
     }
@@ -39,8 +37,16 @@ class Configuration {
 
     }
 
+    public function getReservatorController() {
+        return new ReservatorController($this->getPrinter(), $this->getVuelosModel(), $this->getReservatorModel());
+    }
+
     private function getUsuarioModel() {
         return new UsuarioModel($this->getDatabase());
+    }
+
+    private function getReservatorModel() {
+        return new ReservatorModel($this->getDatabase());
     }
 
     private function getDatabase() {

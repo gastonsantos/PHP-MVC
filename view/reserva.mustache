@@ -1,0 +1,49 @@
+{{>header}}
+{{>menu}}
+<main class="container mb-4">
+
+    <div class="container my-3">
+        <h1 class="">Gracias por elegirnos!</h1>
+
+        <p>
+            Completa los campos a continuacion para poder confirmar su reserva.
+        </p>
+    </div>
+
+
+    <form
+            class="container d-flex justify-content-center flex-column mb-5"
+            action="index.php?controller=reservator&method=reserve&idVuelo={{idVuelo}}"
+    method="post"
+    >
+
+    <div class="input-group row mb-3">
+        <label class="input-group-text col-2" for="reservaCantidad">Cantidad de reservas:</label>
+        <input class="form-control col-10" type="number" min="1" name="cantidad" id="reservaCantidad">
+    </div>
+
+    <div class="input-group row mb-3">
+        <label class="input-group-text col-2" for="cabina">Cabina:</label>
+        <select class="col-10" name="cabina" id="cabina">
+            {{#cabineTypes}}
+                <option value="{{recargo}}">{{nombre}}</option>
+            {{/cabineTypes}}
+        </select>
+    </div>
+
+    <div class="input-group row mb-3">
+        <label class="input-group-text col-2" for="servicio">Servicio de a bordo:</label>
+        <select class="col-10" name="servicio" id="servicio">
+            {{#servicesTypes}}
+                <option value="{{recargo}}">{{nombre}}</option>
+            {{/servicesTypes}}
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Completar reserva</button>
+    </form>
+
+
+</main>
+
+{{>footer}}
