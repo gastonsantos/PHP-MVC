@@ -19,7 +19,7 @@ class VuelosController {
 
         if($origen == "" && $destino == "" && $fecha == ""){
             $data["vacio"] = true;//Esta vacio Cartelito
-
+            
             echo $this->printer->render("HomeView.html", $data);
         }else{
             $data["viajes"] = $this->vuelosModel->buscarVuelos($origen,$destino,$fecha);
