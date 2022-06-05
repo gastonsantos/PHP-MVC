@@ -34,6 +34,8 @@ class UsuarioController {
 
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==2){
                 $_SESSION["esClient"] = true;
+                $_SESSION["email"] = $user["email"];
+                $_SESSION["id"] = $user["id"];
                 $data["esClient"] = true; 
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
