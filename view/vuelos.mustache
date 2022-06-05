@@ -75,9 +75,9 @@
 
             <tbody>
 
-
-                <form action="" method="post">
-                    {{#viajes}}
+                 {{#viajes}}
+                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                    
                     <tr>
                         <td>{{fecha_partida}}</td>
                         <td>{{lugar_partida}}</td>

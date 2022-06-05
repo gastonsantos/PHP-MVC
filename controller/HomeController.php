@@ -12,6 +12,12 @@ class HomeController{
     }
 
     function show(){
+         if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = true;
+            
+        }else if(isset($_SESSION["esAdmin"])){
+            $data["esAdmin"] = true;
+        }
 
         
         $data["viajes"] = $this->vuelosModel->getVuelos();
