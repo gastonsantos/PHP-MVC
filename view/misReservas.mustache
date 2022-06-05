@@ -1,0 +1,32 @@
+{{>header}}
+{{>menu}}
+
+
+
+{{^reserves}}
+    <main class="container">
+
+        <h2 class="mt-2">No hay reservas a su nombre</h2>
+    </main>
+{{/reserves}}
+
+{{#reserves}}
+    <main class="container">
+        <h2 class="mt-2">Las reservas que estan asociadas a usted son las siguientes:</h2>
+
+        <ul class="list-group">
+            {{#reserves}}
+                <li class="list-group-item">
+                    <div class="p-2">
+                        <p>Codigo de abordaje: {{codigo}}</p>
+                        <p class="mb-1">Precio total pagado: {{precio}}</p>
+                    </div>
+                </li>
+            {{/reserves}}
+        </ul>
+
+    </main>
+
+    {{>footer}}
+
+{{/reserves}}
