@@ -33,17 +33,17 @@ class UsuarioController {
             $_SESSION["rol"] = $user["id_rol"];
 
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==2){
-                $data["esClient"] = true;
                 $_SESSION["esClient"] = true;
-                $_SESSION["logueado"] = true;
+                $_SESSION["email"] = $user["email"];
+                $_SESSION["id"] = $user["id"];
+                $data["esClient"] = true; 
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
             }
             
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==1){
-                $data["esAdmin"] = true;
                 $_SESSION["esAdmin"] = true;
-                $_SESSION["logueado"] = true;
+                $data["esAdmin"] = true;
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
             }
@@ -95,4 +95,3 @@ class UsuarioController {
 
 
 }
-

@@ -3,20 +3,20 @@
         <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow">
             {{#error}}
 
-            <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert">
 
-                Viaje no encontrado!
+                    Viaje no encontrado!
 
-            </div>
+                </div>
 
             {{/error}}
             {{#vacio}}
 
-            <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger" role="alert">
 
-                Debe rellenar los campo para poder buscar!
+                    Debe rellenar los campo para poder buscar!
 
-            </div>
+                </div>
 
             {{/vacio}}
 
@@ -30,24 +30,25 @@
                     <div>
                         <label for="exampleDataListOrigen" class="form-label">Origen</label>
                         <input class="form-control" list="datalistOrigen" id="exampleDataListOrigen" name="origen"
-                            placeholder="Ingresa desde dónde">
+                               placeholder="Ingresa desde dónde">
                         <datalist id="datalistOrigen">
-                            <option value="Buenos Aires">
-                            <option value="Ankara">
+                            <option value="BUENOS AIRES">
+                            <option value="ANKARA">
                         </datalist>
                     </div>
 
                     <div>
                         <label for="exampleDataListDestino" class="form-label">Destino</label>
                         <input class="form-control" list="datalistDestino" id="exampleDataListDestino" name="destino"
-                            placeholder="Ingresa hacia dónde">
+                               placeholder="Ingresa hacia dónde">
                         <datalist id="datalistDestino">
-                            <option value="EEI">
-                            <option value="OrbitalHotel">
-                            <option value="La luna">
-                            <option value="Marte">
+                            <option value="LUNA">
+                            <option value="HOTEL ORBITAL">
+                            <option value="MARTE">
+                            <option value="SATURNO">
                         </datalist>
                     </div>
+
 
                     <div>
                         <label class="form-label">Fecha</label>
@@ -63,39 +64,43 @@
 
         <table class="table text-center" style="width: 877px">
             <thead>
-                <tr>
-                    <th scope="col">FECHA PARTIDA</th>
-                    <th scope="col">LUGAR PARTIDA</th>
-                    <th scope="col">DESTINO</th>
-                    <th scope="col">PRECIO</th>
-                    <th scope="col">EQUIPO</th>
+            <tr>
+                <th scope="col">FECHA PARTIDA</th>
+                <th scope="col">LUGAR PARTIDA</th>
+                <th scope="col">DESTINO</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">EQUIPO</th>
 
-                </tr>
+            </tr>
             </thead>
 
             <tbody>
 
-                 {{#viajes}}
-                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
-                    
-                    <tr>
-                        <td>{{fecha_partida}}</td>
-                        <td>{{lugar_partida}}</td>
-                        <td>{{destino}}</td>
-                        <td>{{precio}}</td>
-                        <td>{{equipo}}</td>
 
-                        {{#esClient}}
-                        <td><input type="submit" class="btn btn-primary" value="Reservar">
-                        {{/esClient}}
-                            
-                        {{#esAdmin}}
-                        <td><a class="btn btn-success" href="#" value="Modificar">Modificar</a>
-                        {{/esAdmin}}
 
-                    </tr>
-                    {{/viajes}}
-                </form>
+            {{#viajes}}
+                <tr>
+                    <td>{{fecha_partida}}</td>
+                    <td>{{lugar_partida}}</td>
+                    <td>{{destino}}</td>
+                    <td>{{precio}}</td>
+                    <td>{{equipo}}</td>
+
+                    {{#esClient}}
+                        <td>
+                            <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                            <button type="submit" class="btn btn-primary">
+                                Reservar
+                            </button>
+                        </td>
+                    {{/esClient}}
+
+                    {{#esAdmin}}
+                    <td><a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                    {{/esAdmin}}
+                </tr>
+            {{/viajes}}
+
 
             </tbody>
         </table>
