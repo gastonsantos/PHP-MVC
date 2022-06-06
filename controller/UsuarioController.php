@@ -14,14 +14,20 @@ class UsuarioController {
     }
 
     public function show() {
+        if (isset($_SESSION["esClient"])) {
+            Navigation::redirectTo("index.php?controller=home&method=show");
+        }
 
-        
         echo $this->printer->render("registroView.html");
     }
 
     public function login() {
         try {
             // validaciones
+            if (isset($_SESSION["esClient"])) {
+                Navigation::redirectTo("index.php?controller=home&method=show");
+            }
+
             $this->userValidator->validateUserToLogin($_POST);
 
             // ejecucion
@@ -65,6 +71,10 @@ class UsuarioController {
     public function procesarRegistro() {
         try {
             // validaciones
+            if (isset($_SESSION["esClient"])) {
+                Navigation::redirectTo("index.php?controller=home&method=show");
+            }
+
             $this->userValidator->validateUserToRegister($_POST);
 
             // ejecucion

@@ -23,6 +23,7 @@ class ReservatorController {
         $data["idVuelo"] = $idVuelo;
         $data["cabineTypes"] = $cabineTypes;
         $data["servicesTypes"] = $servicesTypes;
+        $data["esClient"] = $_SESSION["esClient"];
 
         echo $this->printer->render("reserva.mustache", $data);
     }
@@ -54,6 +55,7 @@ class ReservatorController {
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
 
             $data["mensaje"] = "Su reserva a sido realizada. El precio final es de: $total creditos";
+            $data["esClient"] = $_SESSION["esClient"];
 
             echo $this->printer->render("homeView.html", $data);
         } catch (ValidationException $exception) {
