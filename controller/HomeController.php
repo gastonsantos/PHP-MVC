@@ -16,7 +16,8 @@ class HomeController {
         }
 
         $data["viajes"] = $this->vuelosModel->getVuelos();
-
+        $data["lugares"] = $this->vuelosModel->getLugares();
+        
         echo $this->printer->render("homeView.html", $data);
     }
 }
