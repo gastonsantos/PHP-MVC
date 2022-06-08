@@ -22,17 +22,15 @@ class UsuarioModel {
 
     public function logUser($data) {
         $email = $data["email"];
-        //$password = md5($data["password"]);
         $password = $data["password"];
-        $userFound = $this->getUser($email, $password)[0];
+        //$password = md5($data["password"]);
+        $userFound = $this->getUser($email, $password);
 
-        var_dump($email);
-        var_dump($password);
-        if (!isset($userFound)) {
+        if ( sizeof($userFound) == 0 || !isset($userFound)) {
             throw new EntityNotFoundException("El usuario no existe");
         }
 
-        return $userFound;
+        return $userFound[0];
     }
 
     public function agregarUsuario($data) {

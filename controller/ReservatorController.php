@@ -24,7 +24,7 @@ class ReservatorController {
         $data["idVuelo"] = $idVuelo;
         $data["cabineTypes"] = $cabineTypes;
         $data["servicesTypes"] = $servicesTypes;
-        $data["esClient"] = true;
+        $data["esClient"] = $_SESSION["esClient"];
 
         echo $this->printer->render("reserva.mustache", $data);
 
@@ -35,11 +35,10 @@ class ReservatorController {
             Navigation::redirectTo("index.php?controller=home&method=show");
         }
 
-
-
         $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
 
         $data["reserves"] = $reserves;
+        $data["existsReserves"] = sizeof($reserves) > 0;
         $data["esClient"] = $_SESSION["esClient"];
 
         echo  $this->printer->render("misReservas.mustache", $data);
@@ -57,7 +56,8 @@ class ReservatorController {
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
 
             $data["mensaje"] = "Su reserva a sido realizada. El precio final es de: $total creditos";
-            $data["esClient"] = true;
+            $data["esClient"] = $_SESSION["esClient"];
+
             echo $this->printer->render("homeView.html", $data);
         } catch (ValidationException $exception) {
             $data["error"] = $exception->getMessage();

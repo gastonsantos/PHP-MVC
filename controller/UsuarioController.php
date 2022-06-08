@@ -5,23 +5,31 @@ class UsuarioController {
     private $usuarioModel;
     private $userValidator;
     private $vuelosModel;
+    private $centroMedicoModel;
 
-    public function __construct($usuarioModel, $printer, $userValidator, $vuelosModel) {
+    public function __construct($usuarioModel, $printer, $userValidator, $vuelosModel, $centroMedicoModel) {
         $this->printer = $printer;
         $this->usuarioModel = $usuarioModel;
         $this->userValidator = $userValidator;
         $this->vuelosModel = $vuelosModel;
+        $this->centroMedicoModel = $centroMedicoModel;
     }
 
     public function show() {
+        if (isset($_SESSION["esClient"])) {
+            Navigation::redirectTo("index.php?controller=home&method=show");
+        }
 
-        
         echo $this->printer->render("registroView.html");
     }
 
     public function login() {
         try {
             // validaciones
+            if (isset($_SESSION["esClient"])) {
+                Navigation::redirectTo("index.php?controller=home&method=show");
+            }
+
             $this->userValidator->validateUserToLogin($_POST);
 
             // ejecucion
@@ -36,9 +44,12 @@ class UsuarioController {
                 $_SESSION["esClient"] = true;
                 $_SESSION["email"] = $user["email"];
                 $_SESSION["id"] = $user["id"];
+                $_SESSION["nombre"] = $user["nombre"];
                 $data["esClient"] = true; 
                 $data["viajes"] = $this->vuelosModel->getVuelos();
+                $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
                 echo $this->printer->render("homeView.html", $data);
+                exit();
             }
             
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==1){
@@ -65,6 +76,10 @@ class UsuarioController {
     public function procesarRegistro() {
         try {
             // validaciones
+            if (isset($_SESSION["esClient"])) {
+                Navigation::redirectTo("index.php?controller=home&method=show");
+            }
+
             $this->userValidator->validateUserToRegister($_POST);
 
             // ejecucion
