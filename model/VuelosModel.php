@@ -15,20 +15,22 @@ class VuelosModel {
     }
 
     public function buscarVuelos($origen,$destino,$fecha) {
-        $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha'";
+        //$sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha'";
+        $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo v
+        join  tipo_viaje tv on  v.id_tipo_viaje = tv.id where v.lugar_partida = '$origen' and v.destino = '$destino' and v.fecha_partida = '$fecha';";
 
         $resultado = $this->database->query($sql);
         return $resultado;
     }
 
     public function getParadasCircuito1(){
-        $sql = "SELECT parada FROM circuito1 join tipo_equipo on circuito1.id_tipo_equipo = tipo_equipo.id where tipo_equipo.nombre = 'BA'";
+        $sql = "SELECT parada FROM circuito1 join tipo_equipo on circuito1.id_tipo_equipo = tipo_equipo.id where tipo_equipo.nombre = 'BAJA ACELERACION'";
         $resultado = $this->database->query($sql);
         return $resultado;
     }
 
     public function getParadasCircuito2(){
-        $sql = "SELECT parada FROM circuito2 join tipo_equipo on circuito2.id_tipo_equipo = tipo_equipo.id where tipo_equipo.nombre = 'BA'";
+        $sql = "SELECT parada FROM circuito2 join tipo_equipo on circuito2.id_tipo_equipo = tipo_equipo.id where tipo_equipo.nombre = 'BAJA ACELERACION'";
         $resultado = $this->database->query($sql);
         return $resultado;
     }

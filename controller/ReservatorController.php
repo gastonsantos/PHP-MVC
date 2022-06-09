@@ -4,11 +4,13 @@ class ReservatorController {
     private $printer;
     private $userModel;
     private $reservatorModel;
+    private $centroMedicoModel;
 
-    public function __construct($printer, $reservatorModel, $userModel) {
+    public function __construct($printer, $reservatorModel, $userModel, $centroMedicoModel) {
         $this->printer = $printer;
         $this->reservatorModel = $reservatorModel;
         $this->userModel = $userModel;
+        $this->centroMedicoModel = $centroMedicoModel;
     }
 
     public function showForm() {
@@ -54,14 +56,14 @@ class ReservatorController {
             $idVuelo = (int)$_GET["idVuelo"];
 
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
-
+            $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
             $data["mensaje"] = "Su reserva a sido realizada. El precio final es de: $total creditos";
             $data["esClient"] = $_SESSION["esClient"];
 
             echo $this->printer->render("homeView.html", $data);
         } catch (ValidationException $exception) {
             $data["error"] = $exception->getMessage();
-
+            $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
             echo $this->printer->render("homeView.html", $data);
         }
     }

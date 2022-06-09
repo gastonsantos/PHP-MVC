@@ -46,7 +46,7 @@ class Configuration {
     }
 
     public function getReservatorController() {
-        return new ReservatorController($this->getPrinter(), $this->getReservatorModel(), $this->getUsuarioModel());
+        return new ReservatorController($this->getPrinter(), $this->getReservatorModel(), $this->getUsuarioModel(), $this->getCentroMedicoModel());
     }
 
     private function getUsuarioModel() {
