@@ -29,7 +29,7 @@ class Configuration {
 
     public function getVuelosController(){
 
-        return new VuelosController( $this->getPrinter(),$this->getVuelosModel());
+        return new VuelosController( $this->getPrinter(),$this->getVuelosModel(), $this->getCentroMedicoModel());
     }
 
     private function getVuelosModel(){

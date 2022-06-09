@@ -3,12 +3,14 @@
 class VuelosController {
     private $printer;
     private $vuelosModel;
+    private $centroMedicoModel;
    
     
 
-    public function __construct($printer, $vuelosModel) {
+    public function __construct($printer, $vuelosModel, $centroMedicoModel) {
         $this->printer = $printer;
         $this->vuelosModel = $vuelosModel;
+        $this->centroMedicoModel = $centroMedicoModel;
 
     }
 
@@ -20,7 +22,7 @@ class VuelosController {
         $origen = $_POST["origen"];
         $destino = $_POST["destino"];
         $fecha = $_POST["fecha"];
-
+        $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
         if($origen == "" && $destino == "" && $fecha == ""){
             $data["vacio"] = true;//Esta vacio Cartelito
             

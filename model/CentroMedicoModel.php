@@ -30,7 +30,7 @@ class CentroMedicoModel {
     public function insertChequeo($id_centro, $id_usuario, $fecha){
         if ($this->sinTurnos($id_centro, $fecha) == true){
             $result = $this->resultadoChequeo();
-            //$fecha = $this->fechaHoy();
+            
             $sql = "INSERT INTO chequeo (id_centro_medico, codigo,fecha, id_usuario) VALUES ('$id_centro', '$result','$fecha', '$id_usuario')";
             $query = $this->database->query($sql);
             return $result;
@@ -38,19 +38,14 @@ class CentroMedicoModel {
         }else{
 
             return null;
-            
-
+        
 
         }
        
-
         
     }
 
     public function countTurnos($id_centro, $fecha){
-        
-        //$fecha_hoy = date('Y-m-d');
-
         $sql = "SELECT count(id_centro_medico) as turnos from chequeo where id_centro_medico = '$id_centro' and fecha = '$fecha'";
         $result = $this->database->query($sql);
         return $result;
@@ -73,12 +68,12 @@ class CentroMedicoModel {
     }
 
 
-
+/*
     public function setearTurnos($id_centro){
        if($this->fechaHoy() != date("d-m-Y")){
        }
     }
-
+*/
     public function fechaHoy(){
             $fecha_hoy = date("d-m-Y");
             return $fecha_hoy;

@@ -27,7 +27,7 @@ class UsuarioController {
         try {
             // validaciones
             if (isset($_SESSION["esClient"])) {
-                Navigation::redirectTo("index.php?controller=home&method=show");
+                Navigation::redirectTo("/home");
             }
 
             $this->userValidator->validateUserToLogin($_POST);
@@ -70,14 +70,14 @@ class UsuarioController {
 
     public function logout() {
         session_destroy();
-        Navigation::redirectTo("index.php?controller=home&method=show");
+        Navigation::redirectTo("/home");
     }
 
     public function procesarRegistro() {
         try {
             // validaciones
             if (isset($_SESSION["esClient"])) {
-                Navigation::redirectTo("index.php?controller=home&method=show");
+                Navigation::redirectTo("/home");
             }
 
             $this->userValidator->validateUserToRegister($_POST);
