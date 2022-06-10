@@ -15,7 +15,7 @@ class ReservatorController {
 
     public function showForm() {
         if (!$_SESSION["esClient"]) {
-            Navigation::redirectTo("index.php?controller=home&method=show");
+            Navigation::redirectTo("/home");
         }
 
 
@@ -34,7 +34,7 @@ class ReservatorController {
 
     public function showReservesByUser() {
         if (!$_SESSION["esClient"]) {
-            Navigation::redirectTo("index.php?controller=home&method=show");
+            Navigation::redirectTo("/home");
         }
 
         $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
@@ -50,7 +50,7 @@ class ReservatorController {
     public function reserve() {
         try {
             if (!$_SESSION["esClient"]) {
-                Navigation::redirectTo("index.php?controller=home&method=show");
+                Navigation::redirectTo("/home");
             }
 
             $idVuelo = (int)$_GET["idVuelo"];
