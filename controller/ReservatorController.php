@@ -18,12 +18,12 @@ class ReservatorController {
             Navigation::redirectTo("/home");
         }
 
-
+        $data["usuario"] = $_SESSION["nombre"];
         $idVuelo = (int)$_GET["id_vuelo"];
         $cabineTypes = $this->reservatorModel->getCabineTypes();
         $servicesTypes = $this->reservatorModel->getServiceTypes();
 
-        $data["idVuelo"] = $idVuelo;
+        $data["id_vuelo"] = $idVuelo;
         $data["cabineTypes"] = $cabineTypes;
         $data["servicesTypes"] = $servicesTypes;
         $data["esClient"] = $_SESSION["esClient"];
@@ -38,10 +38,11 @@ class ReservatorController {
         }
 
         $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
-
+        
         $data["reserves"] = $reserves;
         $data["existsReserves"] = sizeof($reserves) > 0;
         $data["esClient"] = $_SESSION["esClient"];
+        $data["usuario"] = $_SESSION["nombre"];
 
         echo  $this->printer->render("misReservas.mustache", $data);
     }
@@ -52,17 +53,23 @@ class ReservatorController {
             if (!$_SESSION["esClient"]) {
                 Navigation::redirectTo("/home");
             }
-
-            $idVuelo = (int)$_GET["idVuelo"];
+            $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
+            $data["esClient"] = $_SESSION["esClient"];
+            $data["usuario"] = $_SESSION["nombre"];
+            
+            $idVuelo = (int)$_GET["id_vuelo"];
 
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
-            $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
+            
             $data["mensaje"] = "Su reserva a sido realizada. El precio final es de: $total creditos";
-            $data["esClient"] = $_SESSION["esClient"];
+           
 
             echo $this->printer->render("homeView.html", $data);
+            exit();
         } catch (ValidationException $exception) {
+           // $data["esClient"] = $_SESSION["esClient"];
             $data["error"] = $exception->getMessage();
+            $data["usuario"] = $_SESSION["nombre"];
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
             echo $this->printer->render("homeView.html", $data);
         }

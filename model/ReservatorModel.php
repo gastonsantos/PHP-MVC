@@ -52,9 +52,11 @@ class ReservatorModel {
     private function checkVueloExists($idVuelo) {
         $vuelo = $this->vuelosModel->getVueloById($idVuelo);
 
-        if (!isset($vuelo) || sizeof($vuelo) == 0) {
+        if (!isset($vuelo)|| sizeof($vuelo) == 0) {
             throw new ValidationException("El vuelo que quiere reservar no existe");
         }
+        return true;
+        
     }
 
     private function checkVueloCapacity($idVuelo, $reservesWanted) {

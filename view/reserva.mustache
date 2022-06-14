@@ -7,15 +7,15 @@
 
         <p>
             Completa los campos a continuacion para poder confirmar su reserva.
+            VUELO {{id_vuelo}}
         </p>
     </div>
 
 
     <form
             class="container d-flex justify-content-center flex-column mb-5"
-            action="index.php?controller=reservator&method=reserve&idVuelo={{idVuelo}}"
-    method="post"
-    >
+            action="index.php?controller=reservator&method=reserve&id_vuelo={{id_vuelo}}"
+    method="post">
 
     <div class="input-group row mb-3">
         <label class="input-group-text col-2" for="reservaCantidad">Cantidad de reservas:</label>

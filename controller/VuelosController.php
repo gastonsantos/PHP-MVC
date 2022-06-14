@@ -18,6 +18,7 @@ class VuelosController {
         if (isset($_SESSION["esClient"])) {
             $data["esClient"] = true;
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
+            $data["usuario"] = $_SESSION["nombre"];
         }
 
         $origen = $_POST["origen"];
