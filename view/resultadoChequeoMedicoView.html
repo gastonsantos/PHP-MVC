@@ -1,38 +1,42 @@
 {{>header}}
 {{>menu}}
-<h3>RESULTADO CHEQUEO</h3>
+<div class="container">
+  <h3>RESULTADO CHEQUEO</h3>
 
-{{#usuario}}
-<h6>Hola: {{usuario}}</h6>
-
-
-
-{{^chequeo}}
-<div class="alert alert-danger" role="alert">
-  
-  NO HAY TURNOS DISPONIBLES PARA ESTA FECHA <a href="/Chequeo" class="alert-link">Volver</a>. Muchas gracias!!!.
-</div>
+  {{#usuario}}
+  <h6>Hola: {{usuario}}</h6>
 
 
-{{/chequeo}}
 
-  
-  
+  {{^chequeo}}
+  <div class="alert alert-danger" role="alert">
+
+    NO HAY TURNOS DISPONIBLES PARA ESTA FECHA <a href="/Chequeo" class="alert-link">Volver</a>. Muchas gracias!!!.
+  </div>
 
 
-<div>
+  {{/chequeo}}
 
-{{#chequeo}}
-<div class="alert alert-success" role="alert">
-  Hola {{usuario}} el resultado de su <a href="#" class="alert-link">Chequeo medico es {{chequeo}}</a>. Muchas gracias!!!.
-</div>
 
-{{/chequeo}}
-</div>
 
-{{/usuario}}
+
+
+  <div>
+
+    {{#chequeo}}
+    <div class="alert alert-success" role="alert">
+      Hola {{usuario}} el resultado de su <a href="#" class="alert-link">Chequeo medico es {{chequeo}}</a>. Muchas
+      gracias!!!.
+    </div>
+
+    {{/chequeo}}
+  </div>
+
+  {{/usuario}}
   <a href="/home" class="btn btn-primary">Volver al Menu</a>
 </div>
+</div>
+
 </div>
 
 {{>footer}}
