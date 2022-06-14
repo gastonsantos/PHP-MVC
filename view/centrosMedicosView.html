@@ -1,46 +1,48 @@
 {{>header}}
 {{>menu}}
 
-<h3>CENTROS MEDICOS</h3>
-<h5>ELIGA UN CENTRO Y UNA FECHA</h5>
-{{#usuario}}
-<h6>Hola: {{usuario}}</h6>
-{{/usuario}}
-<div class="container">
 
+<div class="container">
+    <h3>CENTROS MEDICOS</h3>
+    <h5>ELIGA UN CENTRO Y UNA FECHA</h5>
+    {{#usuario}}
+    <h6>Hola: {{usuario}}</h6>
+    {{/usuario}}
 
     <div class="card-group">
-{{#centros}}
+        {{#centros}}
 
-    <div class="col-sm-4">
-         <div class="card" style="width: 18rem;">
+        <div class="col-sm-4">
+            <div class="card" style="width: 18rem;">
 
-    <img class="card-img-top" src="/public/{{nombre}}.jpeg" alt="Card image cap" width="250px" height="250px" >
-    <div class="card-body">
-      <h5 class="card-title">  {{nombre}}</h5>
-      <p class="card-text">El mejor centro Medico de la region, con atencion personalizada y seguridad interplanetaria, Darth Vader lo recomienda</p>
-    </div>
+                <img class="card-img-top" src="/public/{{nombre}}.jpeg" alt="Card image cap" width="250px"
+                    height="250px">
+                <div class="card-body">
+                    <h5 class="card-title"> {{nombre}}</h5>
+                    <p class="card-text">El mejor centro Medico de la region, con atencion personalizada y seguridad
+                        interplanetaria, Darth Vader lo recomienda</p>
+                </div>
 
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item"> FECHA: {{fecha}}</li>
-        <li class="list-group-item">Turnos Diarios: {{turnos_diarios}}</li> 
-    </ul>
-   
-    
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> FECHA: {{fecha}}</li>
+                    <li class="list-group-item">Turnos Diarios: {{turnos_diarios}}</li>
+                </ul>
 
-    <div class="card-body">
-        
-    
-</form>
-    <a href="/Chequeo/centroMedico&id_Centro={{id}}" class="btn btn-success">Elegir centro!</a>
-      
-    </div>
+
+
+                <div class="card-body">
+
+
+                    </form>
+                    <a href="/Chequeo/centroMedico&id_Centro={{id}}" class="btn btn-success">Elegir centro!</a>
+
+                </div>
 
             </div>
-    </div>
+        </div>
 
-{{/centros}}
-</div>
+        {{/centros}}
+    </div>
 </div>
 
 {{>footer}}

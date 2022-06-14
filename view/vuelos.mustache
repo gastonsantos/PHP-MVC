@@ -1,58 +1,57 @@
+<div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow">
 
- <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow">
- 
-                {{#vacio}}
+            {{#vacio}}
 
-                <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert">
 
-                    Debe rellenar los campo para poder buscar!
+                Debe rellenar los campo para poder buscar!
 
-                </div>
-
-                {{/vacio}}
-
-                <form action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
-                    <h5 class="fw-bold">Vuelos</h5>
-
-                    <div class="mt-2 d-flex gap-2">
-                        <div>
-                            <label for="exampleDataListOrigen" class="form-label">Origen</label>
-                            <input class="form-control" list="datalistOrigen" id="exampleDataListOrigen" name="origen"
-                                placeholder="Ingresa desde dónde">
-                            <datalist id="datalistOrigen">
-                                {{#lugares}}
-                                <option value="{{nombre}}">
-                                {{/lugares}}
-                            </datalist>
-                        </div>
-
-                        <div>
-                            <label for="exampleDataListDestino" class="form-label">Destino</label>
-                            <input class="form-control" list="datalistDestino" id="exampleDataListDestino"
-                                name="destino" placeholder="Ingresa hacia dónde">
-                            <datalist id="datalistDestino">
-                                {{#lugares}}
-                                <option value="{{nombre}}">
-                                {{/lugares}}
-                            </datalist>
-                        </div>
-
-                        <div>
-                            <label class="form-label">Fecha</label>
-                            <input type="date" name="fecha" class="d-block h-50">
-                        </div>
-
-
-                        <input type="submit" class="btn btn-primary h-50 align-self-end" value="buscar">
-
-                    </form>
-
-                </div>
             </div>
+
+            {{/vacio}}
+
+            <form action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
+                <h5 class="fw-bold">Vuelos</h5>
+
+                <div class="mt-2 d-flex gap-2">
+                    <div>
+                        <label for="exampleDataListOrigen" class="form-label">Origen</label>
+                        <input class="form-control" list="datalistOrigen" id="exampleDataListOrigen" name="origen"
+                            placeholder="Ingresa desde dónde">
+                        <datalist id="datalistOrigen">
+                            {{#lugares}}
+                            <option value="{{nombre}}">
+                                {{/lugares}}
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label for="exampleDataListDestino" class="form-label">Destino</label>
+                        <input class="form-control" list="datalistDestino" id="exampleDataListDestino" name="destino"
+                            placeholder="Ingresa hacia dónde">
+                        <datalist id="datalistDestino">
+                            {{#lugares}}
+                            <option value="{{nombre}}">
+                                {{/lugares}}
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Fecha</label>
+                        <input type="date" name="fecha" class="d-block h-50">
+                    </div>
+
+
+                    <input type="submit" class="btn btn-primary h-50 align-self-end" value="buscar">
+
+            </form>
+
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <div class="container">
@@ -92,6 +91,7 @@
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
+                    </form>
                 
                 {{#esAdmin}}
                     <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
@@ -142,6 +142,7 @@
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
+                    </form>
 
                 {{#esAdmin}}
                     <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
@@ -196,6 +197,7 @@
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
+                    </form>
 
                 {{#esAdmin}}
                     <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
@@ -213,62 +215,4 @@
         </div>
     </div>
     {{/circuito2}}
-   <!-- {{#viajes}}
-    <div class="shadow card mt-4 w-75 mx-auto p-4">
-        <div class="row">
-            <div class="col-9">
-                <div class="d-flex gap-5">
-                    <div>
-                        <h6>IDA</h6>
-                        <p>{{fecha_partida}}</p>
-                    </div>
-                    <div>
-                        <h6>ORIGEN</h6>
-                        <p>{{lugar_partida}}</p>
-                        <p>{{hora}}</p>
-
-                    </div>
-                    <div>
-                        <h6>DESTINO</h6>
-                        <p>{{destino}}</p>
-                    </div>
-
-                    <div>
-                        <h6>TIPO VUELO</h6>
-                        <p>{{nombre}}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
-                     <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
-                    <input type=" submit" class="btn btn-primary w-100" value="Reservar">
-                    </form>
-
-
-                {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
-                {{/esAdmin}}
-            </div>
-
-            <div class="d-flex flex-column">
-                <h5>Escala</h5>
-                <div class="d-flex gap-2">
-                    {{#paradaC1}}
-                    <p>{{.}}</p>
-                    {{/paradaC1}}
-
-                    {{#paradaC2}}
-                    <p>{{.}}</p>
-                    {{/paradaC2}}
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/viajes}}-->
 </div>

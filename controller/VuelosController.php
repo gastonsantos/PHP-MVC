@@ -30,22 +30,21 @@ class VuelosController {
             
             echo $this->printer->render("HomeView.html", $data);
         }else{
-            $viajes = $this->vuelosModel->buscarVuelos($origen,$destino,$fecha);
-            $data["viajes"] = $viajes;
-            if(empty($data["viajes"]) ){
+            $viajes = $this->test($origen,$destino);
+            if(empty($viajes) ){
                 $data["error"] = "No se encontro resultado";//No se encontro resultado cartelito
                 echo $this->printer->render("HomeView.html", $data);
 
             }else{
-                $data["error"] = false;
+               $data["error"] = false;
                 
-                $data["suborbitales"]=$this->suborbitales($viajes);
+               $data["suborbitales"]=$this->suborbitales($viajes);
 
-                $data["circuito1"]=$this->circuito1($viajes);
-                $data["circuito1ParadaBA"]=$this->circuito1Paradas($destino);
+               $data["circuito1"]=$this->circuito1($viajes);
+               $data["circuito1ParadaBA"]=$this->paradasCircuito1($destino,$viajes);
 
-                $data["circuito2"]=$this->circuito2($viajes);
-                $data["circuito2ParadaBA"]=$this->circuito2Paradas($destino);
+               $data["circuito2"]=$this->circuito2($viajes);
+               $data["circuito2ParadaBA"]=$this->paradasCircuito2($destino,$viajes);
 
                 echo $this->printer->render("homeView.html", $data);
 
@@ -54,12 +53,36 @@ class VuelosController {
    
     }
 
+    //OPCIONES DE VUELOS
+
+    public function test($origen,$destino){
+        $posiblesVuelos=[];
+        $vuelos = $this->vuelosModel->getVuelosTest();
+    
+        foreach ($vuelos as $vuelo) {
+            if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino){
+                array_push($posiblesVuelos,$vuelo);
+            }else{
+                if($vuelo["parada"] != null){
+                    $posicion = strrpos($vuelo["parada"],$vuelo["destino"]);
+                    $parada = substr($vuelo["parada"],0,$posicion);
+                    if($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen)){                      
+                        if(strrpos($parada,$destino)){
+                            array_push($posiblesVuelos,$vuelo);
+                        }
+                    }
+                }    
+            }
+        }
+        return $posiblesVuelos;
+    }
+
     //FILTRO DE VIAJES
     public function suborbitales($viajes){
         $suborbitales=[];
 
         foreach($viajes as $viaje){
-            if($viaje["id_tipo_viaje"] == 1){
+            if($viaje["nombre"] == "Suborbital"){
                 array_push($suborbitales,$viaje);
             }
         }
@@ -71,7 +94,7 @@ class VuelosController {
         $circuito1=[];
 
         foreach($viajes as $viaje){
-            if($viaje["id_tipo_viaje"] == 2){
+            if($viaje["nombre"] == "Circuito1" ){
                 array_push($circuito1,$viaje);
             }
         }
@@ -83,7 +106,7 @@ class VuelosController {
         $circuito2=[];
 
         foreach($viajes as $viaje){
-            if($viaje["id_tipo_viaje"] == 3){
+            if($viaje["nombre"] == "Circuito2"){
                 array_push($circuito2,$viaje);
             }
         }
@@ -91,53 +114,60 @@ class VuelosController {
         return $circuito2;
     }
 
-    public function circuito1Paradas($destino){
+    //SEPARANDO PARADAS
+    public function paradasCircuito1($destino,$viajes){
         $paradas=[];
+        $escala=[];
 
-        //obteniendo array con texto
-        $parada = $this->vuelosModel->getParadasCircuito1();
+        $circuito1 = $this->circuito1($viajes);
 
-        //convirtiendo array en string
-        $string = implode(",", $parada[0]);
-       
+        if($circuito1 != null){
+
+        //obteniendo string de paradas
+        $parada = $circuito1[0]["parada"];
+
         //separando string por coma y convirtiendo en nuevo array
-        $paradas = explode( ',', $string);
-
-        $escala=[];
-
-        foreach($paradas as $parada){
-            if($parada != $destino){
-             array_push($escala,$parada);
-            }else{
-                return $escala;
-            }
-        }
-
-
-
-
-    }
-
-    public function circuito2Paradas($destino){
-        $paradas=[];
-
-        $parada = $this->vuelosModel->getParadasCircuito2();
-
-        $string = implode(",", $parada[0]);
-       
-        $paradas = explode( ',', $string);
-
-        $escala=[];
+        $paradas = explode( ',', $parada);
 
         foreach($paradas as $parada){
             if($parada != $destino){
                 array_push($escala,$parada);
             }else{
+                if($parada == $destino)
+                array_push($escala,$parada);
+                return $escala;
+            }
+        }
+    }
+    return null;
+
+    }
+
+    public function paradasCircuito2($destino,$viajes){
+        $paradas=[];
+        $escala=[];
+
+        $circuito2 = $this->circuito2($viajes);
+
+        if($circuito2 != null){
+
+        //obteniendo string de paradas
+        $parada = $circuito2[0]["parada"];
+
+        $paradas = explode( ',', $parada);
+
+        foreach($paradas as $parada){
+            if($parada != $destino){
+                array_push($escala,$parada);
+            }else{
+                if($parada == $destino)
+                array_push($escala,$parada);
                 return $escala;
             }
         }
     }
 
+    return null;
 }
 
-
+}
