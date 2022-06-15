@@ -22,6 +22,7 @@ class ReportesController {
         $data["grafico"] = $this->reservatorModel->getCabinaMasVendida();
         $data["grafico2"] = $this->reservatorModel->getFacturacionMensual();
         $data["grafico3"] = $this->reservatorModel->getFacturacionByClient();
+        $data["grafico4"] = $this->reservatorModel->getTasaDeOcupacionPorViaje();
 
 
         echo $this->printer->render("reportesView.mustache", $data);

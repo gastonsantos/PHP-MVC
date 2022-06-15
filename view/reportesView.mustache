@@ -107,10 +107,67 @@ google.charts.load('current', {'packages':['corechart']});
         table.draw(data, {showRowNumber: true, width: '50%', height: '50%'});
       }
     </script>
+
+<section class="container">
+    <article>
+        <h1>Ocupacion Por Vuelo</h1>
+        <div id = "ocupacion" style="width: 700px; height: 500px;"></div>
+    </article>
+    </section>
+
+
+ <script>
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawAxisTickColors);
+
+function drawAxisTickColors() {
+      var data = google.visualization.arrayToDataTable([
+        ['ID_Vuelo', 'CAPACIDAD', 'OCUPACION'],
+            {{#grafico4}}
+          ['{{IdVuelo}}', {{capacidad}},  {{ocupacion}}],
+         
+          {{/grafico4}}
+       
+      ]);
+
+      var options = {
+        title: 'OCUPACION DE VUELOS',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Total Capacidad',
+          minValue: 0,
+          textStyle: {
+            bold: true,
+            fontSize: 12,
+            color: '#4d4d4d'
+          },
+          titleTextStyle: {
+            bold: true,
+            fontSize: 18,
+            color: '#4d4d4d'
+          }
+        },
+        vAxis: {
+          title: ' ID de Vuelos ',
+          textStyle: {
+            fontSize: 14,
+            bold: true,
+            color: '#848484'
+          },
+          titleTextStyle: {
+            fontSize: 14,
+            bold: true,
+            color: '#848484'
+          }
+        }
+      };
+      var chart = new google.visualization.BarChart(document.getElementById('ocupacion'));
+      chart.draw(data, options);
+    }
  
 
     
-
+</script>
 
 
 

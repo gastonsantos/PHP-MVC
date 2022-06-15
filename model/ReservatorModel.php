@@ -127,6 +127,13 @@ class ReservatorModel {
         return $this->database->query($sql);
     }
 
+    public function getTasaDeOcupacionPorViaje(){
+
+        $sql = "SELECT v.id as IdVuelo, v.capacidad as capacidad , count(r.id_usuario) as ocupacion from reserva r join vuelo v on
+        r.id_vuelo = v.id group by v.id  order by v.id asc";
+        return $this->database->query($sql);
+    }
+
 
 
 
