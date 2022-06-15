@@ -46,4 +46,6 @@ class VuelosModel {
         return $this->database->query($sql);
     }
 
+   
+
 }

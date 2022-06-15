@@ -1,0 +1,75 @@
+{{> header}}
+{{> menu}}
+
+<script type="text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+<section class ="container">
+    <article class>
+        <h1 class>CABINA MAS VENDIDA</h1>
+        <div id = "grafic" style="width: 700px; height: 500px;"></div>
+    </article>
+</section>
+
+<script>
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+            ['cabina', 'cantidad'],
+            {{#grafico}}
+                ['{{Cabina}}',     parseInt('{{Cantidad}}')],
+            {{/grafico}}
+        ]);
+
+        var options = {
+            title: 'Cabina más vendida'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('grafic'));
+
+        chart.draw(data, options);
+    }
+</script>
+
+
+<script>
+
+
+google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['MES', 'DINERO'],
+            {{#grafico2}}
+                ['{{MES}}',     parseInt('{{DINERO}}')],
+            {{/grafico2}}
+        ]);
+
+        var options = {
+          title: 'PERFORMANCE POR MES',
+          hAxis: {title: 'AÑO 2022',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+</script>
+<section class="container">
+    <article>
+        <h1>BALANCE POR MES</h1>
+        <div id = "chart_div" style="width: 700px; height: 500px;"></div>
+    </article>
+</section>
+
+
+
+
+{{>footer}}

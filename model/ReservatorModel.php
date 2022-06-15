@@ -86,8 +86,8 @@ class ReservatorModel {
         $serviceId = $this->getServiceByName($serviceName)["id"];
         $userId = $_SESSION["id"];
 
-        $sql = "INSERT INTO reserva(codigo, precio, id_vuelo, id_cabina, id_servicio, id_usuario) 
-                VALUES ('$code',$price,$idVuelo,$cabineId,$serviceId,$userId)";
+        $sql = "INSERT INTO reserva(codigo, precio, fecha,id_vuelo, id_cabina, id_servicio, id_usuario) 
+                VALUES ('$code',$price,getdate(),$idVuelo,$cabineId,$serviceId,$userId)";
 
         $this->database->query($sql);
     }
@@ -103,5 +103,25 @@ class ReservatorModel {
 
         return $this->database->query($sql)[0];
     }
+
+    public function getCabinaMasVendida(){
+
+        $sql = "SELECT tc.nombre as Cabina, count(r.id_cabina) as Cantidad from reserva r
+        join  tipo_cabina tc on r.id_cabina = tc.id group by tc.nombre order by tc.nombre asc";
+
+         //return json_encode($this->database->query($sql));
+        return $this->database->query($sql);
+    }
+
+    public function getFacturacionMensual(){
+             
+            $sql = "SELECT monthname(fecha) as MES, sum(precio) as DINERO from reserva group by MONTH(fecha) order by fecha asc";
+    
+            return $this->database->query($sql);
+
+
+
+    }
+
 
 }

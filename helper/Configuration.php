@@ -3,19 +3,23 @@ include_once('helper/MySqlDatabase.php');
 include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
 include_once ("helper/Navigation.php");
+include_once("helper/PDF.php");
 
 include_once('controller/HomeController.php');
 include_once('controller/UsuarioController.php');
 include_once('controller/VuelosController.php');
 include_once ("controller/ReservatorController.php");
 include_once('controller/ChequeoController.php');
+include_once('controller/ReportesController.php');
 
 include_once('model/UsuarioModel.php');
 include_once('model/VuelosModel.php');
 include_once ("model/ReservatorModel.php");
 include_once('model/CentroMedicoModel.php');
 
+
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
+//require_once('dompdf/autoload.inc.php');
 
 include_once("validators/UserValidator.php");
 
@@ -32,9 +36,15 @@ class Configuration {
         return new VuelosController( $this->getPrinter(),$this->getVuelosModel(), $this->getCentroMedicoModel());
     }
 
+    public function getReportesController(){
+
+        return new ReportesController($this->getPrinter(),$this->getReservatorModel(),$this->getPdf());
+    }
+
     private function getVuelosModel(){
         return new VuelosModel($this->getDatabase());
     }
+   
 
     public function getHomeController() {
         return new HomeController($this->getPrinter(), $this->getVuelosModel(),  $this->getCentroMedicoModel());
@@ -67,6 +77,10 @@ class Configuration {
             $dbConfig["base"],
             $dbConfig["port"]
         );
+    }
+
+    private function getPdf(){
+        return new PDF();
     }
 
     private function getPrinter() {
