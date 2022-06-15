@@ -119,9 +119,16 @@ class ReservatorModel {
     
             return $this->database->query($sql);
 
-
-
     }
+    public function getFacturacionByClient(){
+
+        $sql = "SELECT u.apellido as apellido, u.nombre as nombre, sum(r.precio) as DINERO from reserva r
+        join usuario u on r.id_usuario = u.id group by u.id order by u.nombre asc";
+        return $this->database->query($sql);
+    }
+
+
+
 
 
 }

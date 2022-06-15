@@ -23,6 +23,7 @@ class HomeController {
         }
     else if(isset($_SESSION["esAdmin"])){
         $data["esAdmin"] = true;
+       
     }
 
         $data["viajes"] = $this->vuelosModel->getVuelos();

@@ -22,7 +22,7 @@
          {{#esClient}}
          <div class="alert alert-warning">Antes de Elegir viaje realizarse el: 
          <a  class="btn btn-primary btn-lg " role="button" aria-disabled="true" href="/Chequeo">CHEQUEO MEDICO</a>
-     </div>
+         </div>
          {{/esClient}}
         
          </div>
@@ -35,8 +35,19 @@
      </div> 
      </div>
 
+
      
+     {{#esAdmin}}
+     <div class>Admin: {{nombre}}</div>
+     
+            {{>vuelosAdmin}}
+
+
+     {{/esAdmin}}
+
+     {{^esAdmin}}
        {{>vuelos}} 
+     {{/esAdmin}}  
      
 
 

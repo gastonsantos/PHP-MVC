@@ -1,0 +1,94 @@
+{{> header}}
+{{>menu}}
+
+<div class="container border rounded-3 col-md-6 mt-4 mb-4 p-5 bg-light ">
+    <h2>Agregar Vuelo</h2>
+
+    <form action="/vuelos/addVuelo" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="capacidad">Capacidad</label>
+                <input type="number" name="capacidad" class="form-control" id="capacidad" placeholder="Capacidad">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="fecha">Fecha</label>
+                <input type="date" name="fecha_partida" class="d-block h-50">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="hora">Hora</label>
+                <input type="time" name="hora" class="d-block h-50">
+            </div>
+
+           
+       
+        </div>
+        <div class="form-group col-md-12">
+            <label for="precio">Precio $</label>
+            <input type="number" name="precio" class="form-control" id="precio" placeholder="precio">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="email">Lugar Partida</label>
+            <select name="lugar_partida">
+                <option value="Ankara">Ankara</option>
+                <option value="Buenos Aires">Buenos Aires</option>
+              </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="direccion">Destino</label>
+            <select name="destino">
+                <option value="EEI">EEI</option>
+                <option value="Orbital Hotel">Orbital Hotel</option>
+                <option value="Luna">Luna</option>
+                <option value="Marte">Marte</option>
+                <option value="Ganimedes">Ganimedes</option>
+                <option value="Europa">Europa</option>
+                <option value="IO">IO</option>
+                <option value="Encedalo">Encedalo</option>
+                <option value="Titan">Titan</option>
+              </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="equipo">Equipo</label>
+            <select name="id_tipo_equipo">
+                <option value="1">Orbital</option>
+                <option value="2">Baja Aceleracion</option>
+                <option value="3">Alta Aceleracion</option>
+              </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="viaje">Viaje</label>
+            <select name="id_tipo_viaje">
+                <option value="1">Suborbital</option>
+                <option value="2">Circuito1</option>
+                <option value="3">Circuito2</option>
+                <option value="4">Tour</option>
+
+              </select>
+        </div>
+        <div class="form-group col-md-12">
+            <label for="cabina">Cabina</label>
+            <select name="id_tipo_cabina">
+                <option value="1">T/E/P</option>
+                <option value="2">E/P</option>
+                <option value="3">T/P</option>
+              </select>
+        </div>
+
+
+        
+        <br>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+
+    </form>
+
+
+    {{#error}}
+    <div class="alert alert-danger m-4" role="alert">
+        <span>{{error}}</span>
+
+    </div>
+    {{/error}}
+
+</div>
+
+{{> footer}}

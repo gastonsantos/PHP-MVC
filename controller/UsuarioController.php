@@ -55,6 +55,7 @@ class UsuarioController {
             if(isset($_SESSION["rol"]) && $_SESSION["rol"]==1){
                 $_SESSION["esAdmin"] = true;
                 $data["esAdmin"] = true;
+                
                 $data["viajes"] = $this->vuelosModel->getVuelos();
                 echo $this->printer->render("homeView.html", $data);
             }

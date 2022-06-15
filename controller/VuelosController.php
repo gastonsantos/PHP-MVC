@@ -168,4 +168,44 @@ class VuelosController {
     return null;
 }
 
+public function formVuelos(){
+    if (!$_SESSION["esAdmin"]) {
+        Navigation::redirectTo("/home");
+    } 
+    $data["esAdmin"] = true;
+
+  
+
+    echo $this->printer->render("agregarVueloView.html", $data);
+
+
+}
+
+public function addVuelo(){
+    if (!$_SESSION["esAdmin"]) {
+        Navigation::redirectTo("/home");
+    } 
+    $data["esAdmin"] = true;
+
+    $capacidad = $_POST["capacidad"];
+    $fecha_partida = $_POST["fecha_partida"];
+    $hora = $_POST["hora"];
+    $lugar_partida = $_POST["lugar_partida"];
+    $destino = $_POST["destino"];
+    $precio = $_POST["precio"];
+    $id_tipo_equipo = $_POST["id_tipo_equipo"];
+    $id_tipo_viaje = $_POST["id_tipo_viaje"];
+    $id_tipo_cabina = $_POST["id_tipo_cabina"];
+
+
+
+    $this->vuelosModel->agregarVuelo($capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina);
+    $data["mensaje"] = "Vuelo Agregado Correctamente";
+
+    echo $this->printer->render("HomeView.html", $data);
+
+}
+
+
+
 }
