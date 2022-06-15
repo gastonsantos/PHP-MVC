@@ -17,14 +17,12 @@ class VuelosController {
     public function buscarVuelos (){
         if (isset($_SESSION["esClient"])) {
             $data["esClient"] = true;
-            $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
-            $data["usuario"] = $_SESSION["nombre"];
         }
 
         $origen = $_POST["origen"];
         $destino = $_POST["destino"];
         $fecha = $_POST["fecha"];
-       
+        $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
         if($origen == "" && $destino == "" && $fecha == ""){
             $data["vacio"] = true;//Esta vacio Cartelito
             

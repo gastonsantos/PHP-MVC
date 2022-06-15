@@ -10,7 +10,7 @@ class VuelosModel {
     public function getVuelos() {
 
         return $this->database->query('SELECT v.id, v.capacidad, v.fecha_partida, v.hora, v.lugar_partida, v.destino, v.precio, te.nombre as equipo, v.id_tipo_viaje, v.id_tipo_cabina 
-        from vuelo v join tipo_equipo te on v.id_tipo_equipo = te.id;');
+        from vuelo v join tipo_equipo te on v.id_tipo_equipo = te.id');
 
     }
 
