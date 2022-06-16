@@ -8,17 +8,7 @@ class VuelosModel {
     }
 
     public function agregarVuelo($capacidad,$fecha_partida,$hora,$lugar_partida, $destino, $precio, $id_tipo_equipo, $id_tipo_viaje, $id_tipo_cabina) {
-        /*
-        $capacidad = $data["capacidad"];
-        $fecha_partida = $data["fecha_partida"];
-        $hora = $data["hora"];
-        $lugar_partida = $data["lugar_partida"];
-        $destino = $data["destino"];
-        $precio = $data["precio"];
-        $id_tipo_equipo = $data["id_tipo_equipo"];
-        $id_tipo_viaje = $data["id_tipo_viaje"];
-        $id_tipo_cabina = $data["id_tipo_cabina"];
-        */
+        
         $sql =  "INSERT into vuelo (capacidad, fecha_partida, hora, lugar_partida, destino, precio, id_tipo_equipo,id_tipo_viaje, id_tipo_cabina) values 
         ('$capacidad', '$fecha_partida', '$hora', '$lugar_partida', '$destino', '$precio', '$id_tipo_equipo', '$id_tipo_viaje', '$id_tipo_cabina')";
         $this->database->query($sql);

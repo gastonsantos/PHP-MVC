@@ -19,7 +19,8 @@ class ChequeoController {
             if(isset($_SESSION["esClient"])){
                 
                 $data["esClient"] = $_SESSION["esClient"];
-                $data["usuario"] = $_SESSION["nombre"];
+                $data["nombre"] = $_SESSION["nombre"];
+                $data["id"] = $_SESSION["id"];
                 $data["centros"] = $this->centroMedicoModel->getCentrosMedico();  
                // $data["turnos"] = $this->centroMedicoModel->turnosRestantes($data["centros"][0]["id"]);
                 $data["fecha"] = $this->centroMedicoModel->fechaHoy();
@@ -38,8 +39,8 @@ class ChequeoController {
     public function centroMedico(){
         if(isset($_SESSION["esClient"])){
             $id_centro = $_GET["id_Centro"];
-            
-
+            $data["nombre"] = $_SESSION["nombre"];
+            $data["id"] = $_SESSION["id"];
             $data["esClient"] = $_SESSION["esClient"];
             $data["usuario"] = $_SESSION["nombre"];
             $data["centro"] = $this->centroMedicoModel->getCentroMedico($id_centro); 
@@ -66,14 +67,10 @@ class ChequeoController {
             $data["esClient"] = $_SESSION["esClient"];
             $data["usuario"] = $_SESSION["nombre"];
             $data["id"] = $_SESSION["id"];
-
+            $data["nombre"] = $_SESSION["nombre"];
+           
 
             $data["chequeo"] = $this->centroMedicoModel->insertChequeo($idCentro, $_SESSION["id"], $fecha);
-
-            
-      
-            
-
 
             echo $this->printer->render("resultadoChequeoMedicoView.html", $data);
             exit();

@@ -23,6 +23,8 @@ class HomeController {
         }
     else if(isset($_SESSION["esAdmin"])){
         $data["esAdmin"] = true;
+        $data["nombre"] = $_SESSION["nombre"];
+        $data["id"] = $_SESSION["id"];
        
     }
 

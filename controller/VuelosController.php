@@ -173,7 +173,8 @@ public function formVuelos(){
         Navigation::redirectTo("/home");
     } 
     $data["esAdmin"] = true;
-
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
   
 
     echo $this->printer->render("agregarVueloView.html", $data);
@@ -182,9 +183,12 @@ public function formVuelos(){
 }
 
 public function addVuelo(){
-    if (!$_SESSION["esAdmin"]) {
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
         Navigation::redirectTo("/home");
     } 
+    
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
     $data["esAdmin"] = true;
 
     $capacidad = $_POST["capacidad"];
@@ -198,12 +202,20 @@ public function addVuelo(){
     $id_tipo_cabina = $_POST["id_tipo_cabina"];
 
 
+    if ($capacidad == "" || $fecha_partida == "" || $hora == "" || $lugar_partida == "" || $destino == "" || $precio == "" || $id_tipo_equipo == "" || $id_tipo_viaje == "" || $id_tipo_cabina == "" || $fecha_partida <= date("Y-m-d") ) {
+        
+        $data["error"] = "Todos los campos son obligatorios y la fecha debe ser mayor a la actual";
+        echo $this->printer->render("agregarVueloView.html", $data);
+        exit();
+    } else {
+        $this->vuelosModel->agregarVuelo($capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina);       
+        
+        $data["error"] = false;
+        $data["viajes"] = $this->vuelosModel->getVuelos();
+        $data["mensaje"] = "Vuelo Agregado Correctamente";
 
-    $this->vuelosModel->agregarVuelo($capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina);
-    $data["mensaje"] = "Vuelo Agregado Correctamente";
-
-    echo $this->printer->render("HomeView.html", $data);
-
+        echo $this->printer->render("homeView.html", $data);
+    }
 }
 
 

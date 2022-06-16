@@ -3,7 +3,7 @@ include_once('helper/MySqlDatabase.php');
 include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
 include_once ("helper/Navigation.php");
-include_once("helper/PDF.php");
+
 
 include_once('controller/HomeController.php');
 include_once('controller/UsuarioController.php');
@@ -19,7 +19,7 @@ include_once('model/CentroMedicoModel.php');
 
 
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
-//require_once('dompdf/autoload.inc.php');
+
 
 include_once("validators/UserValidator.php");
 
@@ -38,7 +38,7 @@ class Configuration {
 
     public function getReportesController(){
 
-        return new ReportesController($this->getPrinter(),$this->getReservatorModel(),$this->getPdf());
+        return new ReportesController($this->getPrinter(),$this->getReservatorModel());
     }
 
     private function getVuelosModel(){
@@ -79,9 +79,7 @@ class Configuration {
         );
     }
 
-    private function getPdf(){
-        return new PDF();
-    }
+  
 
     private function getPrinter() {
         return new MustachePrinter("view");

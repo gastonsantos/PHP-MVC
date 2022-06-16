@@ -3,20 +3,24 @@
 class ReportesController {
     private $printer;
     private $reservatorModel;
-    private $pdf;
+   
     
 
-    public function __construct($printer, $reservatorModel, $pdf)   {
+    public function __construct($printer, $reservatorModel)   {
         $this->printer = $printer;
         $this->reservatorModel = $reservatorModel;
-        $this->pdf = $pdf;
+       
         
     }
 
     public function show() {
-        if (!$_SESSION["esAdmin"]) {
+        if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"]) || $_SESSION["esAdmin"]== "" ) {
             Navigation::redirectTo("/home");
         } 
+        
+        $data["nombre"] = $_SESSION["nombre"];
+        $data["id"] = $_SESSION["id"];
+
 
         $data["esAdmin"] = true;
         $data["grafico"] = $this->reservatorModel->getCabinaMasVendida();
