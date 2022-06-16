@@ -3,7 +3,7 @@
 <div class="container">
   <h3>RESULTADO CHEQUEO</h3>
 
-  {{#usuario}}
+  {{#nombre}}
   <h6>Hola: {{usuario}}</h6>
 
 
@@ -14,12 +14,7 @@
     NO HAY TURNOS DISPONIBLES PARA ESTA FECHA <a href="/Chequeo" class="alert-link">Volver</a>. Muchas gracias!!!.
   </div>
 
-
   {{/chequeo}}
-
-
-
-
 
   <div>
 
@@ -28,11 +23,10 @@
       Hola {{usuario}} el resultado de su <a href="#" class="alert-link">Chequeo medico es {{chequeo}}</a>. Muchas
       gracias!!!.
     </div>
-
     {{/chequeo}}
   </div>
 
-  {{/usuario}}
+  {{/nombre}}
   <a href="/home" class="btn btn-primary">Volver al Menu</a>
 </div>
 </div>

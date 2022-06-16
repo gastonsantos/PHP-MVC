@@ -64,19 +64,37 @@ class ChequeoController {
             $idCentro = (int)$_GET["id_Centro"];
             $fecha = $_GET["fecha"];
 
+            if( $fecha <= date("Y-m-d")){
+
+            $id_centro = $_GET["id_Centro"];    
             $data["esClient"] = $_SESSION["esClient"];
-            $data["usuario"] = $_SESSION["nombre"];
+            $data["id"] = $_SESSION["id"];
+            $data["nombre"] = $_SESSION["nombre"];
+            $data["centro"] = $this->centroMedicoModel->getCentroMedico($id_centro); 
+            $data["fecha"] = $this->centroMedicoModel->fechaHoy();
+            $data["error"] = "La fecha debe ser mayor a la actual";
+            
+            echo $this->printer->render("centroMedicoView.html", $data);
+            
+
+            }else{
+
+            
+
+            $data["esClient"] = $_SESSION["esClient"];
+            //$data["usuario"] = $_SESSION["nombre"];
             $data["id"] = $_SESSION["id"];
             $data["nombre"] = $_SESSION["nombre"];
            
 
             $data["chequeo"] = $this->centroMedicoModel->insertChequeo($idCentro, $_SESSION["id"], $fecha);
-
+              
             echo $this->printer->render("resultadoChequeoMedicoView.html", $data);
             exit();
        
 
-       
+        }
+
 
 
     }
