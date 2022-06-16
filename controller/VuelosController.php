@@ -218,6 +218,34 @@ public function addVuelo(){
     }
 }
 
+public function deleteVuelo(){
+
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
+        Navigation::redirectTo("/home");
+    }
+
+    $id = $_GET["id_Vuelo"];
+    
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
+    $data["esAdmin"] = true;
+
+    $this->vuelosModel->deleteVuelo($id);
+    
+    $data["viajes"] = $this->vuelosModel->getVuelos();
+
+    $data["mensaje"] = "Se ah Eliminado Correctamente el Vuelo";
+
+    echo $this->printer->render("homeView.html", $data);
+
+
+}
+
+
+
+
+
+
 
 
 }
