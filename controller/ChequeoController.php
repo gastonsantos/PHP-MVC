@@ -15,8 +15,12 @@ class ChequeoController {
     }
 
     public function show() {
+
+        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
+            Navigation::redirectTo("/home");
+        } 
            
-            if(isset($_SESSION["esClient"])){
+            
                 
                 $data["esClient"] = $_SESSION["esClient"];
                 $data["nombre"] = $_SESSION["nombre"];
@@ -25,19 +29,17 @@ class ChequeoController {
                // $data["turnos"] = $this->centroMedicoModel->turnosRestantes($data["centros"][0]["id"]);
                 $data["fecha"] = $this->centroMedicoModel->fechaHoy();
                 echo $this->printer->render("centrosMedicosView.html", $data);
-                exit();
-            } else{
-                header("Location: /home");
-            exit();
-
-            }
+               
+          
         
 
        
     }
 
     public function centroMedico(){
-        if(isset($_SESSION["esClient"])){
+        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
+            Navigation::redirectTo("/home");
+        } 
             $id_centro = $_GET["id_Centro"];
             $data["nombre"] = $_SESSION["nombre"];
             $data["id"] = $_SESSION["id"];
@@ -48,18 +50,16 @@ class ChequeoController {
             $data["fecha"] = $this->centroMedicoModel->fechaHoy();
             echo $this->printer->render("centroMedicoView.html", $data);
             exit();
-        } else{
-            header("Location: /home");
-        exit();
-
-        }
-
+        
+       
 
     }
 
     public function chequeoMedico(){
 
-        if(isset($_SESSION["esClient"])){
+        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
+            Navigation::redirectTo("/home");
+        } 
                 
             $idCentro = (int)$_GET["id_Centro"];
             $fecha = $_GET["fecha"];
@@ -74,11 +74,9 @@ class ChequeoController {
 
             echo $this->printer->render("resultadoChequeoMedicoView.html", $data);
             exit();
-        } else{
-            header("Location: /home");
-        exit();
+       
 
-        }
+       
 
 
     }

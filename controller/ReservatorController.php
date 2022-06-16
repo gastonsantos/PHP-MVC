@@ -42,7 +42,7 @@ class ReservatorController {
         $data["reserves"] = $reserves;
         $data["existsReserves"] = sizeof($reserves) > 0;
         $data["esClient"] = $_SESSION["esClient"];
-        $data["usuario"] = $_SESSION["nombre"];
+        $data["nombre"] = $_SESSION["nombre"];
 
         echo  $this->printer->render("misReservas.mustache", $data);
     }
