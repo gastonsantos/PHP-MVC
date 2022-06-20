@@ -5,17 +5,16 @@ class CheckinController {
     private $reservator;
     private $pdf;
     private $checkin;
-    private $qr;
+ 
     
     
 
 
-    public function __construct($printer, $reservator, $pdf, $checkin, $qr) {
+    public function __construct($printer, $reservator, $pdf, $checkin) {
         $this->printer = $printer;
         $this->reservator = $reservator;
         $this->pdf = $pdf;
         $this->checkin = $checkin;
-        $this->qr = $qr;
         
 
     }
@@ -35,7 +34,7 @@ class CheckinController {
                 echo $this->printer->render("checkinReservaView.html", $data);
             
     }
-    public function checkinPDF(){
+    public function checkinConfirm(){
         if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
             Navigation::redirectTo("/home");
         }
@@ -80,10 +79,9 @@ class CheckinController {
 
 
        $this->pdf->crearPDF($dato);
-       
        $this->checkin->enviarEmailDeCheckin($email, $dato);
-       $this->qr->createQR($dato);
-
+      
+       
 
 
     
