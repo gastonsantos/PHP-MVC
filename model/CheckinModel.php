@@ -25,7 +25,7 @@ class CheckinModel {
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer();
-        $email = "gastons525@gmail.com";
+        //$email = "gastons525@gmail.com";
 
         //Server settings
         $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
