@@ -3,6 +3,9 @@ include_once('helper/MySqlDatabase.php');
 include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
 include_once ("helper/Navigation.php");
+require_once ('helper/PDF.php');
+require_once ('helper/QR.php');
+
 
 
 include_once('controller/HomeController.php');
@@ -11,19 +14,26 @@ include_once('controller/VuelosController.php');
 include_once ("controller/ReservatorController.php");
 include_once('controller/ChequeoController.php');
 include_once('controller/ReportesController.php');
+include_once('controller/CheckinController.php');
 
 include_once('model/UsuarioModel.php');
 include_once('model/VuelosModel.php');
 include_once ("model/ReservatorModel.php");
 include_once('model/CentroMedicoModel.php');
-
+include_once('model/CheckinModel.php');
 
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
-
+require_once('third-party/dompdf/autoload.inc.php');
+require_once('third-party/phpqrcode/qrlib.php');
 
 include_once("validators/UserValidator.php");
 
 class Configuration {
+
+
+    public function getCheckinController(){
+        return new CheckinController($this->getPrinter(),$this->getReservatorModel(), $this->getPDF(), $this->getCheckinModel(), $this->getQR());
+    }
     public function getCentroMedicoModel(){
         return new CentroMedicoModel($this->getDatabase());
     }
@@ -59,6 +69,9 @@ class Configuration {
         return new ReservatorController($this->getPrinter(), $this->getReservatorModel(), $this->getUsuarioModel(), $this->getCentroMedicoModel());
     }
 
+    private function getCheckinModel(){
+        return new CheckinModel();
+    }
     private function getUsuarioModel() {
         return new UsuarioModel($this->getDatabase());
     }
@@ -79,7 +92,14 @@ class Configuration {
         );
     }
 
-  
+    public function getQR(){
+        return new QRcode();
+    }
+
+    public function getPDF(){
+        
+        return new PDF();
+    }
 
     private function getPrinter() {
         return new MustachePrinter("view");

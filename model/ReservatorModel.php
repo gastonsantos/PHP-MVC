@@ -9,6 +9,19 @@ class ReservatorModel {
         $this->vuelosModel = $vuelosModel;
     }
 
+    public function getRerservaByReserve($reserveId){
+
+        $sql = "SELECT r.codigo, r.precio, r.fecha as Fecha_reserva, v.fecha_partida as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
+        from reserva r join vuelo v on r.id_vuelo = v.id 
+                        join tipo_cabina c on r.id_cabina = c.id
+                        join tipo_servicio s on r.id_servicio = s.id where r.id = $reserveId";
+        
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    
+
     public function getReservesByUser($userId) {
         $sql = "SELECT * FROM reserva WHERE id_usuario = $userId";
 

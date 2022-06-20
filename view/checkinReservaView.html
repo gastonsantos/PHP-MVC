@@ -1,0 +1,58 @@
+{{>header}}
+{{>menu}}
+
+
+    <div class="container">
+        <h2 class=""><strong>Reserva</strong></h2>
+        <h5 class="">Revise los datos y confirme</h5>
+        <ul class="">
+            {{#reserva}}
+            <div>
+                <h2>Gaucho Rocket</h2>
+            </div>
+            <form action="/Checkin/checkinPDF" method="POST">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label >Id Reserva</label> <strong>{{id}}</strong>
+                        <input type="hidden" name="id_Reserva" class="form-control" value="{{id}}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label >Fecha Reserva</label> <strong>{{Fecha_reserva}}</strong>
+                        <input type="hidden" name="Fecha_reserva" class="form-control" value="{{Fecha_reserva}}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label >Codigo</label> <strong>{{codigo}} </strong>
+                        <input type="hidden" name="codigo" class="form-control" value="{{codigo}}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Precio</label> <strong>{{precio}} </strong>
+                        <input type="hidden" name="precio" class="form-control" value="{{precio}}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>FECHA PARTIDA</label> <strong>{{fecha_partida}} </strong>
+                        <input type="hidden" name="fecha_partida" class="form-control" value="{{fecha_partida}}">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Hora</label> <strong>{{hora}} </strong>
+                        <input type="hidden" name="hora" class="form-control" value="{{hora}}">
+                    <div class="form-group col-md-12">
+                            <label>Cabina</label> <strong>{{cabina}} </strong>
+                            <input type="hidden" name="cabina" class="form-control" value="{{cabina}}">
+                        </div>
+                    <div class="form-group col-md-12">
+                            <label>Servicio</label> <strong>{{servicio}} </strong>
+                            <input type="hidden" name="servicio" class="form-control" value="{{servicio}}">
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <button type="submit" class="btn btn-success">Confirmar Check-in</button>
+
+            {{/reserva}}
+        </ul>
+       
+    </div>
+    
+
+    {{>footer}}
