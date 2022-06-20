@@ -20,7 +20,7 @@ class CheckinModel {
     }
 
 
-    public function enviarEmailDeCheckin($email, $datos) {
+    public function enviarEmailDeCheckin($email ,$datos) {
 
 
         //Create an instance; passing `true` enables exceptions
@@ -35,16 +35,23 @@ class CheckinModel {
         $mail->Username = 'guachorocket2022@gmail.com';                     //SMTP username
         $mail->Password = 'copahgytcmfvmzwv';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-        $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->Port = 587;   
+                                         //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
+        $dato = ("public/QR/".$datos.".png");
+        $mail->AddEmbeddedImage($dato, 'qr');
         //Recipients
         $mail->setFrom('guachorocket2022@gmail.com', 'gauchoRocket');
         $mail->addAddress('' . $email . '');     //Add a recipient          
 
         //Content
+        //$host = "http://".$_SERVER['HTTP_HOST']; //hace q se localhost
+
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = 'Check-in';
-        $mail->Body = $datos;
+        $mail->Body ="<h2>Check-in</h2>
+        <img src='cid:qr' width='250px' height='250px'>";
+        //$mail->Body = $datos;
         return $mail->send();
     }
 

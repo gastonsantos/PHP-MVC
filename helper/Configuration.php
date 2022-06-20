@@ -4,6 +4,8 @@ include_once('helper/Router.php');
 require_once('helper/MustachePrinter.php');
 include_once ("helper/Navigation.php");
 require_once ('helper/PDF.php');
+require_once ('helper/QR.php');
+
 
 
 
@@ -25,7 +27,7 @@ include_once('model/CheckinModel.php');
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 require_once('third-party/dompdf/autoload.inc.php');
 
-
+require_once('third-party/phpqrcode/qrlib.php');
 
 include_once("validators/UserValidator.php");
 
@@ -33,7 +35,7 @@ class Configuration {
 
 
     public function getCheckinController(){
-        return new CheckinController($this->getPrinter(),$this->getReservatorModel(), $this->getPDF(), $this->getCheckinModel());
+        return new CheckinController($this->getPrinter(),$this->getReservatorModel(), $this->getPDF(), $this->getCheckinModel(), $this->getQR());
     }
     public function getCentroMedicoModel(){
         return new CentroMedicoModel($this->getDatabase());
@@ -94,7 +96,7 @@ class Configuration {
     }
 
     public function getQR(){
-        //include_once("helpers/QR.php");
+      
         return new QR();
     }
 

@@ -5,16 +5,18 @@ class CheckinController {
     private $reservator;
     private $pdf;
     private $checkin;
+    private $qr;
  
     
     
 
 
-    public function __construct($printer, $reservator, $pdf, $checkin) {
+    public function __construct($printer, $reservator, $pdf, $checkin, $qr) {
         $this->printer = $printer;
         $this->reservator = $reservator;
         $this->pdf = $pdf;
         $this->checkin = $checkin;
+        $this->qr = $qr;
         
 
     }
@@ -52,8 +54,10 @@ class CheckinController {
                 $cabina = $_POST["cabina"];
                 $servicio = $_POST["servicio"];
 
+               
+              
      
-        $dato = "<div>
+        $dato = /*"<div>
                     <div>
                         <h1>PASE DE ABORDAJE</h2>
                     </div>
@@ -76,16 +80,52 @@ class CheckinController {
                             </p>
                         </div>
                  </div>";
+                 */
 
+                 $dato = "
+                    Fecha: ".$fecha_reserva."
+                    Codigo : ".$codigo."
+                    Precio: $".$precio."
+                    Partida ".$fecha_partida."
+                    Hora :  ".$hora."
+                    Cabina: ".$cabina."
+                    Servicio ".$servicio."
+                    ";
 
-       $this->pdf->crearPDF($dato);
-       $this->checkin->enviarEmailDeCheckin($email, $dato);
-      
+        //$datoPDF= "<img src='$host/public/$id_reserva.png' href='#'></img>";
+       //$this->pdf->crearPDF($datoPDF);
+       $data["qr"] = $this->qr->createQR($dato, $id_reserva);
+       $this->checkin->enviarEmailDeCheckin($email, $id_reserva);
+       echo $this->printer->render("qr.html", $data);
+
        
+       
+    }/*
+    public function reconfirmarCheckin(){
+        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
+            Navigation::redirectTo("/home");
+        }
+             $data["esClient"] = $_SESSION["esClient"];
+                $data["nombre"] = $_SESSION["nombre"];
+                $data["id"] = $_SESSION["id"];
+                $host = "http://".$_SERVER['HTTP_HOST'];
+
+            //$dato = "<img src='$host/public/QR/$id_reserva.png' href='#'></img>";
+
+
+
+    $this->checkin->enviarEmailDeCheckin($email, $dato);
+        Navigation::redirectTo("/home");
+
+
+    }
+    */
+
+
 
 
     
-    }
+
 
 
 
