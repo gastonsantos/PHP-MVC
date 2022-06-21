@@ -38,18 +38,18 @@ class CheckinModel {
         $mail->Port = 587;   
                                          //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-        $dato = ("public/QR/".$datos.".png");
-        $mail->AddEmbeddedImage($dato, 'qr');
+        $dato = ("public/QR/".$datos.".png");  // es la direccion de donde toma la imagen
+        $mail->AddEmbeddedImage($dato, 'qr');// es la direccion en donde esta la imagen y el nombre de donde se va a ver.
         //Recipients
         $mail->setFrom('guachorocket2022@gmail.com', 'gauchoRocket');
         $mail->addAddress('' . $email . '');     //Add a recipient          
 
         //Content
-        //$host = "http://".$_SERVER['HTTP_HOST']; //hace q se localhost
+        
 
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Check-in';
-        $mail->Body ="<h2>Check-in</h2>
+        $mail->Subject = 'Pase de Abordaje';
+        $mail->Body ="<h2>PASE DE ABORDAJE</h2>
         <img src='cid:qr' width='250px' height='250px'>";
         //$mail->Body = $datos;
         return $mail->send();

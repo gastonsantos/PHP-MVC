@@ -11,7 +11,7 @@ class ReservatorModel {
 
     public function getRerservaByReserve($reserveId){
 
-        $sql = "SELECT r.codigo, r.precio, r.fecha as Fecha_reserva, v.fecha_partida as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
+        $sql = "SELECT r.id ,r.codigo, r.precio, r.fecha as Fecha_reserva, v.fecha_partida as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
         from reserva r join vuelo v on r.id_vuelo = v.id 
                         join tipo_cabina c on r.id_cabina = c.id
                         join tipo_servicio s on r.id_servicio = s.id where r.id = $reserveId";
@@ -23,7 +23,7 @@ class ReservatorModel {
     
 
     public function getReservesByUser($userId) {
-        $sql = "SELECT * FROM reserva WHERE id_usuario = $userId";
+        $sql = "SELECT * FROM reserva WHERE id_usuario = $userId and confirmada = 0";
 
         return $this->database->query($sql);
     }
@@ -146,6 +146,16 @@ class ReservatorModel {
         r.id_vuelo = v.id group by v.id  order by v.id asc";
         return $this->database->query($sql);
     }
+
+
+    public function updateReserva($idReserve) {
+        $sql = "UPDATE reserva SET confirmada = 1 WHERE id = '$idReserve'";
+        $this->database->query($sql);
+        return true;
+        
+    }
+
+
 
 
 

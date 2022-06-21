@@ -96,31 +96,12 @@ class CheckinController {
        //$this->pdf->crearPDF($datoPDF);
        $data["qr"] = $this->qr->createQR($dato, $id_reserva);
        $this->checkin->enviarEmailDeCheckin($email, $id_reserva);
+       $this->reservator->updateReserva($id_reserva);
        echo $this->printer->render("qr.html", $data);
 
        
        
-    }/*
-    public function reconfirmarCheckin(){
-        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
-            Navigation::redirectTo("/home");
-        }
-             $data["esClient"] = $_SESSION["esClient"];
-                $data["nombre"] = $_SESSION["nombre"];
-                $data["id"] = $_SESSION["id"];
-                $host = "http://".$_SERVER['HTTP_HOST'];
-
-            //$dato = "<img src='$host/public/QR/$id_reserva.png' href='#'></img>";
-
-
-
-    $this->checkin->enviarEmailDeCheckin($email, $dato);
-        Navigation::redirectTo("/home");
-
-
     }
-    */
-
 
 
 
