@@ -10,8 +10,8 @@ class ReservatorModel {
     }
 
     public function getRerservaByReserve($reserveId){
-
-        $sql = "SELECT r.id ,r.codigo, r.precio, r.fecha as Fecha_reserva, v.fecha_partida as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
+   
+        $sql = "SELECT r.id ,r.codigo, r.precio, DATE_FORMAT(r.fecha,'%d-%m-%Y' ) as Fecha_reserva, DATE_FORMAT(v.fecha_partida, '%d-%m-%Y') as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
         from reserva r join vuelo v on r.id_vuelo = v.id 
                         join tipo_cabina c on r.id_cabina = c.id
                         join tipo_servicio s on r.id_servicio = s.id where r.id = $reserveId";

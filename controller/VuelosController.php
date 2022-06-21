@@ -59,7 +59,7 @@ class VuelosController {
         $vuelos = $this->vuelosModel->getVuelosTest();
     
         foreach ($vuelos as $vuelo) {
-            if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino){
+            if($vuelo["lugar_partida"] == $origen && $vuelo["destino"] == $destino){
                 array_push($posiblesVuelos,$vuelo);
             }else{
                 if($vuelo["parada"] != null){

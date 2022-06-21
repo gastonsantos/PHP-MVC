@@ -33,6 +33,9 @@ class CheckinController {
                 $id_reserva = $_GET["id_Reserva"];
                 $data["reserva"] = $this->reservator->getRerservaByReserve($id_reserva);
 
+                $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
+
+    
                 echo $this->printer->render("checkinReservaView.html", $data);
             
     }
@@ -47,9 +50,15 @@ class CheckinController {
                 $email = $_SESSION["email"];
                 $id_reserva = $_POST["id_Reserva"];
                 $fecha_reserva = $_POST["Fecha_reserva"];
+                
+                $newDate = date("d/m/Y", strtotime($fecha_reserva));
+                $fecha_reserva = $newDate;
+
                 $codigo = $_POST["codigo"];
                 $precio = $_POST["precio"];
                 $fecha_partida = $_POST["fecha_partida"];
+
+
                 $hora = $_POST["hora"];
                 $cabina = $_POST["cabina"];
                 $servicio = $_POST["servicio"];
@@ -93,10 +102,10 @@ class CheckinController {
                     ";
 
         //$datoPDF= "<img src='$host/public/$id_reserva.png' href='#'></img>";
-       //$this->pdf->crearPDF($datoPDF);
-       $data["qr"] = $this->qr->createQR($dato, $id_reserva);
-       $this->checkin->enviarEmailDeCheckin($email, $id_reserva);
-       $this->reservator->updateReserva($id_reserva);
+        //$this->pdf->crearPDF($datoPDF);
+       $data["qr"] = $this->qr->createQR($dato, $id_reserva); // crea el qr, Id_reserva es el nombre del archivo
+       $this->checkin->enviarEmailDeCheckin($email, $id_reserva); //envia email de checkin
+       $this->reservator->updateReserva($id_reserva);//confirma la reserva
        echo $this->printer->render("qr.html", $data);
 
        

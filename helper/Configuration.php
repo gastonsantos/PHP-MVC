@@ -73,7 +73,7 @@ class Configuration {
     }
 
     private function getCheckinModel(){
-        return new CheckinModel();
+        return new CheckinModel($this->getDatabase());
     }
     private function getUsuarioModel() {
         return new UsuarioModel($this->getDatabase());

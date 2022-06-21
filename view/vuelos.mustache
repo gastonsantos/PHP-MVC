@@ -12,7 +12,7 @@
 
             {{/vacio}}
 
-            <form action="index.php?controller=vuelos&method=buscarVuelos" method="POST">
+            <form action="/vuelos/buscarVuelos" method="POST">
                 <h5 class="fw-bold">Vuelos</h5>
 
                 <div class="mt-2 d-flex gap-2">
@@ -23,7 +23,7 @@
                         <datalist id="datalistOrigen">
                             {{#lugares}}
                             <option value="{{nombre}}">
-                                {{/lugares}}
+                            {{/lugares}}
                         </datalist>
                     </div>
 
@@ -34,7 +34,7 @@
                         <datalist id="datalistDestino">
                             {{#lugares}}
                             <option value="{{nombre}}">
-                                {{/lugares}}
+                            {{/lugares}}
                         </datalist>
                     </div>
 

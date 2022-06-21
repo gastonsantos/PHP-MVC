@@ -17,19 +17,19 @@ class VuelosModel {
 
     public function getVuelos() {
 
-        return $this->database->query('SELECT v.id, v.capacidad, v.fecha_partida, v.hora, v.lugar_partida, v.destino, v.precio, te.nombre as equipo, v.id_tipo_viaje, v.id_tipo_cabina 
+        return $this->database->query('SELECT v.id, v.capacidad, v.fecha_partida , v.hora, v.lugar_partida, v.destino, v.precio, te.nombre as equipo, v.id_tipo_viaje, v.id_tipo_cabina 
         from vuelo v join tipo_equipo te on v.id_tipo_equipo = te.id and v.activo = true');
 
     }
 
     public function getVuelosTest() {
-        $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino,v.precio,tipo_viaje.nombre,recorrido.parada, DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_viaje ON v.id_tipo_viaje = tipo_viaje.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje and v.activo = 'true'");
+        $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino,v.precio,tipo_viaje.nombre,recorrido.parada, DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_viaje ON v.id_tipo_viaje = tipo_viaje.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje /*and v.activo = 'true'*/");
 
         return $results;
     }
 
     public function buscarVuelos($origen,$destino,$fecha) {
-        $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha' and activo = 'true'";
+        $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha' /*and activo = 'true'*/";
 
         $resultado = $this->database->query($sql);
         return $resultado;

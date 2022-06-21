@@ -29,14 +29,13 @@ class ReportesController {
         $data["grafico4"] = $this->reservatorModel->getTasaDeOcupacionPorViaje();
 
 
+
         echo $this->printer->render("reportesView.mustache", $data);
         }
 
        
    
         
-
-        
-    
+ 
 }
     
