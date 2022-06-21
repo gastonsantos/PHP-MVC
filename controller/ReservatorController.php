@@ -67,7 +67,7 @@ class ReservatorController {
             echo $this->printer->render("homeView.html", $data);
             exit();
         } catch (ValidationException $exception) {
-           // $data["esClient"] = $_SESSION["esClient"];
+            
             $data["error"] = $exception->getMessage();
             $data["usuario"] = $_SESSION["nombre"];
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
