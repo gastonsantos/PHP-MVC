@@ -45,12 +45,28 @@ class ReportesController {
 
             $datos = $this->reservatorModel->getCabinaMasVendida();
 
-            $html= '<html><body>    
-                 <table>
+            $html= '<html><head>
+            <style type= "text/css" media= "screen">
+            table{
+                width: 70%;
+                border-spacing: 10px;
+              }
+              
+              table, th, td {
+                border: 1px solid black;
+              }
+              
+              th, td {
+                padding: 10px;
+              }
+              </style>
+            </head><body> 
+            <h2>CABINA MAS VENDIDA</h2>   
+                 <TABLE BORDER>
             <thead>
             <tr>
-                <th>Cabina</th>
-                <th>Cantidad</th>
+                <th>CABINA</th>
+                <th>CANTIDAD</th>
             </tr>
             </thead>
 
@@ -62,7 +78,7 @@ class ReportesController {
                 $html.= '
                 </tr>
                 </tbody>
-                </table>
+                </TABLE>
                 </body></html>';
             
                 
@@ -81,7 +97,26 @@ class ReportesController {
 
             $datos = $this->reservatorModel->getFacturacionMensual();
 
-            $html= '<html><body>    
+            $html= '<html><body> 
+            <head>
+            <style type= "text/css" media= "screen">
+            
+            table{
+                width: 70%;
+                border-spacing: 10px;
+              }
+              
+              table, th, td {
+                border: 1px solid black;
+              }
+              
+              th, td {
+                padding: 10px;
+              }
+              </style>
+              
+            </head>
+            <h1>FACTURACION MENSUAL</h1>   
                  <table>
             <thead>
             <tr>
@@ -93,7 +128,7 @@ class ReportesController {
             <tbody>'; foreach ($datos as $dato) { 
                 $html.="<tr>
                 <td>". $dato['MES'] . "</td>"; 
-                $html.="<td>". $dato['DINERO'] . "</td>"; 
+                $html.="<td> $". $dato['DINERO'] . "</td>"; 
                 } 
                 $html.= '
                 </tr>
@@ -122,7 +157,24 @@ public function pdfFacturacionByClient(){
 
     $datos = $this->reservatorModel->getFacturacionByClient();
 
-    $html= '<html><body>    
+    $html= '<html><head>
+    <style type= "text/css" media= "screen">
+            
+            table{
+                width: 70%;
+                border-spacing: 10px;
+              }
+              
+              table, th, td {
+                border: 1px solid black;
+              }
+              
+              th, td {
+                padding: 10px;
+              }
+              </style>
+    </head><body>
+    <h1>FACTURACION POR CLIENTE</h1>     
          <table>
     <thead>
     <tr>
@@ -136,7 +188,7 @@ public function pdfFacturacionByClient(){
         $html.="<tr>
         <td>". $dato['nombre'] . "</td>"; 
         $html.="<td>". $dato['apellido'] . "</td>"; 
-        $html.="<td>". $dato['DINERO'] . "</td>"; 
+        $html.="<td> $". $dato['DINERO'] . "</td>"; 
         } 
         $html.= '
         </tr>
@@ -160,7 +212,25 @@ public function pdfOcupacionPorVuelo(){
 
     $datos = $this->reservatorModel->getTasaDeOcupacionPorViaje();
 
-    $html= '<html><body>    
+    $html= '<html><head>
+    <style type= "text/css" media= "screen">
+            
+    table{
+        width: 70%;
+        border-spacing: 10px;
+      }
+      
+      table, th, td {
+        border: 1px solid black;
+      }
+      
+      th, td {
+        padding: 10px;
+      }
+      </style>
+    </head>
+    <body> 
+    <h1>TASA DE OCUPACION POR VIAJE</h1>    
          <table>
     <thead>
     <tr>

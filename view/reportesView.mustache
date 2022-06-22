@@ -13,7 +13,7 @@
         <h1 class>CABINA MAS VENDIDA</h1>
         <div id = "grafic" style="width: 700px; height: 500px;"></div>
     </article>
-    
+    <a href="/Reportes/pdfCabinaMasVendida" class="btn btn-primary">Imprimir Reporte</a>
 </section>
 
 <script>
@@ -39,9 +39,9 @@
         chart.draw(data, options);
     }
 </script>
-<a href="/Reportes/pdfCabinaMasVendida" class="btn btn-primary">Imprimir Reporte</a>
 
-</body>
+
+<hr/>
 
 <script>
 
@@ -76,7 +76,7 @@ google.charts.load('current', {'packages':['corechart']});
 </section>
 
 
-
+<hr/>
 
 <section class="container">
     <article>
@@ -99,7 +99,7 @@ google.charts.load('current', {'packages':['corechart']});
         
         data.addRows([
             {{#grafico3}}
-          ['{{nombre}}', '{{apellido}}', {v: 8000, f: '{{DINERO}}'}],
+          ['{{nombre}}', '{{apellido}}', {v: 8000, f: '${{DINERO}}'}],
          
           {{/grafico3}}
         ]);
@@ -110,7 +110,7 @@ google.charts.load('current', {'packages':['corechart']});
         table.draw(data, {showRowNumber: true, width: '50%', height: '50%'});
       }
     </script>
-
+<hr/>
 <section class="container">
     <article>
         <h1>Ocupacion Por Vuelo</h1>
@@ -120,7 +120,7 @@ google.charts.load('current', {'packages':['corechart']});
     
     </section>
 
-
+<hr/>
  <script>
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawAxisTickColors);

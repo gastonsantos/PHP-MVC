@@ -129,7 +129,7 @@ class ReservatorModel {
 
     public function getFacturacionMensual(){
              
-            $sql = "SELECT monthname(fecha) as MES, sum(precio) as DINERO from reserva group by MONTH(fecha) order by fecha asc";
+            $sql = "SELECT monthname(STR_TO_DATE(fecha, '%d-%m-%Y')) as MES, sum(precio) as DINERO from reserva group by MONTH(STR_TO_DATE(fecha, '%d-%m-%Y')) order by fecha asc";
     
             return $this->database->query($sql);
 
