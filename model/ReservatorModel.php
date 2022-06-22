@@ -14,7 +14,7 @@ class ReservatorModel {
         $sql = "SELECT r.id ,r.codigo, r.precio, DATE_FORMAT(r.fecha,'%d-%m-%Y' ) as Fecha_reserva, DATE_FORMAT(v.fecha_partida, '%d-%m-%Y') as fecha_partida,v.hora as hora, c.nombre as cabina, s.nombre as servicio
         from reserva r join vuelo v on r.id_vuelo = v.id 
                         join tipo_cabina c on r.id_cabina = c.id
-                        join tipo_servicio s on r.id_servicio = s.id where r.id = $reserveId";
+                        join tipo_servicio s on r.id_servicio = s.id where r.id = '".$reserveId."'";
         
         $resultado = $this->database->query($sql);
         return $resultado;
@@ -23,7 +23,7 @@ class ReservatorModel {
     
 
     public function getReservesByUser($userId) {
-        $sql = "SELECT * FROM reserva WHERE id_usuario = $userId and confirmada = 0";
+        $sql = "SELECT * FROM reserva WHERE id_usuario = '".$userId."' AND confirmada = 0";
 
         return $this->database->query($sql);
     }
@@ -49,7 +49,7 @@ class ReservatorModel {
 
         $this->vuelosModel->updateCapacity($idVuelo, $reservesMade);
 
-        $getPriceQuery = "SELECT precio FROM vuelo WHERE id = $idVuelo";
+        $getPriceQuery = "SELECT precio FROM vuelo WHERE id = '".$idVuelo."'";
         $vueloCost = $this->database->query($getPriceQuery)[0]["precio"];
         $data["vueloCost"] = $vueloCost;
 
@@ -98,9 +98,10 @@ class ReservatorModel {
         $cabineId = $this->getCabineByName($cabineName)["id"];
         $serviceId = $this->getServiceByName($serviceName)["id"];
         $userId = $_SESSION["id"];
-
-        $sql = "INSERT INTO reserva(codigo, precio, fecha,id_vuelo, id_cabina, id_servicio, id_usuario) 
-                VALUES ('$code',$price,getdate(),$idVuelo,$cabineId,$serviceId,$userId)";
+        date_default_timezone_set("America/Argentina/Buenos_Aires");
+        $fecha = date('d-m-Y h:i', time());
+        $sql = "INSERT INTO reserva(codigo,precio,fecha,confirmada,id_vuelo,id_cabina,id_servicio,id_usuario) 
+                VALUES ('$code',$price,'$fecha',0,$idVuelo,$cabineId,$serviceId,$userId)";
 
         $this->database->query($sql);
     }
