@@ -51,7 +51,7 @@ class Configuration {
 
     public function getReportesController(){
 
-        return new ReportesController($this->getPrinter(),$this->getReservatorModel());
+        return new ReportesController($this->getPrinter(),$this->getReservatorModel(), $this->getPDF());
     }
 
     private function getVuelosModel(){

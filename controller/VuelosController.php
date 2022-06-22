@@ -184,7 +184,7 @@ public function formVuelos(){
 }
 
 public function addVuelo(){
-    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])|| $_SESSION["esAdmin"]== "" ) {
         Navigation::redirectTo("/home");
     } 
     

@@ -6,8 +6,6 @@
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<body>
-
 
     
 <section class ="container">
@@ -41,6 +39,8 @@
         chart.draw(data, options);
     }
 </script>
+<a href="/Reportes/pdfCabinaMasVendida" class="btn btn-primary">Imprimir Reporte</a>
+
 </body>
 
 <script>
@@ -72,6 +72,7 @@ google.charts.load('current', {'packages':['corechart']});
         <h1>FACTURACION MENSUAL</h1>
         <div id = "chart_div" style="width: 700px; height: 500px;"></div>
     </article>
+    <a href="/Reportes/pdfFacturacionMensual" class="btn btn-primary">Imprimir Reporte</a>
 </section>
 
 
@@ -81,7 +82,9 @@ google.charts.load('current', {'packages':['corechart']});
     <article>
         <h1>FACTURACION TOTAL POR CLIENTE</h1>
         <div id = "table_div" style="width: 700px; height: 500px;"></div>
+        <a href="/Reportes/pdfFacturacionByClient" class="btn btn-primary">Imprimir Reporte</a>
     </article>
+    
     </section>
 
    <script>
@@ -112,7 +115,9 @@ google.charts.load('current', {'packages':['corechart']});
     <article>
         <h1>Ocupacion Por Vuelo</h1>
         <div id = "ocupacion" style="width: 700px; height: 500px;"></div>
+         <a href="/Reportes/pdfOcupacionPorVuelo" class="btn btn-primary">Imprimir Reporte</a>
     </article>
+    
     </section>
 
 

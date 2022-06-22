@@ -29,7 +29,7 @@ class PDF{
         $this->dompdf->render();
 
 // Output the generated PDF to Browser   
-        $this->dompdf->stream("document.pdf", ['Attachment' => 0] );
+    $this->dompdf->stream("document.pdf", ['Attachment' => 0] );
 
 
     }
