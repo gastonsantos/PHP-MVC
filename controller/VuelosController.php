@@ -1,4 +1,8 @@
 <?php
+
+use Sabberworm\CSS\Value\Size;
+use Sabberworm\CSS\Value\Value;
+
 class VuelosController {
     private $printer;
     private $vuelosModel;
@@ -39,10 +43,11 @@ class VuelosController {
                $data["suborbitales"]=$this->suborbitales($viajes);
 
                $data["circuito1"]=$this->circuito1($viajes);
-               $data["circuito1ParadaBA"]=$this->paradasCircuito1($destino,$viajes);
+               $data["circuito1ParadaBA"]=$this->paradasCircuito1($destino);
 
                $data["circuito2"]=$this->circuito2($viajes);
-               $data["circuito2ParadaBA"]=$this->paradasCircuito2($destino,$viajes);
+               $data["circuito2ParadaBA"]=$this->paradasCircuito2($destino);
+
 
                 echo $this->printer->render("homeView.html", $data);
 
@@ -72,7 +77,10 @@ class VuelosController {
                     }
                 }    
             }
+<<<<<<< HEAD
            
+=======
+>>>>>>> 726bb81f02f4b1ae7dc384f04ca2d764094cdb73
         }
         return $posiblesVuelos;
     }
@@ -94,7 +102,7 @@ class VuelosController {
         $circuito1=[];
 
         foreach($viajes as $viaje){
-            if($viaje["nombre"] == "Circuito1" ){
+            if($viaje["nombre"] == "Circuito1" && $viajes["id_tipo_equipo"] = 2){
                 array_push($circuito1,$viaje);
             }
         }
@@ -115,19 +123,14 @@ class VuelosController {
     }
 
     //SEPARANDO PARADAS
-    public function paradasCircuito1($destino,$viajes){
+    public function paradasCircuito1($destino){
         $paradas=[];
         $escala=[];
 
-        $circuito1 = $this->circuito1($viajes);
+        $circuito1 = $this->vuelosModel->getParadascircuito1()[0];
 
-        if($circuito1 != null){
-
-        //obteniendo string de paradas
-        $parada = $circuito1[0]["parada"];
-
-        //separando string por coma y convirtiendo en nuevo array
-        $paradas = explode( ',', $parada);
+        $string = implode(",",$circuito1); 
+        $paradas = explode( ',', $string);
 
         foreach($paradas as $parada){
             if($parada != $destino){
@@ -137,24 +140,18 @@ class VuelosController {
                 array_push($escala,$parada);
                 return $escala;
             }
-        }
-    }
-    return null;
+        }    
 
     }
 
-    public function paradasCircuito2($destino,$viajes){
+    public function paradasCircuito2($destino){
         $paradas=[];
         $escala=[];
 
-        $circuito2 = $this->circuito2($viajes);
+        $circuito2 = $this->vuelosModel->getParadasCircuito2()[0];
 
-        if($circuito2 != null){
-
-        //obteniendo string de paradas
-        $parada = $circuito2[0]["parada"];
-
-        $paradas = explode( ',', $parada);
+        $string = implode(",",$circuito2); 
+        $paradas = explode( ',', $string);
 
         foreach($paradas as $parada){
             if($parada != $destino){
@@ -167,8 +164,23 @@ class VuelosController {
         }
     }
 
-    return null;
-}
+    public function calculoHorasCircuito1BA($destino){
+        $horario=0;
+        $paradas = $this->paradasCircuito1($destino);
+
+        $horarios = $this->vuelosModel->getTransitoCircuito1BA()[0];
+
+        
+        $string = implode(",",$horarios); 
+        $horariosArray = explode( ',', $string);
+
+        for ($i=0; $i<count($paradas) ; $i++) { 
+            $horario+=$horariosArray[$i];
+        }
+
+        return $horario;
+    }
+
 
 public function formVuelos(){
     if (!$_SESSION["esAdmin"]) {
@@ -181,11 +193,10 @@ public function formVuelos(){
 
     echo $this->printer->render("agregarVueloView.html", $data);
 
-
 }
 
 public function addVuelo(){
-    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])|| $_SESSION["esAdmin"]== "" ) {
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
         Navigation::redirectTo("/home");
     } 
     
@@ -236,22 +247,10 @@ public function deleteVuelo(){
     
     $data["viajes"] = $this->vuelosModel->getVuelos();
 
-    $data["mensaje"] = "Se ah Eliminado Correctamente el Vuelo";
+    $data["mensaje"] = "Se ha Eliminado Correctamente el Vuelo";
 
     echo $this->printer->render("homeView.html", $data);
 
-
 }
 
-
-
-
-
-
-
-
 }
-
-
-
-

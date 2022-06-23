@@ -99,9 +99,9 @@ class ReservatorModel {
         $serviceId = $this->getServiceByName($serviceName)["id"];
         $userId = $_SESSION["id"];
         date_default_timezone_set("America/Argentina/Buenos_Aires");
-        $fecha = date('d-m-Y h:i', time());
+        $fecha = date('Y-m-d H:i', time());
         $sql = "INSERT INTO reserva(codigo,precio,fecha,confirmada,id_vuelo,id_cabina,id_servicio,id_usuario) 
-                VALUES ('$code',$price,'$fecha',0,$idVuelo,$cabineId,$serviceId,$userId)";
+                VALUES ('$code',$price,$fecha,0,$idVuelo,$cabineId,$serviceId,$userId)";
 
         $this->database->query($sql);
     }
@@ -123,7 +123,6 @@ class ReservatorModel {
         $sql = "SELECT tc.nombre as Cabina, count(r.id_cabina) as Cantidad from reserva r
         join  tipo_cabina tc on r.id_cabina = tc.id group by tc.nombre order by tc.nombre asc";
 
-         //return json_encode($this->database->query($sql));
         return $this->database->query($sql);
     }
 

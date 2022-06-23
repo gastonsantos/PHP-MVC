@@ -42,6 +42,50 @@ public function getVuelosTest() {
         return $resultado;
     }
 
+    public function getParadasCircuito1(){
+        $sql = "SELECT  parada FROM recorrido as r  WHERE r.id_tipo_viaje = 2";
+
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    
+    public function getParadasCircuito2(){
+        $sql = "SELECT  parada FROM recorrido as r  WHERE r.id_tipo_viaje = 3";
+    
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    public function getTransitoCircuito1BA(){
+        $sql = "SELECT  transito FROM recorrido as r  WHERE r.id_tipo_viaje = 2 AND r.id_tipo_equipo = 2";
+
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    public function getTransitoCircuito1AA(){
+        $sql = "SELECT  transito FROM recorrido as r  WHERE r.id_tipo_viaje = 2 AND r.id_tipo_equipo = 3";
+        
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    
+    public function getTransitoCircuito2BA(){
+        $sql = "SELECT  transito FROM recorrido as r  WHERE r.id_tipo_viaje = 3 AND r.id_tipo_equipo = 2";
+        
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
+    public function getTransitoCircuito2AA(){
+        $sql = "SELECT  transito FROM recorrido as r  WHERE r.id_tipo_viaje = 3 AND r.id_tipo_equipo = 3";
+        
+        $resultado = $this->database->query($sql);
+        return $resultado;
+    }
+
     public function getLugares(){
         $sql = "SELECT * FROM lugares";
         $resultado = $this->database->query($sql);
