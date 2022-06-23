@@ -22,6 +22,9 @@ class VuelosController {
             $data["esClient"] = true;
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
         }
+        $data["esClient"] = $_SESSION["esClient"];
+        $data["nombre"] = $_SESSION["nombre"];
+        $data["id"] = $_SESSION["id"];
 
         $origen = $_POST["origen"];
         $destino = $_POST["destino"];
@@ -61,8 +64,9 @@ class VuelosController {
     public function test($origen,$destino){
         $posiblesVuelos=[];
         $vuelos = $this->vuelosModel->getVuelosTest();
-    
-        foreach ($vuelos as $vuelo) {
+
+   
+        foreach($vuelos as $vuelo) {
             if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino){
                 array_push($posiblesVuelos,$vuelo);
             }else{
@@ -77,11 +81,8 @@ class VuelosController {
                     }
                 }    
             }
-<<<<<<< HEAD
-           
-=======
->>>>>>> 726bb81f02f4b1ae7dc384f04ca2d764094cdb73
         }
+    
         return $posiblesVuelos;
     }
 

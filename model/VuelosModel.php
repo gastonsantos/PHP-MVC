@@ -27,7 +27,8 @@ class VuelosModel {
 
         return $results;
     }
-*/
+    */
+
 public function getVuelosTest() {
     $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino, te.nombre  as tipo_viaje ,v.precio,tipo_viaje.nombre,recorrido.parada as parada, DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_viaje ON v.id_tipo_viaje = tipo_viaje.id 
     join tipo_equipo te on v.id_tipo_equipo = te.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje AND v.activo = true;
@@ -35,6 +36,7 @@ public function getVuelosTest() {
 
     return $results;
 }
+
     public function buscarVuelos($origen,$destino,$fecha) {
         $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha' /*and activo = 'true'*/";
         
