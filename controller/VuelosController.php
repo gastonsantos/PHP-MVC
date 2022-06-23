@@ -67,13 +67,14 @@ class VuelosController {
                     if($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen)){                      
                         if(strrpos($parada,$destino)){
                             array_push($posiblesVuelos,$vuelo);
+                            
                         }
                     }
                 }    
             }
-            return $posiblesVuelos;
+           
         }
-        
+        return $posiblesVuelos;
     }
 
     //FILTRO DE VIAJES

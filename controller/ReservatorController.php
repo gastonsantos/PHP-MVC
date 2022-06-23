@@ -14,7 +14,7 @@ class ReservatorController {
     }
 
     public function showForm() {
-        if (!$_SESSION["esClient"]) {
+        if (!$_SESSION["esClient"]  ) {
             Navigation::redirectTo("/home");
         }
 
