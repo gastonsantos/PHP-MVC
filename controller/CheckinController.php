@@ -66,30 +66,8 @@ class CheckinController {
                
               
      
-        $dato = /*"<div>
-                    <div>
-                        <h1>PASE DE ABORDAJE</h2>
-                    </div>
-                    <div>
-                        <h3>Gaucho Rocket</h2>
-                    </div>
-                        <div>
-                            <p>
-                             FECHA RESERVA:<strong>".$fecha_reserva."</strong>
-                            <br>
-                            CODIGO: <strong>".$codigo."</strong>
-                            <br>
-                            Precio: <strong>".$precio."</strong> 
-                            <br>
-                            FECHA PARTIDA <strong>".$fecha_partida."</strong> Hora :  <strong>".$hora."</strong>
-                            <br>
-                            CABINA: <strong>".$cabina."</strong>
-                            <br>
-                            SERVICIO <strong>".$servicio."</strong>
-                            </p>
-                        </div>
-                 </div>";
-                 */
+        
+                
 
                  $dato = "
                     Fecha: ".$fecha_reserva."
