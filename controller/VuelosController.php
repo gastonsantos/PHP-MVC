@@ -19,12 +19,13 @@ class VuelosController {
 
     public function buscarVuelos (){
         if (isset($_SESSION["esClient"])) {
+            $data["esClient"] = $_SESSION["esClient"];
+            $data["nombre"] = $_SESSION["nombre"];
+            $data["id"] = $_SESSION["id"];
             $data["esClient"] = true;
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
         }
-        $data["esClient"] = $_SESSION["esClient"];
-        $data["nombre"] = $_SESSION["nombre"];
-        $data["id"] = $_SESSION["id"];
+      
 
         $origen = $_POST["origen"];
         $destino = $_POST["destino"];
