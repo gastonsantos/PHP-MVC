@@ -101,7 +101,7 @@ class ReservatorModel {
         date_default_timezone_set("America/Argentina/Buenos_Aires");
         $fecha = date('Y-m-d H:i', time());
         $sql = "INSERT INTO reserva(codigo,precio,fecha,confirmada,id_vuelo,id_cabina,id_servicio,id_usuario) 
-                VALUES ('$code',$price,$fecha,0,$idVuelo,$cabineId,$serviceId,$userId)";
+                VALUES ('$code',$price,'$fecha',0,$idVuelo,$cabineId,$serviceId,$userId)";
 
         $this->database->query($sql);
     }
