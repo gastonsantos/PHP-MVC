@@ -214,6 +214,8 @@ class VuelosController {
         $horario=0;
         $paradas = $this->paradasCircuito1($destino);
 
+        if($paradas != null){
+
         $horarios = $this->vuelosModel->getTransitoCircuito1BA()[0];
 
         
@@ -225,11 +227,16 @@ class VuelosController {
         }
 
         return $horario;
+        }
+
+        return null;
     }
 
     public function calculoHorasCircuito1AA($destino){
         $horario=0;
         $paradas = $this->paradasCircuito1($destino);
+
+        if($paradas != null){
 
         $horarios = $this->vuelosModel->getTransitoCircuito1AA()[0];
 
@@ -242,12 +249,16 @@ class VuelosController {
         }
 
         return $horario;
+        }
+
+        return null;
     }
 
     public function calculoHorasCircuito2BA($destino){
         $horario=0;
         $paradas = $this->paradasCircuito2($destino);
 
+        if($paradas != null){
         $horarios = $this->vuelosModel->getTransitoCircuito2BA()[0];
 
         
@@ -259,12 +270,17 @@ class VuelosController {
         }
 
         return $horario;
+        }
+
+        return null;
     }
 
     public function calculoHorasCircuito2AA($destino){
         $horario=0;
         $paradas = $this->paradasCircuito2($destino);
 
+        
+        if($paradas != null){
         $horarios = $this->vuelosModel->getTransitoCircuito2AA()[0];
 
         
@@ -276,6 +292,9 @@ class VuelosController {
         }
 
         return $horario;
+        }
+        
+        return null;
     }
 
     public function formatoHoras($horario){
