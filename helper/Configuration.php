@@ -38,7 +38,7 @@ class Configuration {
         return new CheckinController($this->getPrinter(),$this->getReservatorModel(), $this->getPDF(), $this->getCheckinModel(), $this->getQR());
     }
     public function getCentroMedicoModel(){
-        return new CentroMedicoModel($this->getDatabase());
+        return new CentroMedicoModel($this->getDatabase(), $this->getVuelosModel());
     }
     public function getChequeoController(){
         return new ChequeoController($this->getPrinter(),$this->getCentroMedicoModel());

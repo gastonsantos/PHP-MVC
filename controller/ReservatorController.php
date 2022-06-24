@@ -13,13 +13,33 @@ class ReservatorController {
         $this->centroMedicoModel = $centroMedicoModel;
     }
 
+
+    public function volverReservator(){
+       
+            Navigation::redirectTo("/home");
+    }
+
+
+
+    
     public function showForm() {
         if (!$_SESSION["esClient"]  ) {
             Navigation::redirectTo("/home");
         }
 
+        
         $data["usuario"] = $_SESSION["nombre"];
+        $id_user = $_SESSION["id"];
         $idVuelo = (int)$_GET["id_vuelo"];
+
+        $valor = $this->centroMedicoModel->chequeoTipoEquipo($id_user, $idVuelo);
+
+
+        
+        $data["NoPuedeViajar"] = $valor;
+        $data["esClient"] = $_SESSION["esClient"];
+        $data["nombre"] = $_SESSION["nombre"];
+        $data["id"] = $_SESSION["id"];
         $cabineTypes = $this->reservatorModel->getCabineTypes();
         $servicesTypes = $this->reservatorModel->getServiceTypes();
 

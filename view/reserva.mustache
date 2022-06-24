@@ -10,6 +10,17 @@
             VUELO {{id_vuelo}}
         </p>
     </div>
+     {{#NoPuedeViajar}}
+
+            <div class="alert alert-danger" role="alert">
+
+                No posee Nivel de vuelo para realizar este Viaje!!
+                Por favor, hable con su medico.
+                <a href="/reservator/volverReservator"><strong>VOLVER</strong></a>
+
+            </div>
+
+    {{/NoPuedeViajar}}
 
 
     <form
@@ -39,8 +50,10 @@
             {{/servicesTypes}}
         </select>
     </div>
-
-    <button class="btn btn-primary">Completar reserva</button>
+      {{^NoPuedeViajar}}
+        <button class="btn btn-primary">Completar reserva</button>
+    {{/NoPuedeViajar}}
+    
     </form>
 
 

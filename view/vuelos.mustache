@@ -11,6 +11,16 @@
             </div>
 
             {{/vacio}}
+             {{#NoPuedeViajar}}
+
+            <div class="alert alert-danger" role="alert">
+
+                No posee Nivel de vuelo para realizar este Viaje!!
+                Por favor, hable con su medico.
+
+            </div>
+
+            {{/NoPuedeViajar}}
 
             <form action="/vuelos/buscarVuelos" method="POST">
                 <h5 class="fw-bold">Vuelos</h5>

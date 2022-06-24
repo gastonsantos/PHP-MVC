@@ -106,6 +106,11 @@ public function getVuelosTest() {
 
         return $this->database->query($sql);
     }
+    public function getTipoDeEquipoVuelo($id){
+
+        $sql = "SELECT te.id as idEquipo FROM tipo_equipo te join vuelo v on te.id = v.id_tipo_equipo WHERE v.id = '$id'";
+        return $this->database->query($sql);
+    }
 
     public function deleteVuelo($id){
         $sql = "UPDATE vuelo  set activo = false WHERE id = $id";
