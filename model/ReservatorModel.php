@@ -23,7 +23,7 @@ class ReservatorModel {
     
 
     public function getReservesByUser($userId) {
-        $sql = "SELECT * FROM reserva WHERE id_usuario = '".$userId."' and  confirmada = false";
+        $sql = "SELECT * FROM reserva WHERE id_usuario = '".$userId."' AND confirmada = 0";
 
         return $this->database->query($sql);
     }
