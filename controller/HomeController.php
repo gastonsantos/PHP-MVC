@@ -25,6 +25,7 @@ class HomeController {
         $data["esAdmin"] = true;
         $data["nombre"] = $_SESSION["nombre"];
         $data["id"] = $_SESSION["id"];
+        $data["viajes"] = $this->vuelosModel->getVuelos();
        
     }
 
