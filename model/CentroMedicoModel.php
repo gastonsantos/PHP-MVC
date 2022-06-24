@@ -116,14 +116,17 @@ class CentroMedicoModel {
 
             
 
-            if((int)$valore == 1 || (int)$valore == 2 && (int)$equip == 3){
+            if((int)$valore == 1  && (int)$equip == 3){
 
                 return true;
                 
+                
+
+            }else if((int)$valore == 2  && (int)$equip == 3){
+                return true;
 
             }else{
                 return false;
-
             }
             //return $valor;
     }
