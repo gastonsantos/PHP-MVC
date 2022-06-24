@@ -23,16 +23,16 @@ class VuelosModel {
     }
 /*
     public function getVuelosTest() {
-        $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino,v.precio,tipo_viaje.nombre,recorrido.parada, DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_viaje ON v.id_tipo_viaje = tipo_viaje.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje AND v.activo = true");
+        $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino,v.precio,v.id_tipo_equipo,v.id_tipo_viaje,tipo_equipo.nombre,recorrido.parada, DATE_FORMAT(fecha_partida, '%a. %d %M. %Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_equipo ON v.id_tipo_equipo = tipo_equipo.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje AND v.activo = true");
 
         return $results;
     }
+    te.nombre  as tipo_viaje 
+     join tipo_equipo te on v.id_tipo_equipo = te.id
     */
 
 public function getVuelosTest() {
-    $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino, te.nombre  as tipo_viaje ,v.precio,tipo_viaje.nombre,recorrido.parada as parada, DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_viaje ON v.id_tipo_viaje = tipo_viaje.id 
-    join tipo_equipo te on v.id_tipo_equipo = te.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje AND v.activo = true;
-    ");
+    $results = $this->database->query("SELECT v.id, v.lugar_partida,v.destino,v.precio,v.id_tipo_equipo,v.id_tipo_viaje,tipo_equipo.nombre,recorrido.parada, DATE_FORMAT(fecha_partida, '%a. %d %M. %Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo as v JOIN tipo_equipo ON v.id_tipo_equipo = tipo_equipo.id LEFT JOIN recorrido ON v.id_tipo_equipo = recorrido.id_tipo_equipo AND v.id_tipo_viaje = recorrido.id_tipo_viaje AND v.activo = true");
 
     return $results;
 }

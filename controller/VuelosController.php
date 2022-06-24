@@ -35,24 +35,49 @@ class VuelosController {
             
             echo $this->printer->render("HomeView.html", $data);
         }else{
-            $viajes = $this->test($origen,$destino);
+            $viajes = $this->test($origen,$destino,$fecha);
             if(empty($viajes) ){
                 $data["error"] = "No se encontro resultado";//No se encontro resultado cartelito
+
                 echo $this->printer->render("HomeView.html", $data);
 
             }else{
                $data["error"] = false;
                 
+               //SUBORBITALES
                $data["suborbitales"]=$this->suborbitales($viajes);
 
-               $data["circuito1"]=$this->circuito1($viajes);
-               $data["circuito1ParadaBA"]=$this->paradasCircuito1($destino);
+               //CIRCUITO 1 BAJA ACELERACION
+               $data["circuito1BA"]=$this->circuito1BA($viajes);
+              
+               $horario = $this->calculoHorasCircuito1BA($destino);
+               $data["horarioC1BA"] = $this->formatoHoras($horario);
 
-               $data["circuito2"]=$this->circuito2($viajes);
-               $data["circuito2ParadaBA"]=$this->paradasCircuito2($destino);
+               //CIRCUITO 2 ALTA ACELERACION
+               $data["circuito1AA"]=$this->circuito1AA($viajes);
+
+               $horario = $this->calculoHorasCircuito1AA($destino);
+               $data["horarioC1AA"] = $this->formatoHoras($horario);
+
+               //PARADAS CIRCUITO 1
+               $data["circuito1Paradas"]=$this->paradasCircuito1($destino);
 
 
-                echo $this->printer->render("homeView.html", $data);
+               //CIRCUITO 2 BAJA ACELERACION
+               $data["circuito2BA"]=$this->circuito2BA($viajes);
+
+               $horario = $this->calculoHorasCircuito2BA($destino);
+               $data["horarioC2BA"] = $this->formatoHoras($horario);
+
+               //CIRCUITO 2 ALTA ACELERACION
+               $horario = $this->calculoHorasCircuito2AA($destino);
+               $data["horarioC2AA"] = $this->formatoHoras($horario);
+
+               $data["circuito2Paradas"]=$this->paradasCircuito2($destino);
+
+               $data["lugares"] = $this->vuelosModel->getLugares();
+
+               echo $this->printer->render("homeView.html", $data);
 
             }
         }
@@ -61,13 +86,13 @@ class VuelosController {
 
     //OPCIONES DE VUELOS
 
-    public function test($origen,$destino){
+    public function test($origen,$destino,$fecha){
         $posiblesVuelos=[];
         $vuelos = $this->vuelosModel->getVuelosTest();
 
-   
-        foreach($vuelos as $vuelo) {
-            if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino){
+        foreach ($vuelos as $vuelo) {
+            $fecha_partida = date("Y-m-d", strtotime($vuelo["fecha_partida"]));
+            if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino && $fecha_partida == $fecha){
                 array_push($posiblesVuelos,$vuelo);
             }else{
                 if($vuelo["parada"] != null){
@@ -91,7 +116,7 @@ class VuelosController {
         $suborbitales=[];
 
         foreach($viajes as $viaje){
-            if($viaje["nombre"] == "Suborbital"){
+            if($viaje["id_tipo_viaje"] == 1){
                 array_push($suborbitales,$viaje);
             }
         }
@@ -99,28 +124,53 @@ class VuelosController {
         return $suborbitales;
     }
 
-    public function circuito1($viajes){
-        $circuito1=[];
+    public function circuito1BA($viajes){
+        $circuito1BA=[];
 
         foreach($viajes as $viaje){
-            if($viaje["nombre"] == "Circuito1" && $viajes["id_tipo_equipo"] = 2){
-                array_push($circuito1,$viaje);
+            if($viaje["id_tipo_viaje"] == 2 && $viaje["id_tipo_equipo"] == 2){
+                array_push($circuito1BA,$viaje);
             }
         }
 
-        return $circuito1;
+        return $circuito1BA;
     }
 
-    public function circuito2($viajes){
-        $circuito2=[];
+    public function circuito1AA($viajes){
+        $circuito1AA=[];
 
         foreach($viajes as $viaje){
-            if($viaje["nombre"] == "Circuito2"){
-                array_push($circuito2,$viaje);
+            if($viaje["id_tipo_viaje"] == 2 && $viaje["id_tipo_equipo"] == 3){
+                array_push($circuito1AA,$viaje);
             }
         }
 
-        return $circuito2;
+        return $circuito1AA;
+    }
+
+
+    public function circuito2BA($viajes){
+        $circuito2BA=[];
+
+        foreach($viajes as $viaje){
+            if($viaje["id_tipo_viaje"] == 3 && $viaje["id_tipo_equipo"] == 2){
+                array_push($circuito2BA,$viaje);
+            }
+        }
+
+        return $circuito2BA;
+    }
+
+    public function circuito2AA($viajes){
+        $circuito2AA=[];
+
+        foreach($viajes as $viaje){
+            if($viaje["id_tipo_viaje"] == 3 && $viaje["id_tipo_equipo"] == 3){
+                array_push($circuito2AA,$viaje);
+            }
+        }
+
+        return $circuito2AA;
     }
 
     //SEPARANDO PARADAS
@@ -169,6 +219,8 @@ class VuelosController {
         $horario=0;
         $paradas = $this->paradasCircuito1($destino);
 
+        if($paradas != null){
+
         $horarios = $this->vuelosModel->getTransitoCircuito1BA()[0];
 
         
@@ -180,6 +232,91 @@ class VuelosController {
         }
 
         return $horario;
+        }
+
+        return null;
+    }
+
+    public function calculoHorasCircuito1AA($destino){
+        $horario=0;
+        $paradas = $this->paradasCircuito1($destino);
+
+        if($paradas != null){
+
+        $horarios = $this->vuelosModel->getTransitoCircuito1AA()[0];
+
+        
+        $string = implode(",",$horarios); 
+        $horariosArray = explode( ',', $string);
+
+        for ($i=0; $i<count($paradas) ; $i++) { 
+            $horario+=$horariosArray[$i];
+        }
+
+        return $horario;
+        }
+
+        return null;
+    }
+
+    public function calculoHorasCircuito2BA($destino){
+        $horario=0;
+        $paradas = $this->paradasCircuito2($destino);
+
+        if($paradas != null){
+        $horarios = $this->vuelosModel->getTransitoCircuito2BA()[0];
+
+        
+        $string = implode(",",$horarios); 
+        $horariosArray = explode( ',', $string);
+
+        for ($i=0; $i<count($paradas) ; $i++) { 
+            $horario+=$horariosArray[$i];
+        }
+
+        return $horario;
+        }
+
+        return null;
+    }
+
+    public function calculoHorasCircuito2AA($destino){
+        $horario=0;
+        $paradas = $this->paradasCircuito2($destino);
+
+        
+        if($paradas != null){
+        $horarios = $this->vuelosModel->getTransitoCircuito2AA()[0];
+
+        
+        $string = implode(",",$horarios); 
+        $horariosArray = explode( ',', $string);
+
+        for ($i=0; $i<count($paradas) ; $i++) { 
+            $horario+=$horariosArray[$i];
+        }
+
+        return $horario;
+        }
+        
+        return null;
+    }
+
+    public function formatoHoras($horario){
+
+        $hora = $horario;
+        $dias=0;
+    
+        while($hora > 24){
+            $hora = $hora - 24;
+            $dias++;
+        }
+
+    
+        $cadena = (($dias>0)? $dias . " dias " : "" ). $hora . " horas ";
+
+        return $cadena;
+
     }
 
 

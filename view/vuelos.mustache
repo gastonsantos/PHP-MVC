@@ -11,16 +11,6 @@
             </div>
 
             {{/vacio}}
-             {{#NoPuedeViajar}}
-
-            <div class="alert alert-danger" role="alert">
-
-                No posee Nivel de vuelo para realizar este Viaje!!
-                Por favor, hable con su medico.
-
-            </div>
-
-            {{/NoPuedeViajar}}
 
             <form action="/vuelos/buscarVuelos" method="POST">
                 <h5 class="fw-bold">Vuelos</h5>
@@ -73,12 +63,11 @@
                     <div>
                         <h6>IDA</h6>
                         <p>{{fecha_partida}}</p>
+                        <p>{{hora}} hs</p>
                     </div>
                     <div>
                         <h6>ORIGEN</h6>
                         <p>{{lugar_partida}}</p>
-                        <p>{{hora}}</p>
-
                     </div>
                     <div>
                         <h6>DESTINO</h6>
@@ -87,7 +76,7 @@
 
                     <div>
                         <h6>TIPO VUELO</h6>
-                        <p>{{tipo_viaje}}</p>
+                        <p>{{nombre}}</p>
                     </div>
                 </div>
             </div>
@@ -116,7 +105,7 @@
     {{/suborbitales}}
 
 
-    {{#circuito1}}
+    {{#circuito1BA}}
     <div class="shadow card mt-4 w-75 mx-auto p-4">
         <div class="row">
             <div class="col-9">
@@ -124,21 +113,22 @@
                     <div>
                         <h6>IDA</h6>
                         <p>{{fecha_partida}}</p>
+                        <p>{{hora}} hs</p>
                     </div>
                     <div>
                         <h6>ORIGEN</h6>
                         <p>{{lugar_partida}}</p>
-                        <p>{{hora}}</p>
-
                     </div>
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
+                         <h6>Duración</h6>
+                        <p>{{horarioC1BA}}</p>
                     </div>
 
                     <div>
                         <h6>TIPO VUELO</h6>
-                        <p>{{tipo_viaje}}</p>
+                        <p>{{nombre}}</p>
                     </div>
                 </div>
             </div>
@@ -148,6 +138,7 @@
                     <p>Precio</p>
                     <p>${{precio}}</p>
                 </div>
+
                       <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
@@ -162,16 +153,16 @@
             <div class="d-flex flex-column">
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
-                    {{#circuito1ParadaBA}}
+                    {{#circuito1Paradas}}
                         <p>{{.}}</p>
-                    {{/circuito1ParadaBA}}
+                    {{/circuito1Paradas}}
                 </div>
             </div>
         </div>
     </div>
-    {{/circuito1}}
+    {{/circuito1BA}}
 
-    {{#circuito2}}
+    {{#circuito1AA}}
     <div class="shadow card mt-4 w-75 mx-auto p-4">
         <div class="row">
             <div class="col-9">
@@ -179,21 +170,80 @@
                     <div>
                         <h6>IDA</h6>
                         <p>{{fecha_partida}}</p>
+                        <p>{{hora}} hs</p>
                     </div>
                     <div>
                         <h6>ORIGEN</h6>
                         <p>{{lugar_partida}}</p>
-                        <p>{{hora}}</p>
-
                     </div>
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
+                        <h6>Duración</h6>
+                        <p>{{horarioC1AA}}</p>
                     </div>
 
                     <div>
                         <h6>TIPO VUELO</h6>
-                        <p>{{tipo_viaje}}</p>
+                        <p>{{nombre}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 border-start">
+                <div class="d-flex justify-content-between">
+                    <p>Precio</p>
+                    <p>${{precio}}</p>
+                </div>
+
+
+                      <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Reservar
+                    </button>
+                    </form>
+
+                {{#esAdmin}}
+                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                {{/esAdmin}}
+            </div>
+
+            <div class="d-flex flex-column">
+                <h5>Escala</h5>
+                <div class="d-flex gap-2">
+                    {{#circuito1Paradas}}
+                        <p>{{.}}</p>
+                    {{/circuito1Paradas}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/circuito1AA}}
+
+    {{#circuito2BA}}
+    <div class="shadow card mt-4 w-75 mx-auto p-4">
+        <div class="row">
+            <div class="col-9">
+                <div class="d-flex gap-5">
+                    <div>
+                        <h6>IDA</h6>
+                        <p>{{fecha_partida}}</p>
+                        <p>{{hora}} hs</p>
+                    </div>
+                    <div>
+                        <h6>ORIGEN</h6>
+                        <p>{{lugar_partida}}</p>
+                    </div>
+                    <div>
+                        <h6>DESTINO</h6>
+                        <p>{{destino}}</p>
+                         <h6>Duración</h6>
+                        <p>{{horarioC2BA}}</p>
+                    </div>
+
+                    <div>
+                        <h6>TIPO VUELO</h6>
+                        <p>{{nombre}}</p>
                     </div>
                 </div>
             </div>
@@ -217,12 +267,68 @@
             <div class="d-flex flex-column">
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
-                    {{#circuito2ParadaBA}}
+                    {{#circuito2Paradas}}
                         <p>{{.}}</p>
-                    {{/circuito2ParadaBA}}
+                    {{/circuito2Paradas}}
                 </div>
             </div>
         </div>
     </div>
-    {{/circuito2}}
+    {{/circuito2BA}}
+
+    {{#circuito2AA}}
+    <div class="shadow card mt-4 w-75 mx-auto p-4">
+        <div class="row">
+            <div class="col-9">
+                <div class="d-flex gap-5">
+                    <div>
+                        <h6>IDA</h6>
+                        <p>{{fecha_partida}}</p>
+                        <p>{{hora}} hs</p>
+                    </div>
+                    <div>
+                        <h6>ORIGEN</h6>
+                        <p>{{lugar_partida}}</p>
+                    </div>
+                    <div>
+                        <h6>DESTINO</h6>
+                        <p>{{destino}}</p>
+                        <h6>Duración</h6>
+                        <p>{{horarioC2AA}}</p>
+                    </div>
+
+                    <div>
+                        <h6>TIPO VUELO</h6>
+                        <p>{{nombre}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 border-start">
+                <div class="d-flex justify-content-between">
+                    <p>Precio</p>
+                    <p>${{precio}}</p>
+                </div>
+                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                    <button type="submit" class="btn btn-primary w-100">
+                        Reservar
+                    </button>
+                    </form>
+
+                {{#esAdmin}}
+                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                {{/esAdmin}}
+            </div>
+
+            <div class="d-flex flex-column">
+                <h5>Escala</h5>
+                <div class="d-flex gap-2">
+                    {{#circuito2Paradas}}
+                        <p>{{.}}</p>
+                    {{/circuito2Paradas}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/circuito2AA}}
 </div>
