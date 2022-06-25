@@ -20,7 +20,13 @@
                     <div class="p-2">
                         <p>Codigo de abordaje: {{codigo}}</p>
                         <p class="mb-1">Precio total pagado: {{precio}}</p>
-                        <a class="btn btn-success" href="/Checkin&id_Reserva={{id}}" value="Check-in">Ver Reserva</a>
+                        <div class="d-flex gap-2 mt-4">
+                            <a class="btn btn-success" href="/Checkin&id_Reserva={{id}}" value="Check-in">Ver Reserva</a>
+                            <form method="POST" action="/reservator/cancelarReserva">
+                                <input type="hidden" name="reserva" value={{id}}>
+                                <button type="submit" class="btn btn-danger" value="Check-in">Cancelar Reserva</button>
+                            </form>
+                        </div>
                     </div>
                 </li>
             {{/reserves}}

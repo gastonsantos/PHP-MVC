@@ -94,4 +94,18 @@ class ReservatorController {
             echo $this->printer->render("homeView.html", $data);
         }
     }
+
+    public function cancelarReserva(){
+        $id_reserva = $_POST["reserva"];
+        $this->reservatorModel->deleteReserva($id_reserva);
+
+        $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
+        
+        $data["reserves"] = $reserves;
+        $data["existsReserves"] = sizeof($reserves) > 0;
+        $data["esClient"] = $_SESSION["esClient"];
+        $data["nombre"] = $_SESSION["nombre"];
+
+        echo  $this->printer->render("misReservas.mustache", $data);
+    }
 }

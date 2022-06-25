@@ -155,6 +155,12 @@ class ReservatorModel {
         
     }
 
+    public function deleteReserva($idReserve){
+        $sql = "DELETE FROM reserva WHERE id = '".$idReserve."'";
+        $this->database->query($sql);
+        return true;
+    }
+
 
 
 
