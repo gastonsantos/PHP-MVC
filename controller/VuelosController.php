@@ -354,7 +354,7 @@ public function addVuelo(){
     $id_tipo_cabina = $_POST["id_tipo_cabina"];
 
 
-    if ($capacidad == "" || $fecha_partida == "" || $hora == "" || $lugar_partida == "" || $destino == "" || $precio == "" || $id_tipo_equipo == "" || $id_tipo_viaje == "" || $id_tipo_cabina == "" || $fecha_partida <= date("Y-m-d") ) {
+    if ($capacidad == "" || $fecha_partida == "" || $hora == "" || $lugar_partida == "" || $destino == "" || $precio == "" || $id_tipo_equipo == "" || $id_tipo_viaje == "" || $id_tipo_cabina == "" || $fecha_partida < date("Y-m-d") ) {
         
         $data["error"] = "Todos los campos son obligatorios y la fecha debe ser mayor a la actual";
         echo $this->printer->render("agregarVueloView.html", $data);
