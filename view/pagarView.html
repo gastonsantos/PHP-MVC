@@ -3,6 +3,10 @@
 
 <div class="contenedor">
 
+    {{#message}}
+    <div class="alert alert-danger">{{message}}</div>
+    {{/message}}
+
     <!--tarjeta-->
     <section id="tarjeta" class="tarjeta">
         <div class="delantera">
@@ -91,6 +95,7 @@
         {{/error}}
         <button type="submit" class="btn-enviar">Pagar</button>
     </form>
+
 </div>
 {{/reserva}}
 

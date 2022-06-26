@@ -30,7 +30,7 @@ require_once('third-party/dompdf/autoload.inc.php');
 require_once('third-party/phpqrcode/qrlib.php');
 
 include_once("validators/UserValidator.php");
-
+include_once("validators/TarjetaValidator.php");
 class Configuration {
 
 
