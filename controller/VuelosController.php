@@ -36,7 +36,7 @@ class VuelosController {
             
             echo $this->printer->render("HomeView.html", $data);
         }else{
-            $viajes = $this->test($origen,$destino,$fecha);
+            $viajes = $this->filtrarBusqueda($origen,$destino,$fecha);
             if(empty($viajes) ){
                 $data["error"] = "No se encontro resultado";//No se encontro resultado cartelito
 
@@ -86,23 +86,29 @@ class VuelosController {
     }
 
     //OPCIONES DE VUELOS
-
-    public function test($origen,$destino,$fecha){
+    public function filtrarBusqueda($origen,$destino,$fecha){
         $posiblesVuelos=[];
         $vuelos = $this->vuelosModel->getVuelosTest();
 
         foreach ($vuelos as $vuelo) {
             $fecha_partida = date("Y-m-d", strtotime($vuelo["fecha_partida"]));
+            //Preguntar si el vuelo cumple con origen, destino y fecha buscada
             if($vuelo["lugar_partida"]== $origen && $vuelo["destino"] == $destino && $fecha_partida == $fecha){
                 array_push($posiblesVuelos,$vuelo);
             }else{
+                //Si vuelo no coincide con origen, destino ingresado
+                //Pregunto si vuelo tiene paradas
                 if($vuelo["parada"] != null){
+                    //Busco el destino del vuelo en el string de paradas
                     $posicion = strrpos($vuelo["parada"],$vuelo["destino"]);
+                    //corto la cadena de paradas en la posicion donde esta el destino
                     $parada = substr($vuelo["parada"],0,$posicion);
-                    if($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen)){                      
-                        if(strrpos($parada,$destino)){
+                    //Pregunto si el origen del vuelo es igual a el buscado o si existe el origen en las paradas
+                    if($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen) !== false){ 
+                        //si en las paradas esta el destino                     
+                        if(strrpos($parada,$destino)!== false){
+                            //agrego posible vuelo
                             array_push($posiblesVuelos,$vuelo);
-                            
                         }
                     }
                 }    
@@ -174,14 +180,16 @@ class VuelosController {
         return $circuito2AA;
     }
 
-    //SEPARANDO PARADAS
+    //SEPARANDO PARADAS Y CORTANDOLAS EN EL DESTINO
     public function paradasCircuito1($destino){
         $paradas=[];
         $escala=[];
 
         $circuito1 = $this->vuelosModel->getParadascircuito1()[0];
 
+        //convierto el array de paradas en cadena de string
         $string = implode(",",$circuito1); 
+        //pongo parada por parada en una posicion de array
         $paradas = explode( ',', $string);
 
         foreach($paradas as $parada){
@@ -216,6 +224,7 @@ class VuelosController {
         }
     }
 
+    //SUMANDO HORAS DE LOS CIRCUITOS DEPENDIENDO SU TIPO DE EQUIPO Y CANTIDAD DE PARADAS
     public function calculoHorasCircuito1BA($destino){
         $horario=0;
         $paradas = $this->paradasCircuito1($destino);
@@ -303,6 +312,7 @@ class VuelosController {
         return null;
     }
 
+    //DANDO FORMATO AL HORARIO TOTAL DE HORAS
     public function formatoHoras($horario){
 
         $hora = $horario;
@@ -313,13 +323,13 @@ class VuelosController {
             $dias++;
         }
 
-    
         $cadena = (($dias>0)? $dias . " dias " : "" ). $hora . " horas ";
 
         return $cadena;
-
     }
 
+
+//FUNCIONES DE ADMIN
 
 public function formVuelos(){
     if (!$_SESSION["esAdmin"]) {
