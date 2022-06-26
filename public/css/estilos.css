@@ -1,0 +1,287 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.contenedor{
+	width: 90%;
+	max-width: 100rem; /*maximo de pagina*/
+	padding: 1rem 2rem;
+	margin: auto; /*centrar pagina horizontalmente*/
+	display: flex;
+	flex-direction: column;
+	align-items: center; /*alinear horizontalmente x direction column*/
+}
+
+/*Estilos de las tarjetas*/
+
+.tarjeta{
+	width: 45%;
+	max-width: 55rem;
+	position: relative;
+	color: #7d8994;
+	font-size: 1.6rem;
+	transition: .3s ease all;
+	transform: rotateY(0deg); /*no movimiento al rotar*/
+	transform-style: preserve-3d;
+	 /*ocultar la parte de atras*/
+	cursor: pointer;
+	z-index: 2;
+}
+
+.tarjeta.active{
+	transform: rotateY(180deg);
+}
+
+/*acceder a los 2 div que tiene dentro*/
+.tarjeta > div {
+	padding: 2rem;
+	border-radius:1.5rem;
+	min-height: 15rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	box-shadow:0 1rem 1rem 0 rgba(90, 116, 148, 0.3);
+}
+
+/*tarjeta delantera*/
+
+.tarjeta .delantera{
+	backface-visibility: hidden;
+	background:url(../bg-tarjeta/fondo-visa2.jpg);
+	background-size: cover;
+}
+
+.delantera .logo-marca{
+	text-align: right;
+}
+
+.delantera .logo-marca img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /*recortar img*/
+	max-width: 5rem;
+}
+
+.delantera .chip{
+	width: 100%;
+	max-width: 2.5rem;
+	margin-bottom: 2rem;
+}
+
+.delantera .grupo .label{
+	color:#7d8994;
+	margin-bottom: 5px;
+}
+
+@font-face {
+	font-family: 'credit';
+	src: url(../fonts/credit-card/credit.ttf);
+}
+
+
+.visa-color{
+	font-family: 'credit';
+	color:#cecfca;
+	text-transform: uppercase;
+}
+
+.mastercard-color{
+	font-family: 'credit';
+	color: #393E46;
+	text-transform: uppercase;
+}
+
+.flexbox{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1rem;
+}
+
+/*parte trasera*/
+
+.tarjeta .trasera{
+	background: url(../bg-tarjeta/fondo-visa2.jpg);
+	background-size: cover;
+	position: absolute; /*colocacion sobre la tarjeta delantera*/
+	top: 0;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+}
+
+.trasera .barra-magnetica{
+	height: 3rem;
+	background: black;
+	width: 100%;
+	position: absolute;
+	left: 0;
+}
+
+.trasera .datos{
+	margin-top: 4rem;
+	display: flex;
+	justify-content: center;
+	margin-right: 2rem!important;;
+}
+
+.trasera .datos p{
+	margin-bottom: 4px;
+}
+
+.trasera .datos #firma{
+	width: 70%
+}
+
+.trasera .datos #firma .firma{
+	height: 3rem;
+	background: repeating-linear-gradient(-45deg, white 0, white 5px, #e4efe7 5px, #e4efe7 10px);
+}
+
+.trasera .datos #firma .firma p{
+	line-height: 3rem;
+	font-family:'Liu Jian Mao Cao',cursive;
+	color: black;
+	font-size: 3rem;
+	padding: 0 1rem;
+	text-transform: capitalize; /*fuerza a que la primer letra sea convertida en mayuscula*/
+}
+
+.trasera .datos #ccv {
+	width: 20%;
+	text-align: center;
+}
+
+.trasera .datos #ccv .ccv{
+	background-color: #e4efe7;
+	line-height: 3rem;
+	height: 3rem;
+	width: 8rem;
+	color: black;
+}
+
+.trasera .leyenda{
+	color:#7d8994;
+	font-size: 18px;
+}
+
+.trasera .link-banco{
+	font-size: 1.4rem;
+	color:#7d8994;
+}
+
+/*contenedor boton*/
+
+.contenedor-btn .btn-abrir-formulario{
+	position: relative;
+	top: -2.5rem;
+	z-index: 3;
+	width: 5rem;
+	height: 5rem;
+	font-size: 2rem;
+	line-height: 2rem;
+	background:#393e46;
+	color: white;
+	border:none;
+	border-radius: 100%;
+	padding: 1px;
+	transition: all .2s ease;
+	cursor: pointer;
+}
+
+
+
+.contenedor-btn .btn-abrir-formulario.active{
+	transform: rotate(45deg);
+/*	background: #0278ae;*/
+}
+
+/*Formulario tarjte*/
+.formulario-tarjeta{
+	background: white;
+	width: 70%;
+	max-width: 70rem;
+	padding: 0rem 3rem 1rem 3rem;
+	border-radius: 1rem;
+}
+
+.formulario-tarjeta.active{
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.formulario-tarjeta label{
+	margin: 1rem 0;
+	font-size: 18px;
+}
+
+.formulario-tarjeta input,
+.formulario-tarjeta select,
+.btn-enviar{
+	border: 2px solid grey;
+	font-size: 18px;
+	height: 50%;
+	width: 100%;
+	padding: 0.5rem 0.5rem;
+	transition:  .3s ease all;
+	border-radius: 5px;
+}
+
+.btn-enviar{
+	background:#393e46;
+	color: white;
+	border: none;
+}
+
+.btn-enviar:hover{
+	cursor: pointer;
+}
+
+.formulario-tarjeta input:hover,
+.formulario-tarjeta select:hover{
+	border: 2px solid black;
+}
+
+.formulario-tarjeta input{
+	text-transform: uppercase;
+}
+
+.formulario-tarjeta .flexbox{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.formulario-tarjeta .expira{
+	width: 100%;
+}
+
+.formulario-tarjeta .cvv{
+	min-width: 100px;
+}
+
+.formulario-tarjeta .grupo-select{
+	position:relative;
+	width: 100%;
+	margin-right: 3rem
+}
+
+.formulario-tarjeta select{
+	-webkit-appearance: none;
+}
+
+.formulario-tarjeta .grupo-select i{
+	position: absolute;
+	color:grey;
+	top: 1rem;
+	right: 1rem;
+	transition: .3s ease all;
+}
+
+.tarjeta p{
+	font-size: 18px!important;
+}

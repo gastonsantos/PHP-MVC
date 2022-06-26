@@ -86,8 +86,8 @@ class CheckinController {
         //$datoPDF= "<img src='$host/public/$id_reserva.png' href='#'></img>";
         //$this->pdf->crearPDF($datoPDF);
        $data["qr"] = $this->qr->createQR($dato, $id_reserva); // crea el qr, Id_reserva es el nombre del archivo
-      // $this->checkin->enviarEmailDeCheckin($email, $id_reserva); //envia email de checkin
-       $this->reservator->updateReserva($id_reserva);//confirma la reserva
+       // $this->checkin->enviarEmailDeCheckin($email, $id_reserva); //envia email de checkin
+       //$this->reservator->updateReserva($id_reserva);//confirma la reserva
        echo $this->printer->render("qr.html", $data);
 
        

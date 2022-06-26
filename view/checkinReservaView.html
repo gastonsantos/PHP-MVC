@@ -2,10 +2,14 @@
 {{>menu}}
 
 
-    <div class="container col-md-12">
+<div class="container">
+    {{#pago}}
+    <div class="alert alert-success mt-4">Su pago se ha registrado con exito!!</div>
+    {{/pago}}
+    <div class="row mt-4">
+        <div class="col">
         <h2 class=""><strong>Reserva</strong></h2>
         <h5 class="">Revise los datos y confirme</h5>
-        <ul class="">
             {{#reserva}}
             <div>
                 <h2>Gaucho Rocket</h2>
@@ -13,19 +17,19 @@
             <form action="/Checkin/checkinConfirm" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label >Id Reserva</label> <strong>{{id}}</strong>
+                        <label>Id Reserva</label> <strong>{{id}}</strong>
                         <input type="hidden" name="id_Reserva" class="form-control" value="{{id}}">
                     </div>
                     <div class="form-group col-md-12">
-                        <label >Fecha Reserva</label> <strong>{{Fecha_reserva}}</strong>
+                        <label>Fecha Reserva</label> <strong>{{Fecha_reserva}}</strong>
                         <input type="hidden" name="Fecha_reserva" class="form-control" value="{{Fecha_reserva}}">
                     </div>
                     <div class="form-group col-md-12">
-                        <label >Codigo</label> <strong>{{codigo}} </strong>
+                        <label>Codigo</label> <strong>{{codigo}} </strong>
                         <input type="hidden" name="codigo" class="form-control" value="{{codigo}}">
                     </div>
                     <div class="form-group col-md-12">
-                        <label>Precio</label> <strong>${{precio}} </strong>
+                        <label>Precio</label> <strong>{{precio}} Creditos </strong>
                         <input type="hidden" name="precio" class="form-control" value="{{precio}}">
                     </div>
                     <div class="form-group col-md-12">
@@ -35,32 +39,56 @@
                     <div class="form-group col-md-12">
                         <label>Hora</label> <strong>{{hora}} </strong>
                         <input type="hidden" name="hora" class="form-control" value="{{hora}}">
-                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-12">
                             <label>Cabina</label> <strong>{{cabina}} </strong>
                             <input type="hidden" name="cabina" class="form-control" value="{{cabina}}">
                         </div>
-                    <div class="form-group col-md-12">
+                        <div class="form-group col-md-12">
                             <label>Servicio</label> <strong>{{servicio}} </strong>
                             <input type="hidden" name="servicio" class="form-control" value="{{servicio}}">
                         </div>
                     </div>
                 </div>
-                
+                {{/reserva}}
+
                 {{^podra}}
                 <div class="alert alert-danger col-md-4" role="alert">
-                    <strong>  NO SE PUEDE REALZIAR CHECK-IN!!! </strong><br>
-                    <strong>  NO PASARAS!!! </strong><br>
+                    <strong> NO SE PUEDE REALZIAR CHECK-IN!!! </strong><br>
+                    <strong> NO PASARAS!!! </strong><br>
                     <img src="/public/GandalfSad.jpg" width="250" height="250"></img>
-                  </div>
+                </div>
                 {{/podra}}
                 {{#podra}}
+                {{#pago}}
                 <button type="submit" class="btn btn-success">Realizar Check-in</button>
+                {{/pago}}
                 {{/podra}}
-
+            </form>
+        </div>
+        {{^pago}}
+        <div class="col card shadow detalle-pago">
+            <h3 class="mt-2 text-secondary text-center" >Detalle del pago</h3>
+            {{#reserva}}
+            <h5>Creditos a abonar: {{precio}}</h5>
+            <form method="post" action="/Reservator/cotizarReserva&id_Reserva={{id}}">
+                <label>Seleccione una moneda de pago</label>
+                <select name="cotizar">
+                    <option value="pesos">Pesos</option>
+                    <option value="dolar">Dolar</option>
+                </select>
+                <div>
+                    <h1>{{cotizacion}}</h1>
+                </div>
+                <button type="submit" class="btn btn-secondary w-75 mt-4">Cotizar</button>
+                {{#cotizacion}}
+                <a href="/Reservator/showPagarView&id_Reserva={{id}}" class="btn btn-primary mt-4" id="siguiente">Siguiente</a>
+                {{/cotizacion}}
+            </form>
             {{/reserva}}
-        </ul>
-       
-    </div>
-    
+        </div>
+        {{/pago}}
 
-    {{>footer}}
+    </div>
+</div>
+
+{{>footer}}

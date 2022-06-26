@@ -1,0 +1,97 @@
+{{> header}}
+{{>menu}}
+
+<div class="contenedor">
+
+    <!--tarjeta-->
+    <section id="tarjeta" class="tarjeta">
+        <div class="delantera">
+            <div class="logo-marca" id="logo-marca">
+            <!--	<img src="img/logos/visa.png" alt="visa">-->
+            </div>
+            <img class="chip" src="../public/chip-tarjeta.png" alt="">
+            <div class="datos" id="datos">
+                <div class="grupo" id="numero">
+                    <p class="label">Número Tarjeta</p>
+                    <p class="dato numero visa-color">#### #### #### ####</p>
+                </div>
+                <div class="flexbox">
+                    <div class="grupo" id="nombre">
+                        <p class="label">Nombre Tarjeta</p>
+                        <p class="dato nombre visa-color">Jhon Doe</p>
+                    </div>
+
+                    <div class="grupo" id="expiracion">
+                        <p class="label">Expiración</p>
+                        <p class="dato expira visa-color"> <span class="month">MM </span> / <span class="year">AA</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="trasera">
+            <div class="barra-magnetica"></div>
+            <div class="datos">
+                <div class="grupo" id="firma">
+                    <p class="label">Firma</p>
+                    <div class="firma">
+                        <p> </p>
+                    </div>
+                </div>
+
+                <div class="grupo" id="ccv">
+                    <p class="label">CCV</p>
+                    <p class="ccv"></p>
+                </div>
+
+            </div>
+            <p class="leyenda"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </section>
+
+    <!--formulario-->
+    <!-- Formulario -->
+    {{#reserva}}
+    <form method="post" action="/Reservator/procesarPago&id_Reserva={{id}}" id="formulario-tarjeta" class="formulario-tarjeta">
+        <div class="grupo">
+            <label for="inputNumero">Número Tarjeta</label>
+            <input type="text" name="numero" id="inputNumero" maxlength="19" autocomplete="off">
+        </div>
+        <div class="grupo">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" name="nombre" id="inputNombre" maxlength="19" autocomplete="off">
+        </div>
+        <div class="flexbox">
+            <div class="grupo expira">
+                <label for="selectMes">Expiracion</label>
+                <div class="flexbox">
+                    <div class="grupo-select">
+                        <select name="mes" id="selectMes">
+                            <option disabled selected>Mes</option>
+                        </select>
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                    <div class="grupo-select">
+                        <select name="year" id="selectYear">
+                            <option disabled selected>Año</option>
+                        </select>
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grupo ccv">
+                <label for="inputCCV">CCV</label>
+                <input class="inputCCV" name="ccv" type="text" id="inputCCV" maxlength="3">
+            </div>
+        </div>
+        {{#error}}
+        <div class="alert alert-danger">Todos los campos deben ser llenados</div>
+        {{/error}}
+        <button type="submit" class="btn-enviar">Pagar</button>
+    </form>
+</div>
+{{/reserva}}
+
+{{>footer}}

@@ -69,7 +69,7 @@ class Configuration {
     }
 
     public function getReservatorController() {
-        return new ReservatorController($this->getPrinter(), $this->getReservatorModel(), $this->getUsuarioModel(), $this->getCentroMedicoModel());
+        return new ReservatorController($this->getPrinter(), $this->getReservatorModel(), $this->getUsuarioModel(), $this->getCentroMedicoModel(),$this->getCheckinModel());
     }
 
     private function getCheckinModel(){

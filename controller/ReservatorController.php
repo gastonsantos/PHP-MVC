@@ -5,12 +5,15 @@ class ReservatorController {
     private $userModel;
     private $reservatorModel;
     private $centroMedicoModel;
+    private $checkin;
 
-    public function __construct($printer, $reservatorModel, $userModel, $centroMedicoModel) {
+    public function __construct($printer, $reservatorModel, $userModel, $centroMedicoModel,$checkin) {
         $this->printer = $printer;
         $this->reservatorModel = $reservatorModel;
         $this->userModel = $userModel;
         $this->centroMedicoModel = $centroMedicoModel;
+        $this->checkin = $checkin;
+        
     }
 
 
@@ -107,5 +110,89 @@ class ReservatorController {
         $data["nombre"] = $_SESSION["nombre"];
 
         echo  $this->printer->render("misReservas.mustache", $data);
+    }
+
+    public function cotizarReserva(){
+        if (!$_SESSION["esClient"]) {
+            Navigation::redirectTo("/home");
+        }
+
+      
+      $data["esClient"] = $_SESSION["esClient"];
+
+      $reserveId=$_GET["id_Reserva"];
+      $reserva = $this->reservatorModel->getRerservaByReserve($reserveId);
+      $cotizar = $_POST["cotizar"];
+
+      $data["podra"] = $this->checkin->fechaDePartidaCheck($reserveId);
+      $data["reserva"] = $reserva;
+
+      if($cotizar == "pesos"){
+        $cotizacion =$this->cotizarAPesos($reserva[0]["precio"]);
+      
+        $data["cotizacion"]="$".$cotizacion;
+
+        echo $this->printer->render("checkinReservaView.html", $data);
+      }
+
+      if($cotizar == "dolar"){
+        $cotizacion =$this->cotizarADolar($reserva[0]["precio"]);
+      
+        $data["cotizacion"]="USD".$cotizacion;
+
+        echo $this->printer->render("checkinReservaView.html", $data);
+      }
+
+    }
+
+    public function cotizarAPesos($valor){
+        $precio = $valor * 0.3;
+        return $precio;
+
+    }
+
+    public function cotizarADolar($valor){
+        $precio = $valor * 0.1;
+        return $precio;
+    }
+
+    public function showPagarView(){   
+        if (!$_SESSION["esClient"]) {
+            Navigation::redirectTo("/home");
+        }
+
+        $id_reserva=$_GET["id_Reserva"];
+        $data["esClient"] = $_SESSION["esClient"];
+        $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
+
+        echo $this->printer->render("pagarView.html",$data);
+    }
+
+    public function procesarPago(){
+        if (!$_SESSION["esClient"]) {
+            Navigation::redirectTo("/home");
+        }
+
+        $data["esClient"] = $_SESSION["esClient"];
+
+        $id_reserva = $_GET["id_Reserva"];
+
+        $numero = $_POST["numero"];
+        $nombre = $_POST["nombre"];
+        $mes = $_POST["mes"];
+        $año = $_POST["year"];
+
+        if($numero != null && $nombre != null && $mes != null && $año != null ){
+            $this->reservatorModel->updateReserva($id_reserva);//confirma la reserva
+            $data["pago"]=true;
+            $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
+            $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
+            echo $this->printer->render("checkinReservaView.html",$data);
+
+        }else{
+            $data["error"]=true;
+            echo $this->printer->render("pagarView.html",$data);
+        }
+
     }
 }
