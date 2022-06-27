@@ -1,7 +1,13 @@
 <?php
 
 class TarjetaValidator {
+
     public static function validateToPay($data) {
+        if (sizeof($data) === 0) {
+            throw new ValidationException('Hubo un problema al traer el formulario');
+        }
+
+
         self::validateCreditCardNumber($data["numero"]);
         self::validateUserName($data["nombre"]);
         self::validateCVV($data["ccv"]);

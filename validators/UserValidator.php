@@ -6,6 +6,10 @@ class UserValidator {
     private $passwordRegex = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/';
 
     public function validateUserToRegister($data) {
+        if (sizeof($data) === 0) {
+            throw new ValidationException('Hubo un problema al traer el formulario');
+        }
+
         $this->validateText($data['nombre'], "El nombre no puede estar vacio");
         $this->validateText($data['apellido'], "El apellido no puede estar vacio");
         $this->validateText($data['direccion'], "La direccion no puede estar vacia");
@@ -14,6 +18,10 @@ class UserValidator {
     }
 
     public function validateUserToLogin($data) {
+        if (sizeof($data) === 0) {
+            throw new ValidationException('Hubo un problema al traer el formulario');
+        }
+
         $this->validateEmail($data["email"]);
         $this->validatePassword($data["password"]);
     }

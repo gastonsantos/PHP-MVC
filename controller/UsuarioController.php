@@ -16,8 +16,8 @@ class UsuarioController {
     }
 
     public function show() {
-        if (isset($_SESSION["esClient"])) {
-            Navigation::redirectTo("index.php?controller=home&method=show");
+        if (isset($_SESSION["esClient"]) || isset($_SESSION["esAdmin"])) {
+            Navigation::redirectTo("/home");
         }
 
         echo $this->printer->render("registroView.html");
@@ -26,7 +26,7 @@ class UsuarioController {
     public function login() {
         try {
             // validaciones
-            if (isset($_SESSION["esClient"])) {
+            if (isset($_SESSION["esClient"]) || isset($_SESSION["esAdmin"])) {
                 Navigation::redirectTo("/home");
             }
 
@@ -80,7 +80,7 @@ class UsuarioController {
     public function procesarRegistro() {
         try {
             // validaciones
-            if (isset($_SESSION["esClient"])) {
+            if (isset($_SESSION["esClient"]) || isset($_SESSION["esAdmin"])) {
                 Navigation::redirectTo("/home");
             }
 
@@ -95,8 +95,6 @@ class UsuarioController {
             $data["mensaje"] = "Ya puedes validar tu cuenta a traves de email";
 
             echo $this->printer->render("HomeView.html");
-
-
         } catch (ValidationException|EntityFoundException $exception) {
             $data["error"] = $exception->getMessage();
 
@@ -107,7 +105,6 @@ class UsuarioController {
     public function activar() {
         $email = $_GET["email"];
         $this->usuarioModel->activarUsuario($email);
-        $data["mensaje"] = "Tu cuenta ha sido verificada correctamente";
 
         echo $this->printer->render("HomeView.html");
     }
