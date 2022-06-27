@@ -8,8 +8,8 @@
     {{/pago}}
     <div class="row mt-4">
         <div class="col">
-        <h2 class=""><strong>Reserva</strong></h2>
-        <h5 class="">Revise los datos y confirme</h5>
+            <h2><strong>Reserva</strong></h2>
+            <h5>Revise los datos y confirme</h5>
             {{#reserva}}
             <div>
                 <h2>Gaucho Rocket</h2>
@@ -52,7 +52,7 @@
                 {{/reserva}}
 
                 {{^podra}}
-                <div class="alert alert-danger col-md-4" role="alert">
+                <div class="alert alert-danger" role="alert">
                     <strong> NO SE PUEDE REALIZAR CHECK-IN!!! </strong><br><br>
                     <strong> EL CHECK-IN SE PUEDE REALIZAR SOLO EL DIA DEL VUELO!!! </strong>
                    
@@ -66,7 +66,7 @@
             </form>
         </div>
         {{^pago}}
-        <div class="col card shadow detalle-pago">
+        <div class="col card shadow detalle-pago p-3" style="height:max-content;">
             <h3 class="mt-2 text-secondary text-center" >Detalle del pago</h3>
             {{#reserva}}
             <h5>Creditos a abonar: {{precio}}</h5>
@@ -79,9 +79,9 @@
                 <div>
                     <h1>{{cotizacion}}</h1>
                 </div>
-                <button type="submit" class="btn btn-secondary w-75 mt-4">Cotizar</button>
+                <button type="submit" class="btn btn-secondary w-100 mt-4">Cotizar</button>
                 {{#cotizacion}}
-                <a href="/Reservator/showPagarView&id_Reserva={{id}}" class="btn btn-primary mt-4" id="siguiente">Siguiente</a>
+                <a href="/Reservator/showPagarView&id_Reserva={{id}}" class="btn btn-primary mt-4 float-end" id="siguiente">Siguiente</a>
                 {{/cotizacion}}
             </form>
             {{/reserva}}
