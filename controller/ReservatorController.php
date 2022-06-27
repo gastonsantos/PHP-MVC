@@ -114,43 +114,20 @@ class ReservatorController {
             Navigation::redirectTo("/home");
         }
 
-
         $data["esClient"] = $_SESSION["esClient"];
 
         $reserveId = $_GET["id_Reserva"];
         $reserva = $this->reservatorModel->getRerservaByReserve($reserveId);
-        $cotizar = $_POST["cotizar"];
+        $exchangeRate = $_POST["cotizar"];
 
         $data["podra"] = $this->checkin->fechaDePartidaCheck($reserveId);
         $data["reserva"] = $reserva;
 
-        if ($cotizar == "pesos") {
-            $cotizacion = $this->cotizarAPesos($reserva[0]["precio"]);
+        $price = $this->reservatorModel->getExchangeRate($reserva[0]["precio"], $exchangeRate);
 
-            $data["cotizacion"] = "$" . $cotizacion;
+        $data["cotizacion"] = "$ " . $exchangeRate . ' ' . $price;
 
-            echo $this->printer->render("checkinReservaView.html", $data);
-        }
-
-        if ($cotizar == "dolar") {
-            $cotizacion = $this->cotizarADolar($reserva[0]["precio"]);
-
-            $data["cotizacion"] = "USD" . $cotizacion;
-
-            echo $this->printer->render("checkinReservaView.html", $data);
-        }
-
-    }
-
-    public function cotizarAPesos($valor) {
-        $precio = $valor * 0.3;
-        return $precio;
-
-    }
-
-    public function cotizarADolar($valor) {
-        $precio = $valor * 0.1;
-        return $precio;
+        echo $this->printer->render("checkinReservaView.html", $data);
     }
 
     public function showPagarView() {
