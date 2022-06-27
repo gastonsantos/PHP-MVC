@@ -23,7 +23,7 @@
                         <datalist id="datalistOrigen">
                             {{#lugares}}
                             <option value="{{nombre}}">
-                            {{/lugares}}
+                                {{/lugares}}
                         </datalist>
                     </div>
 
@@ -34,7 +34,7 @@
                         <datalist id="datalistDestino">
                             {{#lugares}}
                             <option value="{{nombre}}">
-                            {{/lugares}}
+                                {{/lugares}}
                         </datalist>
                     </div>
 
@@ -45,13 +45,11 @@
 
 
                     <input type="submit" class="btn btn-primary h-50 align-self-end" value="buscar">
+                </div>
 
             </form>
-
         </div>
     </div>
-</div>
-</div>
 </div>
 
 <div class="container">
@@ -82,18 +80,17 @@
             </div>
 
             <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
-                  <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                <h5>Datos de su viaje</h5>
+                <h6>precio pasaje: <span class="fw-normal">${{precio}}</span></h6>
+
+                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
-                    </form>
-                
+                </form>
+
                 {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
                 {{/esAdmin}}
             </div>
 
@@ -122,8 +119,6 @@
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
-                         <h6>Duración</h6>
-                        <p>{{horarioC1BA}}</p>
                     </div>
 
                     <div>
@@ -134,19 +129,19 @@
             </div>
 
             <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
+                <h5>Datos de su viaje</h5>
+                <h6>Tu destino: <span class="fw-normal">{{tu_destino}}</span></h6>
+                <h6>Duración: <span class="fw-normal">{{horarioC1BA}}</h6>
+                <h6>precio pasaje: <span class="fw-normal">${{precio}}</span></h6>
 
-                      <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
-                    </form>
+                </form>
 
                 {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
                 {{/esAdmin}}
             </div>
 
@@ -154,7 +149,7 @@
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
                     {{#circuito1Paradas}}
-                        <p>{{.}}</p>
+                    <p>{{.}}</p>
                     {{/circuito1Paradas}}
                 </div>
             </div>
@@ -179,8 +174,6 @@
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
-                        <h6>Duración</h6>
-                        <p>{{horarioC1AA}}</p>
                     </div>
 
                     <div>
@@ -191,20 +184,19 @@
             </div>
 
             <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
+                <h5>Datos de su viaje</h5>
+                <h6>Tu destino: <span class="fw-normal">{{tu_destino}}</span></h6>
+                <h6>Duración: <span class="fw-normal">{{horarioC1AA}}</h6>
+                <h6>precio pasaje: <span class="fw-normal">${{precio}}</span></h6>
 
-
-                      <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
+                <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
-                    </form>
+                </form>
 
                 {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
                 {{/esAdmin}}
             </div>
 
@@ -212,7 +204,7 @@
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
                     {{#circuito1Paradas}}
-                        <p>{{.}}</p>
+                    <p>{{.}}</p>
                     {{/circuito1Paradas}}
                 </div>
             </div>
@@ -237,8 +229,6 @@
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
-                         <h6>Duración</h6>
-                        <p>{{horarioC2BA}}</p>
                     </div>
 
                     <div>
@@ -249,18 +239,19 @@
             </div>
 
             <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
+                <h5>Datos de su viaje</h5>
+                <h6>Tu destino: <span class="fw-normal">{{tu_destino}}</span></h6>
+                <h6>Duración: <span class="fw-normal">{{horarioC2BA}}</h6>
+                <h6>precio pasaje: <span class="fw-normal">${{precio}}</span></h6>
+
                 <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
-                    </form>
+                </form>
 
                 {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
                 {{/esAdmin}}
             </div>
 
@@ -268,7 +259,7 @@
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
                     {{#circuito2Paradas}}
-                        <p>{{.}}</p>
+                    <p>{{.}}</p>
                     {{/circuito2Paradas}}
                 </div>
             </div>
@@ -293,8 +284,6 @@
                     <div>
                         <h6>DESTINO</h6>
                         <p>{{destino}}</p>
-                        <h6>Duración</h6>
-                        <p>{{horarioC2AA}}</p>
                     </div>
 
                     <div>
@@ -305,18 +294,19 @@
             </div>
 
             <div class="col-3 border-start">
-                <div class="d-flex justify-content-between">
-                    <p>Precio</p>
-                    <p>${{precio}}</p>
-                </div>
+                <h5>Datos de su viaje</h5>
+                <h6>Tu destino: <span class="fw-normal">{{tu_destino}}</span></h6>
+                <h6>Duración: <span class="fw-normal">{{horarioC2AA}}</h6>
+                <h6>precio pasaje: <span class="fw-normal">${{precio}}</span></h6>
+
                 <form action="index.php?controller=reservator&method=showForm&id_vuelo={{id}}" method="post">
                     <button type="submit" class="btn btn-primary w-100">
                         Reservar
                     </button>
-                    </form>
+                </form>
 
                 {{#esAdmin}}
-                    <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
+                <a class="btn btn-success" href="#" value="Modificar">Modificar</a>
                 {{/esAdmin}}
             </div>
 
@@ -324,7 +314,7 @@
                 <h5>Escala</h5>
                 <div class="d-flex gap-2">
                     {{#circuito2Paradas}}
-                        <p>{{.}}</p>
+                    <p>{{.}}</p>
                     {{/circuito2Paradas}}
                 </div>
             </div>

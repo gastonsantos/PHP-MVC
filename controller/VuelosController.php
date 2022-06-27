@@ -54,7 +54,7 @@ class VuelosController {
                $horario = $this->calculoHorasCircuito1BA($destino);
                $data["horarioC1BA"] = $this->formatoHoras($horario);
 
-               //CIRCUITO 2 ALTA ACELERACION
+               //CIRCUITO 1 ALTA ACELERACION
                $data["circuito1AA"]=$this->circuito1AA($viajes);
 
                $horario = $this->calculoHorasCircuito1AA($destino);
@@ -77,6 +77,8 @@ class VuelosController {
                $data["circuito2Paradas"]=$this->paradasCircuito2($destino);
 
                $data["lugares"] = $this->vuelosModel->getLugares();
+
+               $data["tu_destino"]=$destino;
 
                echo $this->printer->render("homeView.html", $data);
 
@@ -104,7 +106,7 @@ class VuelosController {
                     //corto la cadena de paradas en la posicion donde esta el destino
                     $parada = substr($vuelo["parada"],0,$posicion);
                     //Pregunto si el origen del vuelo es igual a el buscado o si existe el origen en las paradas
-                    if($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen) !== false){ 
+                    if(($vuelo["lugar_partida"] == $origen || strrpos($parada,$origen) !== false) && $fecha_partida == $fecha){ 
                         //si en las paradas esta el destino                     
                         if(strrpos($parada,$destino)!== false){
                             //agrego posible vuelo
@@ -326,6 +328,12 @@ class VuelosController {
         $cadena = (($dias>0)? $dias . " dias " : "" ). $hora . " horas ";
 
         return $cadena;
+    }
+
+    public function horaDeLlegadaPuntoOrigen($origen){
+
+
+
     }
 
 

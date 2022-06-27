@@ -18,21 +18,7 @@ class CheckinModel {
     public function __construct($database) {
         $this->database = $database;
     }
-/*
-    public function puedeRealizarCheckin($idReserva){
-        $fechaHoy = date("Y-m-d");
-        var_dump($fechaHoy);
 
-        $fechaVuelo = $this->fechaDePartidaCheck($idReserva);
-        var_dump($fechaVuelo);
-        if($fechaHoy < $fechaVuelo){
-            return true;
-            
-        }else{
-            return false;
-        }
-    }
-*/
     public function fechaDePartidaCheck($idReserva){
         $sql = "SELECT v.id as fecha from vuelo v join reserva r on r.id_vuelo = v.id where r.id = $idReserva and CURDATE() = v.fecha_partida;";
         $result = $this->database->query($sql);

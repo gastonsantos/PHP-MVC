@@ -175,12 +175,14 @@ class ReservatorController {
 
             $id_reserva = $_GET["id_Reserva"];
 
-            $this->reservatorModel->updateReserva($id_reserva);//confirma la reserva
+            //$this->reservatorModel->updateReserva($id_reserva);//confirma la reserva
             $data["pago"] = true;
             $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
             $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
             echo $this->printer->render("checkinReservaView.html", $data);
         } catch (ValidationException $exception) {
+            $id_reserva = $_GET["id_Reserva"];
+            $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
             $data["message"] = $exception->getMessage();
             echo $this->printer->render("pagarView.html", $data);
         }
