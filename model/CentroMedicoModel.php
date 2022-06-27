@@ -111,6 +111,10 @@ class CentroMedicoModel {
             $codigo= $this->getChequeoById($id_user); //devuelve un array
             $tipoEquipo= $this->vuelosModel->getTipoDeEquipoVuelo($id_vuelo);//devuelve un array
             
+            if(!isset($codigo[0]["codigo"])){
+                return true;
+                exit();
+            }
             $valore = $codigo[0]["codigo"]; // lo pongo en una variable para poder manupularlo
             $equip = $tipoEquipo[0]["idEquipo"];
 
