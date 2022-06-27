@@ -70,14 +70,15 @@ class ReservatorController {
 
     public function reserve() {
         try {
-            if (!$_SESSION["esClient"]) {
+            if (!$_SESSION["esClient"] || !isset($_GET["id_vuelo"])) {
                 Navigation::redirectTo("/home");
             }
+
             $data["chequeo"] = $this->centroMedicoModel->getChequeoById($_SESSION["id"]);
             $data["esClient"] = $_SESSION["esClient"];
             $data["usuario"] = $_SESSION["nombre"];
 
-            $idVuelo = (int)$_GET["id_vuelo"];
+            $idVuelo = (int) $_GET["id_vuelo"];
 
             $total = $this->reservatorModel->confirmReserve($_POST, $idVuelo);
 
@@ -85,8 +86,10 @@ class ReservatorController {
 
 
             echo $this->printer->render("homeView.html", $data);
-            exit();
         } catch (ValidationException $exception) {
+            if (!$_SESSION["esClient"] || !isset($_GET["id_vuelo"])) {
+                Navigation::redirectTo("/home");
+            }
 
             $data["error"] = $exception->getMessage();
             $data["usuario"] = $_SESSION["nombre"];
@@ -96,21 +99,19 @@ class ReservatorController {
     }
 
     public function cancelarReserva() {
+        if (!isset($_POST["reserva"])) {
+            Navigation::redirectTo("/reservator/showReservesByUser");
+        }
+
         $id_reserva = $_POST["reserva"];
+
         $this->reservatorModel->deleteReserva($id_reserva);
 
-        $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
-
-        $data["reserves"] = $reserves;
-        $data["existsReserves"] = sizeof($reserves) > 0;
-        $data["esClient"] = $_SESSION["esClient"];
-        $data["nombre"] = $_SESSION["nombre"];
-
-        echo $this->printer->render("misReservas.mustache", $data);
+        Navigation::redirectTo("/reservator/showReservesByUser");
     }
 
     public function cotizarReserva() {
-        if (!$_SESSION["esClient"]) {
+        if (!$_SESSION["esClient"] || !isset($_GET["id_Reserva"])) {
             Navigation::redirectTo("/home");
         }
 
@@ -127,24 +128,35 @@ class ReservatorController {
 
         $data["cotizacion"] = "$ " . $exchangeRate . ' ' . $price;
 
+
+
         echo $this->printer->render("checkinReservaView.html", $data);
     }
 
     public function showPagarView() {
-        if (!$_SESSION["esClient"]) {
+        if (!$_SESSION["esClient"] || !isset($_GET["id_Reserva"])) {
             Navigation::redirectTo("/home");
         }
 
         $id_reserva = $_GET["id_Reserva"];
+
+        $reserve = $this->reservatorModel->getRerservaByReserve($id_reserva);
+
+        if (sizeof($reserve) === 0) {
+            Navigation::redirectTo("/home");
+        }
+
         $data["esClient"] = $_SESSION["esClient"];
-        $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
+        $data["reserva"] = $reserve;
 
         echo $this->printer->render("pagarView.html", $data);
     }
 
     public function procesarPago() {
         try {
-            if (!$_SESSION["esClient"]) Navigation::redirectTo("/home");
+            if (!$_SESSION["esClient"] || !isset($_GET["id_Reserva"])) {
+                Navigation::redirectTo("/home");
+            }
 
             TarjetaValidator::validateToPay($_POST);
 
@@ -156,8 +168,11 @@ class ReservatorController {
             $data["pago"] = true;
             $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
             $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
+
             echo $this->printer->render("checkinReservaView.html", $data);
         } catch (ValidationException $exception) {
+
+
             $id_reserva = $_GET["id_Reserva"];
             $data["esClient"] = $_SESSION["esClient"];
             $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
