@@ -24,14 +24,14 @@ class ReservatorController {
 
 
     public function showForm() {
-        if (!$_SESSION["esClient"]) {
+        if (!$_SESSION["esClient"] || !isset($_GET["id_vuelo"])) {
             Navigation::redirectTo("/home");
         }
 
 
         $data["usuario"] = $_SESSION["nombre"];
         $id_user = $_SESSION["id"];
-        $idVuelo = (int)$_GET["id_vuelo"];
+        $idVuelo = (int) $_GET["id_vuelo"];
 
         $valor = $this->centroMedicoModel->chequeoTipoEquipo($id_user, $idVuelo);
 

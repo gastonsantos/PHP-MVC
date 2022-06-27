@@ -2,7 +2,7 @@
 
 
 
-{{^esClient}} 
+{{^esClient}}
 <div>
 {{^esAdmin}}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,19 +12,22 @@
 
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      
-      
- 
+
+
+
     </div>
   </div>
   <div class="col-md-6 pt-2">
     <form class="d-flex flex-wrap flex-md-nowrap align-items-center col col-md-4"
-      action="index.php?controller=usuario&method=login" method="post">
+      action="/usuario/login" method="post">
+
 
       <input type="text" name="email" class="form-control my-2 mx-md-2 col-1" placeholder="usuario">
       <input type="password" name="password" class="form-control my-2 mx-md-2 col-1" placeholder="contraseña">
       <button type="submit" class="btn btn-primary col my-2 ">Ingresar</button>
-      <a class="text-decoration-none ms-1 btn btn-secondary" href="index.php?controller=usuario&method=show">Registrate
+
+      <a class="text-decoration-none ms-1 btn btn-secondary" href="/usuario/show">
+          Registrarte
       </a>
 
     </form>
@@ -43,10 +46,10 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/index.php">Inicio<span class="sr-only"></span></a>
-      
-      <a class="nav-item nav-link" href="index.php?controller=reservator&method=showReservesByUser">Mis Reservas</a>
-      
-      <a class="nav-item nav-link " href="index.php?controller=usuario&method=logout">Cerrar Sesion</a>
+
+      <a class="nav-item nav-link" href="/reservator/showReservesByUser">Mis Reservas</a>
+
+      <a class="nav-item nav-link " href="/usuario/logout">Cerrar Sesion</a>
     </div>
   </div>
 
@@ -64,11 +67,11 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="/index.php">Inicio<span class="sr-only"></span></a>
-      
-      <a class="nav-item nav-link" href="/Vuelos/formVuelos">Agregar Vuelos</a>
-       <a class="nav-item nav-link" href="/Reportes">Mostrar Reporte</a>
+
+      <a class="nav-item nav-link" href="/vuelos/formVuelos">Agregar Vuelos</a>
+       <a class="nav-item nav-link" href="/reportes">Mostrar Reporte</a>
       <div class = "row float-right">
-      <a class="nav-item nav-link" href="/Usuario/logout">Cerrar Sesion</a>
+      <a class="nav-item nav-link" href="/usuario/logout">Cerrar Sesion</a>
       </div>
     </div>
   </div>
