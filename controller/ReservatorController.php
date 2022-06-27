@@ -182,6 +182,7 @@ class ReservatorController {
             echo $this->printer->render("checkinReservaView.html", $data);
         } catch (ValidationException $exception) {
             $id_reserva = $_GET["id_Reserva"];
+            $data["esClient"] = $_SESSION["esClient"];
             $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
             $data["message"] = $exception->getMessage();
             echo $this->printer->render("pagarView.html", $data);
