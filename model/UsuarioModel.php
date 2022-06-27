@@ -22,8 +22,8 @@ class UsuarioModel {
 
     public function logUser($data) {
         $email = $data["email"];
-        //$password = $data["password"];
-        $password = md5($data["password"]);
+        $password = $data["password"];
+       // $password = md5($data["password"]);
         $userFound = $this->getUser($email, $password);
 
         if ( sizeof($userFound) == 0 || !isset($userFound)) {
