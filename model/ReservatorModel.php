@@ -99,8 +99,8 @@ class ReservatorModel {
         $userId = $_SESSION["id"];
         date_default_timezone_set("America/Argentina/Buenos_Aires");
         $fecha = date('Y-m-d H:i', time());
-        $sql = "INSERT INTO reserva(codigo,precio,fecha,confirmada,id_vuelo,id_cabina,id_servicio,id_usuario) 
-                VALUES ('$code',$price,'$fecha',0,$idVuelo,$cabineId,$serviceId,$userId)";
+        $sql = "INSERT INTO reserva(codigo,precio,fecha,confirmada,id_vuelo,id_cabina,id_servicio,id_usuario,pagado) 
+                VALUES ('$code',$price,'$fecha',0,$idVuelo,$cabineId,$serviceId,$userId,0)";
 
         $this->database->query($sql);
     }
@@ -153,6 +153,23 @@ class ReservatorModel {
         $this->database->query($sql);
         return true;
 
+    }
+    public function updatePagado($idReserve) {
+        $sql = "UPDATE reserva SET pagado = 1 WHERE id = '" . $idReserve . "'";
+        $this->database->query($sql);
+        return true;
+
+    }
+    public function getPagoReserva($idReserve){
+        $sql = "SELECT pagado from reserva where id = '" . $idReserve . "'";
+          $resultado = $this->database->query($sql);
+          $valore = $resultado[0]["pagado"];
+          if($valore == "0"){
+            return false;
+          }else{
+            return true;
+          }
+        
     }
 
     public function deleteReserva($idReserve) {

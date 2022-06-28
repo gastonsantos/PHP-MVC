@@ -58,7 +58,7 @@ class ReservatorController {
         }
 
         $reserves = $this->reservatorModel->getReservesByUser($_SESSION["id"]);
-
+       
         $data["reserves"] = $reserves;
         $data["existsReserves"] = sizeof($reserves) > 0;
         $data["esClient"] = $_SESSION["esClient"];
@@ -165,7 +165,7 @@ class ReservatorController {
             $id_reserva = $_GET["id_Reserva"];
 
             //$this->reservatorModel->updateReserva($id_reserva);//confirma la reserva
-            $data["pago"] = true;
+            $data["pago"] = $this->reservatorModel->updatePagado($id_reserva);
             $data["reserva"] = $this->reservatorModel->getRerservaByReserve($id_reserva);
             $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
 

@@ -32,6 +32,8 @@ class CheckinController {
                 $data["id"] = $_SESSION["id"];
                 $id_reserva = $_GET["id_Reserva"];
                 $data["reserva"] = $this->reservator->getRerservaByReserve($id_reserva);
+                
+                $data["pago"] = $this->reservator->getPagoReserva($id_reserva);
 
                 $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
 
