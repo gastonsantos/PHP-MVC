@@ -6,9 +6,9 @@ class CheckinController {
     private $pdf;
     private $checkin;
     private $qr;
- 
-    
-    
+
+
+
 
 
     public function __construct($printer, $reservator, $pdf, $checkin, $qr) {
@@ -17,16 +17,16 @@ class CheckinController {
         $this->pdf = $pdf;
         $this->checkin = $checkin;
         $this->qr = $qr;
-        
+
 
     }
 
     public function show() {
 
-        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
+        if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" || !isset($_GET["id_Reserva"]) ) {
             Navigation::redirectTo("/home");
-        } 
-         
+        }
+
                 $data["esClient"] = $_SESSION["esClient"];
                 $data["nombre"] = $_SESSION["nombre"];
                 $data["id"] = $_SESSION["id"];
@@ -35,9 +35,9 @@ class CheckinController {
 
                 $data["podra"] = $this->checkin->fechaDePartidaCheck($id_reserva);
 
-    
+
                 echo $this->printer->render("checkinReservaView.html", $data);
-            
+
     }
     public function checkinConfirm(){
         if (!$_SESSION["esClient"] || !isset($_SESSION["esClient"]) || $_SESSION["esClient"]== "" ) {
@@ -52,7 +52,7 @@ class CheckinController {
                 $email = $_SESSION["email"];
                 $id_reserva = $_POST["id_Reserva"];
                 $fecha_reserva = $_POST["Fecha_reserva"];
-                
+
                 $_SESSION["id_reserva"] = $id_reserva;//le agrega el id de reserva a la sesion
 
                 $newDate = date("d/m/Y", strtotime($fecha_reserva));
@@ -67,11 +67,11 @@ class CheckinController {
                 $cabina = $_POST["cabina"];
                 $servicio = $_POST["servicio"];
 
-               
-              
-     
-        
-                
+
+
+
+
+
 
                  $dato = "
                     Fecha: ".$fecha_reserva."
@@ -90,8 +90,8 @@ class CheckinController {
         $this->reservator->updateReserva($id_reserva);//confirma la reserva
        echo $this->printer->render("qr.html", $data);
 
-       
-       
+
+
     }
 
 
@@ -109,7 +109,7 @@ class CheckinController {
                 $email = $_SESSION["email"];
                 $id_reserva = $_SESSION["id_reserva"];
 
-              
+
 
         $datoPDF= "
         <div>
@@ -119,18 +119,18 @@ class CheckinController {
         <img src='./public/QR/$id_reserva.png' href='#'></img>
         </div>";
         //$datoPDF= "<img src='/public/GandalfSad.jpeg' href='#'></img>";
-       
+
         $this->pdf->crearPDF($datoPDF);
         //echo $this->printer->render("PDFimpreso.html", $data);
 
 
 
  }
-    
 
 
 
 
-    
+
+
 
 }

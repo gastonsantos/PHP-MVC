@@ -14,7 +14,7 @@
             <div>
                 <h2>Gaucho Rocket</h2>
             </div>
-            <form action="/Checkin/checkinConfirm" method="POST">
+            <form action="/checkin/checkinConfirm" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Id Reserva</label> <strong>{{id}}</strong>
@@ -70,18 +70,18 @@
             <h3 class="mt-2 text-secondary text-center" >Detalle del pago</h3>
             {{#reserva}}
             <h5>Creditos a abonar: {{precio}}</h5>
-            <form method="post" action="/Reservator/cotizarReserva&id_Reserva={{id}}">
+            <form method="post" action="/reservator/cotizarReserva&id_Reserva={{id}}">
                 <label>Seleccione una moneda de pago</label>
                 <select name="cotizar">
-                    <option value="pesos">Pesos</option>
-                    <option value="dolar">Dolar</option>
+                    <option value="ARG">Pesos</option>
+                    <option value="USD">Dolar</option>
                 </select>
                 <div>
                     <h1>{{cotizacion}}</h1>
                 </div>
                 <button type="submit" class="btn btn-secondary w-100 mt-4">Cotizar</button>
                 {{#cotizacion}}
-                <a href="/Reservator/showPagarView&id_Reserva={{id}}" class="btn btn-primary mt-4 float-end" id="siguiente">Siguiente</a>
+                <a href="/reservator/showPagarView&id_Reserva={{id}}" class="btn btn-primary mt-4 float-end" id="siguiente">Siguiente</a>
                 {{/cotizacion}}
             </form>
             {{/reserva}}
