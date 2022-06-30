@@ -1,51 +1,101 @@
 <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
-    <div class="row justify-content-center align-items-center" >
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow">
+
+            {{#vacio}}
+
+            <div class="alert alert-danger" role="alert">
+
+                Debe rellenar los campo para poder buscar!
+
+            </div>
+
+            {{/vacio}}
+
+            <form action="/vuelos/filtrarVuelo" method="POST">
+                <h5 class="fw-bold">Vuelos</h5>
+
+                <div class="mt-2 d-flex gap-2">
+                    <div>
+                        <label for="exampleDataListOrigen" class="form-label">Origen</label>
+                        <input class="form-control" list="datalistOrigen" id="exampleDataListOrigen" name="origen"
+                            placeholder="Ingresa desde dónde">
+                        <datalist id="datalistOrigen">
+                            {{#lugares}}
+                            <option value="{{nombre}}">
+                                {{/lugares}}
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label for="exampleDataListDestino" class="form-label">Destino</label>
+                        <input class="form-control" list="datalistDestino" id="exampleDataListDestino" name="destino"
+                            placeholder="Ingresa hacia dónde">
+                        <datalist id="datalistDestino">
+                            {{#lugares}}
+                            <option value="{{nombre}}">
+                                {{/lugares}}
+                        </datalist>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Fecha</label>
+                        <input type="date" name="fecha" class="d-block h-50">
+                    </div>
+
+
+                    <input type="submit" class="btn btn-primary h-50 align-self-end" value="buscar">
+                    <a href="/home" class="btn btn-success align-self-end h-50">Ver todos los vuelos</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
+    <div class="row justify-content-center align-items-center">
         <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
-           
+
 
             <div class="row">
                 <div class="col-md-12 py-3">
-                
+
                 </div>
             </div>
 
             <table class="table text-center" style="width: 877px">
                 <thead>
-                <tr>
-                    <th scope="col">LUGAR PARTIDA</th>
-                    <th scope="col">FECHA</th>
-                    <th scope="col">HORA</th>
-                    <th scope="col">PRECIO</th>
-                    <th scope="col">DESTINO</th>
-                    <th scope="col">EQUIPO</th>
-                    
-                </tr>
+                    <tr>
+                        <th scope="col">LUGAR PARTIDA</th>
+                        <th scope="col">FECHA</th>
+                        <th scope="col">HORA</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">DESTINO</th>
+                        <th scope="col">EQUIPO</th>
+
+                    </tr>
                 </thead>
 
                 <tbody>
-
-                
-                    <form action="" method="post">
                         {{#viajes}}
                         <tr>
-                            
+
                             <td>{{lugar_partida}}</td>
                             <td>{{fecha_partida}}</td>
                             <td>{{hora}}</td>
                             <td>${{precio}}</td>
                             <td>{{destino}}</td>
                             <td>{{equipo}}</td>
-                           
-                            
-                            
+
+
+
                             <td>
-                                 <a class="btn btn-danger" href="/Vuelos/deleteVuelo&id_Vuelo={{id}}" value="Eliminar">Eliminar</a>
-                                
-                                
+                                <a class="btn btn-danger" href="/Vuelos/deleteVuelo&id_Vuelo={{id}}" value="Eliminar"><i
+                                        class="fas fa-trash"></i></a>
+                                 <a href="/vuelos/showModificar&id_vuelo={{id}}" class="btn btn-warning" value="Modificar" ><i class="fa fa-pencil"></i></a>
                         </tr>
                         {{/viajes}}
-                    </form>
-                
                 </tbody>
             </table>
         </div>
