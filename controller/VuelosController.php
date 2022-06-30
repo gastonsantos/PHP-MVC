@@ -339,6 +339,32 @@ class VuelosController {
 
 //FUNCIONES DE ADMIN
 
+public function filtrarVuelo(){
+    if (!$_SESSION["esAdmin"]) {
+        Navigation::redirectTo("/home");
+    } 
+
+    $origen = $_POST["origen"];
+    $destino = $_POST["destino"];
+    $fecha = $_POST["fecha"];
+
+ 
+    $data["viajes"]=$this->vuelosModel->buscarVuelos($origen,$destino,$fecha);
+
+    if(empty($data["viajes"])){
+        $data["error"]="No se encontro resultado";
+    }
+
+    $data["esAdmin"] = true;
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
+
+    $data["lugares"] = $this->vuelosModel->getLugares();
+
+    echo $this->printer->render("homeView.html", $data);
+
+}
+
 public function formVuelos(){
     if (!$_SESSION["esAdmin"]) {
         Navigation::redirectTo("/home");

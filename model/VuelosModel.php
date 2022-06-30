@@ -28,7 +28,7 @@ class VuelosModel {
     }
 
     public function buscarVuelos($origen,$destino,$fecha) {
-        $sql = "SELECT  *,DATE_FORMAT(fecha_partida, '%d-%m-%Y') fecha_partida,DATE_FORMAT(hora, '%H:%i') hora FROM vuelo join tipo_viaje on vuelo.id_tipo_viaje = tipo_viaje.id where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha' /*and activo = 'true'*/";
+        $sql = "SELECT  * FROM vuelo where lugar_partida = '$origen' and destino = '$destino' and fecha_partida = '$fecha'";
         
         $resultado = $this->database->query($sql);
         return $resultado;
