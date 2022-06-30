@@ -1,0 +1,87 @@
+{{>header}}
+{{>menu}}
+
+{{#vueloModificar}}
+<div class="container w-50">
+<form action="/vuelos/modificarVuelo&id_vuelo={{id}}" class="mt-4 px-5 pt-3 pb-3 bg-light" method="POST">
+    <h3 class="text-center text-uppercase">Modificar vuelo</h3>
+    <div class="form-group">
+        <label for="actualizarCapacidad">Capacidad:</label>
+        <input type="number" class="form-control" name="actualizarCapacidad"
+            value="{{capacidad}}">
+    </div>
+    <div class="form-group">
+        <label for="actualizarFecha">Fecha de partida:</label>
+        <input type="date" class="form-control" name="actualizarFecha"
+            value="{{fecha_partida}}">
+    </div>
+    <div class="form-group">
+        <label for="actualizarHora">Hora</label>
+        <input type="time" class="form-control"  name="actualizarHora" 
+        value="{{hora}}">
+    </div>
+
+    <div class="form-group">
+        <label for="actualizarPartida">Lugar de Partida:</label>
+        <select class="form-control" name="actualizarPartida">
+            <option value="{{lugar_partida}}" selected>{{lugar_partida}}</option>
+            {{#lugares}}
+            <option value="{{nombre}}">{{nombre}}</option>
+            {{/lugares}}
+        </select>   
+    </div>
+
+    <div class="form-group">
+        <label for="actualizarDestino">Lugar de Destino:</label>
+        <select class="form-control" name="actualizarDestino">
+            <option value="{{destino}}" selected>{{destino}}</option>
+            {{#lugares}}
+            <option value="{{nombre}}">{{nombre}}</option>
+            {{/lugares}}
+        </select>   
+    </div>
+
+    <div class="form-group">
+        <label for="actualizarPrecio">precio:</label>
+        <input type="number" class="form-control" name="actualizarPrecio"
+            value="{{precio}}">
+    </div>
+
+    <div class="form-group">
+        <label for="actualizarEquipo">Tipo Equipo:</label>
+        <select class="form-control" name="actualizarEquipo">
+            <option value="{{id_tipo_equipo}}" selected>{{nombre_equipo}}</option>
+            {{#equipos}}
+            <option value="{{id}}">{{nombre}}</option>
+            {{/equipos}}
+        </select>   
+    </div>
+
+    <div class="form-group">
+        <label for="actualizarViaje">Tipo Vuelo:</label>
+        <select class="form-control" name="actualizarViaje">
+            <option value="{{id_tipo_viaje}}" selected>{{nombre_viaje}}</option>
+            {{#viajes}}
+            <option value="{{id}}">{{nombre}}</option>
+            {{/viajes}}
+        </select>   
+    </div>
+ 
+    <div class="form-group">
+        <label for="actualizarCabina">Tipo Cabina:</label>
+        <select class="form-control" name="actualizarCabina">
+            <option value="{{id_tipo_cabina}}" selected>{{nombre_cabina}}</option>
+            {{#cabinas}}
+            <option value="{{id}}">{{nombre}}</option>
+            {{/cabinas}}
+        </select>   
+    </div>
+
+
+    <input class="btn btn-primary mt-3 w-100" type="submit" name="actualizar" value="ACTUALIZAR">
+
+</form>
+</div>
+{{/vueloModificar}}
+
+{{>footer}}

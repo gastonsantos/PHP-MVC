@@ -410,4 +410,56 @@ public function deleteVuelo(){
 
 }
 
+public function showModificar(){
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
+        Navigation::redirectTo("/home");
+    }
+
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
+    $data["esAdmin"] = true;
+
+    $id=$_GET["id_vuelo"];
+    $data["vueloModificar"]= $this->vuelosModel->getVueloById($id);
+    $data["lugares"]= $this->vuelosModel->getLugares();
+    $data["equipos"]= $this->vuelosModel->getTipoEquipo();
+    $data["viajes"]= $this->vuelosModel->getTipoViaje();
+    $data["cabinas"]= $this->vuelosModel->getTipoCabina();
+
+    echo $this->printer->render("modificarView.html", $data);
+
+}
+
+public function modificarVuelo(){
+    if (!$_SESSION["esAdmin"] || !isset($_SESSION["esAdmin"])) {
+        Navigation::redirectTo("/home");
+    }
+
+    $id = $_GET["id_vuelo"];
+
+    $data["nombre"] = $_SESSION["nombre"];
+    $data["id"] = $_SESSION["id"];
+    $data["esAdmin"] = true;
+
+    $data["viajes"] = $this->vuelosModel->getVuelos();
+
+    $capacidad = $_POST["actualizarCapacidad"];
+    $fecha_partida= $_POST["actualizarFecha"];
+    $hora = $_POST["actualizarHora"];
+    $lugar_partida = $_POST["actualizarPartida"];
+    $destino= $_POST["actualizarDestino"];
+    $precio = $_POST["actualizarPrecio"];
+    $id_tipo_equipo= $_POST["actualizarEquipo"];
+    $id_tipo_viaje= $_POST["actualizarViaje"];
+    $id_tipo_cabina=$_POST["actualizarCabina"];
+
+    $this->vuelosModel->updateVuelo($id,$capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina);
+
+    $_SESSION["actualizado"]=true;
+    $_SESSION["idModificado"]=$id;
+
+    Navigation::redirectTo("/home");
+
+}
+
 }

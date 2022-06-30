@@ -91,14 +91,39 @@ class VuelosModel {
     }
 
     public function getVueloById($id) {
-        $sql = "SELECT * FROM vuelo WHERE id = $id";
+        $sql = "SELECT v.id, v.capacidad, v.fecha_partida, v.hora, v.lugar_partida ,v.destino , v.precio,
+                       v.id_tipo_equipo, v.id_tipo_viaje, v.id_tipo_cabina, 
+                       te.nombre as nombre_equipo,
+                       tv.nombre as nombre_viaje,
+                       tc.nombre as nombre_cabina
+                       FROM vuelo as v join tipo_equipo as te 
+                       on v.id_tipo_equipo = te.id 
+                       join tipo_viaje as tv on v.id_tipo_viaje = tv.id
+                       join tipo_cabina as tc on tc.id = v.id_tipo_cabina
+                       and v.id = $id";
 
 
         return $this->database->query($sql);
     }
+
     public function getTipoDeEquipoVuelo($id){
 
         $sql = "SELECT te.id as idEquipo FROM tipo_equipo te join vuelo v on te.id = v.id_tipo_equipo WHERE v.id = '$id'";
+        return $this->database->query($sql);
+    }
+
+    public function getTipoEquipo(){
+        $sql = "SELECT * FROM tipo_equipo";
+        return $this->database->query($sql);
+    }
+
+    public function getTipoViaje(){
+        $sql = "SELECT * FROM tipo_viaje";
+        return $this->database->query($sql);
+    }
+
+    public function getTipoCabina(){
+        $sql = "SELECT * FROM tipo_cabina";
         return $this->database->query($sql);
     }
 
@@ -106,6 +131,16 @@ class VuelosModel {
         $sql = "UPDATE vuelo  set activo = false WHERE id = $id";
         $this->database->query($sql);
     }
+
+    public function updateVuelo($id,$capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina){
+        $sql = "UPDATE vuelo SET capacidad = '".$capacidad."', fecha_partida = '".$fecha_partida."', 
+                            hora = '".$hora."', lugar_partida = '".$lugar_partida."', destino = '".$destino."', precio = '".$precio."', 
+                            id_tipo_equipo = '".$id_tipo_equipo."', id_tipo_viaje = '".$id_tipo_viaje."', id_tipo_cabina = '".$id_tipo_cabina."'
+                            WHERE id= '".$id."'";
+
+        $this->database->query($sql);
+    }
+    
 
    
 

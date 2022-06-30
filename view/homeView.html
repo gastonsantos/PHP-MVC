@@ -40,6 +40,12 @@
      {{#esAdmin}}
 
      <div class>Admin: {{nombre}}</div>
+
+     {{#actualizado}}
+        {{#idModificado}}
+        <div class="alert alert-success">El vuelo {{.}} ha sido actualizado correctamente</div>
+        {{/idModificado}}
+     {{/actualizado}}
     
 
 

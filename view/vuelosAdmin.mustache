@@ -1,51 +1,46 @@
 <div class="d-flex justify-content-center d-flex flex-row mt-0 pt-3 botones">
-    <div class="row justify-content-center align-items-center" >
+    <div class="row justify-content-center align-items-center">
         <div class="col-auto bg-light p-5 mb-5 rounded-3 shadow-lg">
-           
+
 
             <div class="row">
                 <div class="col-md-12 py-3">
-                
+
                 </div>
             </div>
 
             <table class="table text-center" style="width: 877px">
                 <thead>
-                <tr>
-                    <th scope="col">LUGAR PARTIDA</th>
-                    <th scope="col">FECHA</th>
-                    <th scope="col">HORA</th>
-                    <th scope="col">PRECIO</th>
-                    <th scope="col">DESTINO</th>
-                    <th scope="col">EQUIPO</th>
-                    
-                </tr>
+                    <tr>
+                        <th scope="col">LUGAR PARTIDA</th>
+                        <th scope="col">FECHA</th>
+                        <th scope="col">HORA</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">DESTINO</th>
+                        <th scope="col">EQUIPO</th>
+
+                    </tr>
                 </thead>
 
                 <tbody>
-
-                
-                    <form action="" method="post">
                         {{#viajes}}
                         <tr>
-                            
+
                             <td>{{lugar_partida}}</td>
                             <td>{{fecha_partida}}</td>
                             <td>{{hora}}</td>
                             <td>${{precio}}</td>
                             <td>{{destino}}</td>
                             <td>{{equipo}}</td>
-                           
-                            
-                            
+
+
+
                             <td>
-                                 <a class="btn btn-danger" href="/Vuelos/deleteVuelo&id_Vuelo={{id}}" value="Eliminar">Eliminar</a>
-                                
-                                
+                                <a class="btn btn-danger" href="/Vuelos/deleteVuelo&id_Vuelo={{id}}" value="Eliminar"><i
+                                        class="fas fa-trash"></i></a>
+                                 <a href="/vuelos/showModificar&id_vuelo={{id}}" class="btn btn-warning" value="Modificar" ><i class="fa fa-pencil"></i></a>
                         </tr>
                         {{/viajes}}
-                    </form>
-                
                 </tbody>
             </table>
         </div>
