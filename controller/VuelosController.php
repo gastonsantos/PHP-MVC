@@ -455,9 +455,6 @@ public function modificarVuelo(){
 
     $this->vuelosModel->updateVuelo($id,$capacidad,$fecha_partida,$hora,$lugar_partida,$destino,$precio,$id_tipo_equipo,$id_tipo_viaje,$id_tipo_cabina);
 
-    $_SESSION["actualizado"]=true;
-    $_SESSION["idModificado"]=$id;
-
     Navigation::redirectTo("/home");
 
 }
