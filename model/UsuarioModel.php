@@ -22,8 +22,8 @@ class UsuarioModel {
 
     public function logUser($data) {
         $email = $data["email"];
-        $password = $data["password"];
-        //$password = md5($data["password"]);
+        //$password = $data["password"];
+        $password = md5($data["password"]);
         $userFound = $this->getUser($email, $password);
 
         if ( sizeof($userFound) == 0 || !isset($userFound)) {
@@ -40,11 +40,12 @@ class UsuarioModel {
         $email = $data["email"];
         $encryptedPassword = md5($data["password"]);
         $clientRolId = 2;
+        $activo = 0;
 
         $this->checkUserNotExists($email);
 
-        $sql = "INSERT INTO usuario (nombre, apellido, direccion,email, contrasenia, id_rol) 
-                VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword', '$clientRolId')";
+        $sql = "INSERT INTO usuario (nombre, apellido, direccion,email, contrasenia, activo, id_rol) 
+                VALUES ('$nombre', '$apellido', '$direccion', '$email', '$encryptedPassword','$activo','$clientRolId')";
 
         $this->database->query($sql);
     }
@@ -83,7 +84,7 @@ class UsuarioModel {
         $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth = true;                                   //Enable SMTP authentication
         $mail->Username = 'guachorocket2022@gmail.com';                     //SMTP username
-        $mail->Password = 'copahgytcmfvmzwv';                               //SMTP password
+        $mail->Password = 'copahgytcmfvmzwv';                     //hay q cambiar la pass          //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
         $mail->Port = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
